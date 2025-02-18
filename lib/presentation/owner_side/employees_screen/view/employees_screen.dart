@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
 import 'package:salonrabcode/presentation/owner_side/employees_screen/widget/employee_name_conatiner.dart';
-import 'package:salonrabcode/presentation/owner_side/service_screen/widgets/serach_bar.dart';
+import 'package:salonrabcode/core/common/widget/serach_bar.dart';
 
 class EmployeesScreen extends StatelessWidget {
   final List<String> employees = [

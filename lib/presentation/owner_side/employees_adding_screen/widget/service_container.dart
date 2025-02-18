@@ -4,14 +4,14 @@ import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
 import 'package:salonrabcode/presentation/owner_side/service_details_screen/view/service_details_screen.dart';
 
-class ServiceCategoryContainer extends StatelessWidget {
+class ServiceContainer extends StatelessWidget {
   final String name;
   final bool isMobile;
   final bool isTablet;
   final bool isLaptop;
   final List<Map<String, String>> services;
 
-  ServiceCategoryContainer({
+  ServiceContainer({
     required this.name,
     required this.isMobile,
     required this.isTablet,
@@ -66,45 +66,39 @@ class ServiceCategoryContainer extends StatelessWidget {
   }
 
   Widget _buildServiceItem(BuildContext context, Map<String, String> service) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ServiceDetailsScreen()));
-      },
-      child: Container(
-        width: (MediaQuery.of(context).size.width / 2) - 24.w,
-        padding: EdgeInsets.all(12.w),
-        decoration: BoxDecoration(
-          color: ColorTheme.maincolor,
-          borderRadius: BorderRadius.circular(12.r),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              blurRadius: 5.r,
-              spreadRadius: 2.r,
+    return Container(
+      width: (MediaQuery.of(context).size.width / 2) - 24.w,
+      padding: EdgeInsets.all(12.w),
+      decoration: BoxDecoration(
+        color: ColorTheme.maincolor,
+        borderRadius: BorderRadius.circular(12.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            blurRadius: 5.r,
+            spreadRadius: 2.r,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(service['name'] ?? "Service",
+              style: GlobalTextStyles.floatingButtonText(context)),
+          SizedBox(height: 4.h),
+          Text("Gender: ${service['gender'] ?? "Unisex"}",
+              style: GlobalTextStyles.floatingButtonText(context)),
+          SizedBox(height: 4.h),
+          Text("Price: \$${service['price'] ?? "0"}",
+              style: GlobalTextStyles.floatingButtonText(context)),
+          Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.delete, color: ColorTheme.red),
             ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(service['name'] ?? "Service",
-                style: GlobalTextStyles.floatingButtonText(context)),
-            SizedBox(height: 4.h),
-            Text("Gender: ${service['gender'] ?? "Unisex"}",
-                style: GlobalTextStyles.floatingButtonText(context)),
-            SizedBox(height: 4.h),
-            Text("Price: \$${service['price'] ?? "0"}",
-                style: GlobalTextStyles.floatingButtonText(context)),
-            Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.delete, color: ColorTheme.red),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

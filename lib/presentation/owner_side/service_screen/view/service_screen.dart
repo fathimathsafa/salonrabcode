@@ -1,26 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
-import 'package:salonrabcode/presentation/owner_side/service_screen/widgets/serach_bar.dart';
+import 'package:salonrabcode/core/common/widget/serach_bar.dart';
 import 'package:salonrabcode/presentation/owner_side/service_screen/widgets/service_category_container.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ServiceScreen extends StatelessWidget {
-  final List<String> services = [
-    'Haircut',
-    'Shaving',
-    'Hair Spa',
-    'Facial',
-    'Manicure',
-    'Pedicure',
-    'Massage',
-    'Haircut',
-    'Shaving',
-    'Hair Spa',
-    'Facial',
-    'Manicure',
-    'Pedicure',
-    'Massage',
+  final List<Map<String, dynamic>> serviceCategories = [
+    {
+      "category": "Haircut",
+      "services": [
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
+      ]
+    },
+    {
+      "category": "Shaving",
+      "services": [
+        {"name": "Beard Trim", "gender": "Male", "price": "10"},
+        {"name": "Clean Shave", "gender": "Male", "price": "15"},
+      ]
+    },
+    {
+      "category": "Hair Spa",
+      "services": [
+        {"name": "Keratin Treatment", "gender": "Unisex", "price": "50"},
+        {"name": "Deep Conditioning", "gender": "Unisex", "price": "40"},
+      ]
+    },
+    {
+      "category": "Facial",
+      "services": [
+        {"name": "Basic Facial", "gender": "Unisex", "price": "25"},
+        {"name": "Anti-Aging Facial", "gender": "Unisex", "price": "40"},
+      ]
+    },
+    {
+      "category": "Manicure",
+      "services": [
+        {"name": "Classic Manicure", "gender": "Unisex", "price": "20"},
+        {"name": "Gel Manicure", "gender": "Unisex", "price": "30"},
+      ]
+    },
+    {
+      "category": "Pedicure",
+      "services": [
+        {"name": "Regular Pedicure", "gender": "Unisex", "price": "25"},
+        {"name": "Spa Pedicure", "gender": "Unisex", "price": "35"},
+      ]
+    },
+    {
+      "category": "Massage",
+      "services": [
+        {"name": "Full Body Massage", "gender": "Unisex", "price": "50"},
+        {"name": "Head Massage", "gender": "Unisex", "price": "20"},
+      ]
+    },
   ];
 
   @override
@@ -56,11 +104,11 @@ class ServiceScreen extends StatelessWidget {
               style: GlobalTextStyles.subHeadding(context),
             ),
             SizedBox(height: isMobile ? 10.h : 20.h),
-            SearchBarSalon(hintText: 'Search Services',),
+            SearchBarSalon(hintText: 'Search Services'),
             SizedBox(height: isMobile ? 10.h : 20.h),
             Expanded(
               child: GridView.builder(
-                itemCount: services.length,
+                itemCount: serviceCategories.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount, // Adjust dynamically
                   crossAxisSpacing: 10.w,
@@ -69,10 +117,12 @@ class ServiceScreen extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   return ServiceCategoryContainer(
-                    name: services[index],
+                    name: serviceCategories[index]['category'],
                     isMobile: isMobile,
                     isTablet: isTablet,
                     isLaptop: isLaptop,
+                    services: List<Map<String, String>>.from(
+                        serviceCategories[index]['services']),
                   );
                 },
               ),
@@ -80,9 +130,7 @@ class ServiceScreen extends StatelessWidget {
           ],
         ),
       ),
-      // Floating Action Button
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           print("FAB Pressed");
@@ -92,8 +140,7 @@ class ServiceScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.r), // Adjust radius
         ),
         label: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: 16.w, vertical: 10.h), // Adjust padding
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
           child: Text(
             "Add Service",
             style: GlobalTextStyles.floatingButtonText(context),
