@@ -9,13 +9,13 @@ class GlobalTextStyles {
     if (screenWidth > 1024) {
       // Laptop
       return GoogleFonts.urbanist(
-          fontSize: 16.sp,
+          fontSize: 5.sp,
           fontWeight: FontWeight.bold,
           color: ColorTheme.maincolor);
     } else if (screenWidth > 600) {
       // Tablet
       return GoogleFonts.urbanist(
-          fontSize: 20.sp,
+          fontSize: 10.sp,
           fontWeight: FontWeight.bold,
           color: ColorTheme.maincolor);
     } else {
@@ -32,7 +32,7 @@ class GlobalTextStyles {
     if (screenWidth > 1024) {
       // Laptop
       return GoogleFonts.urbanist(
-          fontSize: 15.sp,
+          fontSize: 5.sp,
           fontWeight: FontWeight.normal,
           color: ColorTheme.black);
     } else if (screenWidth > 600) {
@@ -55,13 +55,13 @@ class GlobalTextStyles {
     if (screenWidth > 1024) {
       // Laptop
       return GoogleFonts.urbanist(
-          fontSize: 15.sp,
+          fontSize: 5.sp,
           fontWeight: FontWeight.normal,
           color: ColorTheme.white);
     } else if (screenWidth > 600) {
       // Tablet
       return GoogleFonts.urbanist(
-          fontSize: 15.sp,
+          fontSize: 10.sp,
           fontWeight: FontWeight.normal,
           color: ColorTheme.white);
     } else {
@@ -147,7 +147,7 @@ class GlobalTextStyles {
     if (screenWidth > 1024) {
       // Laptop
       return GoogleFonts.urbanist(
-          fontSize: 15.sp,
+          fontSize: 5.sp,
           fontWeight: FontWeight.normal,
           color: ColorTheme.white);
     } else if (screenWidth > 600) {

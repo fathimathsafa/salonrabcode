@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/controller/employees_adding_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/widget/service_container.dart';
 import 'package:salonrabcode/presentation/owner_side/service_adding_screen/widgets/common_textformfield.dart';
 import 'package:salonrabcode/core/common/widget/serach_bar.dart';
@@ -11,6 +13,18 @@ class EmployeesAddingScreen extends StatelessWidget {
     {
       "category": "Haircut",
       "services": [
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
         {"name": "Men's Haircut", "gender": "Male", "price": "20"},
         {"name": "Women's Haircut", "gender": "Female", "price": "30"},
         {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
@@ -24,24 +38,38 @@ class EmployeesAddingScreen extends StatelessWidget {
       ]
     },
     {
-      "category": "Shaving",
+      "category": "Hair Spa",
       "services": [
-        {"name": "Beard Trim", "gender": "Male", "price": "10"},
-        {"name": "Clean Shave", "gender": "Male", "price": "15"},
+        {"name": "Keratin Treatment", "gender": "Unisex", "price": "50"},
+        {"name": "Deep Conditioning", "gender": "Unisex", "price": "40"},
       ]
     },
     {
-      "category": "Shaving",
+      "category": "Facial",
       "services": [
-        {"name": "Beard Trim", "gender": "Male", "price": "10"},
-        {"name": "Clean Shave", "gender": "Male", "price": "15"},
+        {"name": "Basic Facial", "gender": "Unisex", "price": "25"},
+        {"name": "Anti-Aging Facial", "gender": "Unisex", "price": "40"},
       ]
     },
     {
-      "category": "Shaving",
+      "category": "Manicure",
       "services": [
-        {"name": "Beard Trim", "gender": "Male", "price": "10"},
-        {"name": "Clean Shave", "gender": "Male", "price": "15"},
+        {"name": "Classic Manicure", "gender": "Unisex", "price": "20"},
+        {"name": "Gel Manicure", "gender": "Unisex", "price": "30"},
+      ]
+    },
+    {
+      "category": "Pedicure",
+      "services": [
+        {"name": "Regular Pedicure", "gender": "Unisex", "price": "25"},
+        {"name": "Spa Pedicure", "gender": "Unisex", "price": "35"},
+      ]
+    },
+    {
+      "category": "Massage",
+      "services": [
+        {"name": "Full Body Massage", "gender": "Unisex", "price": "50"},
+        {"name": "Head Massage", "gender": "Unisex", "price": "20"},
       ]
     },
   ];
@@ -56,7 +84,8 @@ class EmployeesAddingScreen extends StatelessWidget {
     int crossAxisCount = isMobile ? 2 : (isTablet ? 3 : 4);
     double aspectRatio = isMobile ? 2 : (isTablet ? 1.8 : 1.6);
     double padding = isMobile ? 10.w : (isTablet ? 20.w : 30.w);
-
+    final selectedServices =
+        Provider.of<SelectedServiceProvider>(context).selectedServices;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -97,6 +126,78 @@ class EmployeesAddingScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              // Display selected service
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Show "Selected Services" only if services exist
+                  if (selectedServices.isNotEmpty)
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10.h),
+                      child: Text(
+                        "Selected Services",
+                        style: GlobalTextStyles.subHeadding(context),
+                      ),
+                    ),
+
+                  // Display selected services list only if there are selected services
+                  if (selectedServices.isNotEmpty)
+                    Container(
+                      height: 120.h, // Adjust height as needed
+                      child: ListView.builder(
+                        scrollDirection: Axis
+                            .horizontal, // ✅ Makes the list scroll horizontally
+                        itemCount: selectedServices.length,
+                        itemBuilder: (context, index) {
+                          final service = selectedServices[index];
+                          return Expanded(
+                            child: Container(
+                              width: 200.w, // ✅ Set a fixed width for each item
+                              margin: EdgeInsets.only(
+                                  right: 10.w), // ✅ Add spacing between items
+                              padding: EdgeInsets.all(10.w),
+                              decoration: BoxDecoration(
+                                color: ColorTheme.maincolor,
+                                borderRadius: BorderRadius.circular(12.r),
+                                border: Border.all(
+                                    color: ColorTheme.maincolor, width: 1),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Text("${service['name']}",
+                                        style: GlobalTextStyles.hintStyle(
+                                            context)),
+                                  ),
+                                  Expanded(
+                                    child: Text("Gender: ${service['gender']}",
+                                        style: GlobalTextStyles.hintStyle(
+                                            context)),
+                                  ),
+                                  Expanded(
+                                    child: Text("Price: \$${service['price']}",
+                                        style: GlobalTextStyles.hintStyle(
+                                            context)),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.delete,
+                                          color: ColorTheme.red),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                ],
+              ),
 
               SizedBox(height: isMobile ? 10.h : 20.h),
               Text("Service List",
@@ -124,12 +225,72 @@ class EmployeesAddingScreen extends StatelessWidget {
                       isLaptop: isLaptop,
                       services: List<Map<String, String>>.from(
                           serviceCategories[index]['services']),
+                      onSelectService: (service) {
+                        Provider.of<SelectedServiceProvider>(context,
+                                listen: false)
+                            .selectService(service);
+                      },
                     );
                   },
                 ),
               ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        color: ColorTheme.white,
+        padding: EdgeInsets.symmetric(
+          horizontal: 20.w, // Responsive horizontal padding
+          vertical: 15.h, // Responsive vertical padding
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorTheme.maincolor,
+                      width: 1.w, // Responsive border width
+                    ),
+                    color: ColorTheme.white,
+                    borderRadius:
+                        BorderRadius.circular(10.r), // Responsive radius
+                  ),
+                  height: 50.h, // Responsive height
+                  child: Center(
+                    child: Text(
+                      'SAVE AND NEW',
+                      style: GlobalTextStyles.saveAndNewButtonText(context),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 15.w), // Responsive spacing between buttons
+            Expanded(
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorTheme.maincolor,
+                    borderRadius:
+                        BorderRadius.circular(10.r), // Responsive radius
+                  ),
+                  height: 50.h, // Responsive height
+                  child: Center(
+                    child: Text(
+                      'SAVE SERVICE',
+                      style: GlobalTextStyles.saveButtonText(context),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
