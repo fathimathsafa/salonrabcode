@@ -19,7 +19,9 @@ class AddBranchesScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: Icon(
             Icons.arrow_back_ios,
             color: ColorTheme.maincolor,
@@ -151,7 +153,7 @@ class AddBranchesScreen extends StatelessWidget {
                   height: 50.h, // Responsive height
                   child: Center(
                     child: Text(
-                      'SAVE SERVICE',
+                      'SAVE BRANCH',
                       style: GlobalTextStyles.saveButtonText(context),
                     ),
                   ),

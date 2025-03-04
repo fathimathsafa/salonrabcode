@@ -3,9 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
 import 'package:salonrabcode/presentation/owner_side/bottom_navigation_screen/controller/bottom_navigation_controller.dart';
+import 'package:salonrabcode/presentation/owner_side/company_profile_screen/view/company_profile_screen.dart';
+import 'package:salonrabcode/presentation/owner_side/employees_screen/view/employees_screen.dart';
+import 'package:salonrabcode/presentation/owner_side/owner_profile_screen/view/owner_profile_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/service_screen/view/service_screen.dart';
-
-
 
 class OwnerBottomNavigationScreen extends StatelessWidget {
   const OwnerBottomNavigationScreen({super.key});
@@ -15,12 +16,9 @@ class OwnerBottomNavigationScreen extends StatelessWidget {
     var size = MediaQuery.sizeOf(context);
     final List<Widget> _screens = [
       ServiceScreen(),
-      Container(
-          color: Colors.white, child: Center(child: Text("Settings Screen"))),
-      Container(
-          color: Colors.white, child: Center(child: Text("Settings Screen"))),
-      Container(
-          color: Colors.white, child: Center(child: Text("Settings Screen"))),
+      EmployeesScreen(),
+      OwnerProfileScreen(),
+     CompanyProfileScreen(),
       Container(
           color: Colors.white, child: Center(child: Text("Settings Screen"))),
     ];

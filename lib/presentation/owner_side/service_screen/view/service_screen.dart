@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
 import 'package:salonrabcode/core/common/widget/serach_bar.dart';
+import 'package:salonrabcode/presentation/owner_side/service_adding_screen/view/service_adding_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/service_screen/widgets/service_category_container.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -133,7 +134,8 @@ class ServiceScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          print("FAB Pressed");
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ServiceAddingScreen()));
         },
         backgroundColor: ColorTheme.maincolor, // Use your theme color
         shape: RoundedRectangleBorder(

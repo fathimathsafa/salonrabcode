@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
 import 'package:salonrabcode/presentation/owner_side/owner_profile_screen/controller/owner_profile_screen_controller.dart';
+import 'package:salonrabcode/presentation/owner_side/partners_adding_screen/view/partners_adding_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/service_details_screen/controller/service_details_controller.dart';
 
 class OwnerProfileScreen extends StatelessWidget {
@@ -93,7 +94,10 @@ class OwnerProfileScreen extends StatelessWidget {
                     .infinity, // Makes the button fit the full screen width
                 child: ElevatedButton(
                   onPressed: () {
-                    print("Button Pressed!");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PartnersAddingScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ColorTheme.maincolor, // Button color

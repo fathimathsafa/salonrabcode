@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
+import 'package:salonrabcode/presentation/owner_side/add_branches_screen/view/add_branches_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/company_profile_screen/controller/company_profile_screen_controller.dart';
 
 class CompanyProfileScreen extends StatelessWidget {
@@ -122,7 +123,10 @@ class CompanyProfileScreen extends StatelessWidget {
                     .infinity, // Makes the button fit the full screen width
                 child: ElevatedButton(
                   onPressed: () {
-                    print("Button Pressed!");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddBranchesScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ColorTheme.maincolor, // Button color
