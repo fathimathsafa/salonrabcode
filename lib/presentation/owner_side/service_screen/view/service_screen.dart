@@ -135,7 +135,7 @@ class ServiceScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ServiceAddingScreen()));
+              MaterialPageRoute(builder: (context) => AddServiceScreen()));
         },
         backgroundColor: ColorTheme.maincolor, // Use your theme color
         shape: RoundedRectangleBorder(
