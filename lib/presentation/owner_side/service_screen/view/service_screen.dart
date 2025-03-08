@@ -81,7 +81,7 @@ class ServiceScreen extends StatelessWidget {
 
     int crossAxisCount = isMobile ? 2 : (isTablet ? 3 : 4);
     double aspectRatio = isMobile ? 2 : (isTablet ? 1.8 : 1.6);
-    double padding = isMobile ? 10.w : (isTablet ? 20.w : 30.w);
+    double padding = isMobile ? 10.w : (isTablet ? 20.w : 10.w);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

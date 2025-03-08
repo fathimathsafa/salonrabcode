@@ -15,8 +15,8 @@ class SearchBarSalon extends StatelessWidget {
     bool isMobile = screenWidth <= 600;
     bool isTablet = screenWidth > 600 && screenWidth <= 1024;
 
-    double horizontalPadding = isMobile ? 12.w : (isTablet ? 12.w : 12.w);
-    double verticalPadding = isMobile ? 8.h : (isTablet ? 8.h : 8.h);
+    double horizontalPadding = isMobile ? 12.w : (isTablet ? 12.w : 3.w);
+    double verticalPadding = isMobile ? 8.h : (isTablet ? 8.h : 3.h);
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -26,7 +26,7 @@ class SearchBarSalon extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorTheme.maincolor,
         borderRadius:
-            BorderRadius.circular(isMobile ? 10.r : (isTablet ? 24.r : 30.r)),
+            BorderRadius.circular(isMobile ? 10.r : (isTablet ? 10.r : 10.r)),
         boxShadow: [
           BoxShadow(color: Colors.white, offset: Offset(-3, -3), blurRadius: 5),
           BoxShadow(
@@ -42,7 +42,7 @@ class SearchBarSalon extends StatelessWidget {
             child: TextField(
               textAlignVertical: TextAlignVertical.top,
               style: TextStyle(
-                  fontSize: isMobile ? 14.sp : (isTablet ? 16.sp : 18.sp)),
+                  fontSize: isMobile ? 14.sp : (isTablet ? 14.sp : 14.sp)),
               decoration: InputDecoration(
                 hintText: hintText, // 👈 Custom hint text for each screen
                 border: InputBorder.none,
