@@ -22,13 +22,14 @@ import 'package:salonrabcode/presentation/owner_side/service_details_screen/view
 import 'package:salonrabcode/presentation/owner_side/service_screen/view/service_screen.dart';
 
 
+
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => OwnerBottomNavigationController()),
     ChangeNotifierProvider(create: (_) => ServiceDetailsScreenController()),
     ChangeNotifierProvider(create: (_) => SelectedServiceProvider()),
     ChangeNotifierProvider(create: (_) => EmployeeProfileScreenController()),
-    ChangeNotifierProvider(create: (_) => OwnerProfileScreenController()),
+    ChangeNotifierProvider(create: (_) =>OwnerProfileScreenController()),
     ChangeNotifierProvider(create: (_)=>CompanyProfileScreenController()),
     ChangeNotifierProvider(create: (_)=>BranchListScreenController()),
     ChangeNotifierProvider(create: (_)=>AddServiceController()),
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: OwnerBottomNavigationScreen(),
+          home: AddServiceScreen(),
         );
       },
     );
