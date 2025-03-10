@@ -78,19 +78,19 @@ class GlobalTextStyles {
       return GoogleFonts.urbanist(
           fontSize: 15.sp,
           fontWeight: FontWeight.normal,
-          color: ColorTheme.black);
+          color: ColorTheme.white);
     } else if (screenWidth > 600) {
       // Tablet
       return GoogleFonts.urbanist(
           fontSize: 15.sp,
           fontWeight: FontWeight.normal,
-          color: ColorTheme.black);
+          color: ColorTheme.white);
     } else {
       // Mobile
       return GoogleFonts.urbanist(
           fontSize: 15.sp,
           fontWeight: FontWeight.normal,
-          color: ColorTheme.black);
+          color: ColorTheme.white);
     }
   }
 

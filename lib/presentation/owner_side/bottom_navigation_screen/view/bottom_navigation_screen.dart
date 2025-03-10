@@ -18,7 +18,7 @@ class OwnerBottomNavigationScreen extends StatelessWidget {
       ServiceScreen(),
       EmployeesScreen(),
       OwnerProfileScreen(),
-     CompanyProfileScreen(),
+      CompanyProfileScreen(),
       Container(
           color: Colors.white, child: Center(child: Text("Settings Screen"))),
     ];
@@ -72,7 +72,7 @@ class OwnerBottomNavigationScreen extends StatelessWidget {
             bottomNavigationcontroller.setSelectedIndex(index);
           },
           type: BottomNavigationBarType.fixed,
-          backgroundColor: ColorTheme.maincolor,
+          backgroundColor: Colors.teal,
           items: List.generate(_navItems.length, (index) {
             final item = _navItems[index];
             return BottomNavigationBarItem(

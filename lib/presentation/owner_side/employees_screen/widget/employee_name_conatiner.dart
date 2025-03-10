@@ -65,12 +65,12 @@ class EmpllooyeeNameContainer extends StatelessWidget {
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10.h),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(radius),
+          color: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              blurRadius: 10.r,
+              color: ColorTheme.black.withOpacity(0.1),
+              blurRadius: 5.r,
               spreadRadius: 2.r,
             ),
           ],
@@ -91,7 +91,7 @@ class EmpllooyeeNameContainer extends StatelessWidget {
                 icon: Icon(
                   Icons.delete,
                   size: 25.sp,
-                  color: ColorTheme.maincolor,
+                  color: Colors.teal,
                 ))
           ],
         ),

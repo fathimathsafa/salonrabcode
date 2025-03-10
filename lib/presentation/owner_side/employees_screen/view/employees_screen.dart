@@ -26,53 +26,104 @@ class EmployeesScreen extends StatelessWidget {
 
     int crossAxisCount = isMobile ? 2 : (isTablet ? 3 : 4);
     double aspectRatio = isMobile ? 2 : (isTablet ? 1.8 : 1.6);
-    double padding = isMobile ? 10.w : (isTablet ? 10.w : 10.w);
+    double padding = isMobile ? 10.w : (isTablet ? 20.w : 10.w);
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFF0D1137),
+                Color(0xFF1A2151),
+              ],
+            ),
+          ),
+        ),
         centerTitle: true,
         title: Text(
           "RABLOON",
           style: GlobalTextStyles.appBarHeadding(context),
         ),
-        backgroundColor: ColorTheme.white,
+        // actions: [
+        //   Text(
+        //     "RABLOON",
+        //     style: GlobalTextStyles.appBarHeadding(context),
+        //   ),
+        // ],
       ),
       backgroundColor: Colors.grey[100],
-      body: Padding(
-        padding: EdgeInsets.all(padding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "Your Salon Employees",
-              style: GlobalTextStyles.subHeadding(context),
-            ),
-            SizedBox(height: isMobile ? 10.h : 20.h),
-            SearchBarSalon(
-              hintText: 'Search Employees',
-            ),
-            SizedBox(height: isMobile ? 10.h : 20.h),
-            Expanded(
-              child: GridView.builder(
-                itemCount: employees.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount, // Adjust dynamically
-                  crossAxisSpacing: 10.w,
-                  mainAxisSpacing: 10.h,
-                  childAspectRatio: aspectRatio, // Fixed for better visibility
-                ),
-                itemBuilder: (context, index) {
-                  return EmpllooyeeNameContainer(
-                    name: employees[index],
-                    isMobile: isMobile,
-                    isTablet: isTablet,
-                    isLaptop: isLaptop,
-                  );
-                },
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF1A2151),
+                  Color(0xFF0D1137),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(padding),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.person_2_rounded,
+                        size: 25.sp,
+                        color: Colors.teal,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text(
+                        "Your Salon Employees",
+                        style: GlobalTextStyles.subHeadding(context),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: isMobile ? 15.h : 20.h),
+                  SearchBarSalon(
+                    hintText: 'Search Employees',
+                  ),
+                  SizedBox(height: isMobile ? 15.h : 20.h),
+                  Expanded(
+                    child: GridView.builder(
+                      itemCount: employees.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount, // Adjust dynamically
+                        crossAxisSpacing: 10.w,
+                        mainAxisSpacing: 10.h,
+                        childAspectRatio:
+                            aspectRatio, // Fixed for better visibility
+                      ),
+                      itemBuilder: (context, index) {
+                        return EmpllooyeeNameContainer(
+                          name: employees[index],
+                          isMobile: isMobile,
+                          isTablet: isTablet,
+                          isLaptop: isLaptop,
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       // Floating Action Button
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -82,9 +133,9 @@ class EmployeesScreen extends StatelessWidget {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => EmployeesAddingScreen()));
         },
-        backgroundColor: ColorTheme.maincolor, // Use your theme color
+        backgroundColor: Colors.teal, // Use your theme color
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.r), // Adjust radius
+          borderRadius: BorderRadius.circular(30.r), // Adjust radius
         ),
         label: Padding(
           padding: EdgeInsets.symmetric(

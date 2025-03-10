@@ -34,6 +34,17 @@ class ServiceCategoryContainer extends StatelessWidget {
           expand: false,
           builder: (context, scrollController) {
             return Container(
+              decoration: BoxDecoration(
+                color: Colors.teal[900],
+                borderRadius: BorderRadius.circular(12.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 5.r,
+                    spreadRadius: 2.r,
+                  ),
+                ],
+              ),
               padding: EdgeInsets.all(16.w),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -71,39 +82,44 @@ class ServiceCategoryContainer extends StatelessWidget {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => ServiceDetailsScreen()));
       },
-      child: Container(
-        width: (MediaQuery.of(context).size.width / 2) - 24.w,
-        padding: EdgeInsets.all(12.w),
-        decoration: BoxDecoration(
-          color: ColorTheme.maincolor,
-          borderRadius: BorderRadius.circular(12.r),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              blurRadius: 5.r,
-              spreadRadius: 2.r,
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(service['name'] ?? "Service",
-                style: GlobalTextStyles.floatingButtonText(context)),
-            SizedBox(height: 4.h),
-            Text("Gender: ${service['gender'] ?? "Unisex"}",
-                style: GlobalTextStyles.floatingButtonText(context)),
-            SizedBox(height: 4.h),
-            Text("Price: \$${service['price'] ?? "0"}",
-                style: GlobalTextStyles.floatingButtonText(context)),
-            Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.delete, color: ColorTheme.red),
+      child: AspectRatio(
+        aspectRatio:
+            isMobile ? 2.5 : (isTablet ? 3 : 3.5), // Adjust aspect ratio
+
+        child: Container(
+          width: (MediaQuery.of(context).size.width / 2) - 24.w,
+          padding: EdgeInsets.all(12.w),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12.r),
+            boxShadow: [
+              BoxShadow(
+                color: ColorTheme.white.withOpacity(0.1),
+                blurRadius: 5.r,
+                spreadRadius: 2.r,
               ),
-            ),
-          ],
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(service['name'] ?? "Service",
+                  style: GlobalTextStyles.floatingButtonText(context)),
+              SizedBox(height: 4.h),
+              Text("Gender: ${service['gender'] ?? "Unisex"}",
+                  style: GlobalTextStyles.floatingButtonText(context)),
+              SizedBox(height: 4.h),
+              Text("Price: \$${service['price'] ?? "0"}",
+                  style: GlobalTextStyles.floatingButtonText(context)),
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.delete, color: ColorTheme.red),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -117,28 +133,40 @@ class ServiceCategoryContainer extends StatelessWidget {
     return GestureDetector(
       onTap: () => _showServiceDetails(context),
       child: AspectRatio(
-        aspectRatio: isMobile ? 2.5 : (isTablet ? 3 : 3.5),
-        child: Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10.h),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(radius),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                blurRadius: 10.r,
-                spreadRadius: 2.r,
-              ),
-            ],
-          ),
-          child: Text(
-            name,
-            style: GlobalTextStyles.serviceContainer(context),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
+          aspectRatio: isMobile ? 2.5 : (isTablet ? 3 : 3.5),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10.h),
+            decoration: BoxDecoration(
+              color: ColorTheme.white.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12.r),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 5.r,
+                  spreadRadius: 2.r,
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    name,
+                    style: GlobalTextStyles.serviceContainer(context),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    // Your delete function here
+                    print("Delete $name");
+                  },
+                  child: Icon(Icons.delete, color: Colors.teal, size: 20.sp),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }

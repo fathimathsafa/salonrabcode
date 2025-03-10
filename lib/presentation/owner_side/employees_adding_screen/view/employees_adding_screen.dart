@@ -87,158 +87,207 @@ class EmployeesAddingScreen extends StatelessWidget {
     final selectedServices =
         Provider.of<SelectedServiceProvider>(context).selectedServices;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
-        ),
-        centerTitle: true,
-        title: Text("RABLOON", style: GlobalTextStyles.appBarHeadding(context)),
-        backgroundColor: ColorTheme.white,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(padding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Add Your Employees",
-                  style: GlobalTextStyles.subHeadding(context)),
-              SizedBox(height: isMobile ? 10.h : 20.h),
-
-              // Employee Form
-              Container(
-                padding: EdgeInsets.all(10.w),
-                decoration: BoxDecoration(
-                  color: ColorTheme.maincolor,
-                  borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(color: ColorTheme.maincolor, width: 1),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildTextFieldLabel("Employee Name", context),
-                    CommonTextFormField(hintText: 'Enter employee name'),
-                    buildTextFieldLabel("User Name", context),
-                    CommonTextFormField(hintText: 'Enter user name'),
-                    buildTextFieldLabel("Password", context),
-                    CommonTextFormField(hintText: 'Enter password'),
-                  ],
-                ),
-              ),
-              // Display selected service
-
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Show "Selected Services" only if services exist
-                  if (selectedServices.isNotEmpty)
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 10.h),
-                      child: Text(
-                        "Selected Services",
-                        style: GlobalTextStyles.subHeadding(context),
-                      ),
-                    ),
-
-                  // Display selected services list only if there are selected services
-                  if (selectedServices.isNotEmpty)
-                    Container(
-                      height: 120.h, // Adjust height as needed
-                      child: ListView.builder(
-                        scrollDirection: Axis
-                            .horizontal, // ✅ Makes the list scroll horizontally
-                        itemCount: selectedServices.length,
-                        itemBuilder: (context, index) {
-                          final service = selectedServices[index];
-                          return Expanded(
-                            child: Container(
-                              width: 200.w, // ✅ Set a fixed width for each item
-                              margin: EdgeInsets.only(
-                                  right: 10.w), // ✅ Add spacing between items
-                              padding: EdgeInsets.all(10.w),
-                              decoration: BoxDecoration(
-                                color: ColorTheme.maincolor,
-                                borderRadius: BorderRadius.circular(12.r),
-                                border: Border.all(
-                                    color: ColorTheme.maincolor, width: 1),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Text("${service['name']}",
-                                        style: GlobalTextStyles.hintStyle(
-                                            context)),
-                                  ),
-                                  Expanded(
-                                    child: Text("Gender: ${service['gender']}",
-                                        style: GlobalTextStyles.hintStyle(
-                                            context)),
-                                  ),
-                                  Expanded(
-                                    child: Text("Price: \$${service['price']}",
-                                        style: GlobalTextStyles.hintStyle(
-                                            context)),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.delete,
-                                          color: ColorTheme.red),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    )
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF1A2151),
+                  Color(0xFF0D1137),
                 ],
               ),
-
-              SizedBox(height: isMobile ? 10.h : 20.h),
-              Text("Service List",
-                  style: GlobalTextStyles.subHeadding(context)),
-              SizedBox(height: isMobile ? 10.h : 20.h),
-              SearchBarSalon(hintText: 'Search Service'),
-              SizedBox(height: isMobile ? 10.h : 20.h),
-
-              // Service Grid
-              SizedBox(
-                height: 300.h, // Set a height for GridView
-                child: GridView.builder(
-                  itemCount: serviceCategories.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    crossAxisSpacing: 10.w,
-                    mainAxisSpacing: 10.h,
-                    childAspectRatio: aspectRatio,
-                  ),
-                  itemBuilder: (context, index) {
-                    return ServiceContainer(
-                      name: serviceCategories[index]['category'],
-                      isMobile: isMobile,
-                      isTablet: isTablet,
-                      isLaptop: isLaptop,
-                      services: List<Map<String, String>>.from(
-                          serviceCategories[index]['services']),
-                      onSelectService: (service) {
-                        Provider.of<SelectedServiceProvider>(context,
-                                listen: false)
-                            .selectService(service);
-                      },
-                    );
+            ),
+          ),
+          Positioned(
+            top: 24.h,
+            left: 24.w,
+            right: 24.w,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
+                  onPressed: () {
+                    Navigator.pop(context);
                   },
                 ),
-              ),
-            ],
+                Text("RABLOON",
+                    style: GlobalTextStyles.appBarHeadding(context)),
+              ],
+            ),
           ),
-        ),
+          SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.only(
+                  top: 100.h, left: 24.w, right: 24.w, bottom: 24.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Add Your Salon Teams",
+                      style: GlobalTextStyles.subHeadding(context)),
+                  SizedBox(height: isMobile ? 8.h : 20.h),
+                  Text("Add your employees and assign their services",
+                      style: GlobalTextStyles.hintStyle(context)),
+                  SizedBox(height: isMobile ? 8.h : 20.h),
+
+                  Container(
+                    width: 100.w,
+                    height: 4.h,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.teal, Colors.purple],
+                      ),
+                      borderRadius: BorderRadius.circular(2.r),
+                    ),
+                  ),
+                  SizedBox(height: 35.h),
+
+                  // Employee Form
+                  Container(
+                    padding: EdgeInsets.all(10.w),
+                    decoration: BoxDecoration(
+                      color: ColorTheme.maincolor,
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(color: ColorTheme.maincolor, width: 1),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildTextFieldLabel("Employee Details", context),
+                        CommonTextFormField(hintText: 'Enter employee name'),
+                        Row(
+                          children: [
+                            CommonTextFormField(hintText: 'Enter user name'),
+                            CommonTextFormField(hintText: 'Enter password'),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  // Display selected service
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Show "Selected Services" only if services exist
+                      if (selectedServices.isNotEmpty)
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 10.h),
+                          child: Text(
+                            "Selected Services",
+                            style: GlobalTextStyles.subHeadding(context),
+                          ),
+                        ),
+
+                      // Display selected services list only if there are selected services
+                      if (selectedServices.isNotEmpty)
+                        Container(
+                          height: 120.h, // Adjust height as needed
+                          child: ListView.builder(
+                            scrollDirection: Axis
+                                .horizontal, // ✅ Makes the list scroll horizontally
+                            itemCount: selectedServices.length,
+                            itemBuilder: (context, index) {
+                              final service = selectedServices[index];
+                              return Expanded(
+                                child: Container(
+                                  width: 200
+                                      .w, // ✅ Set a fixed width for each item
+                                  margin: EdgeInsets.only(
+                                      right:
+                                          10.w), // ✅ Add spacing between items
+                                  padding: EdgeInsets.all(10.w),
+                                  decoration: BoxDecoration(
+                                    color: ColorTheme.maincolor,
+                                    borderRadius: BorderRadius.circular(12.r),
+                                    border: Border.all(
+                                        color: ColorTheme.maincolor, width: 1),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Text("${service['name']}",
+                                            style: GlobalTextStyles.hintStyle(
+                                                context)),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                            "Gender: ${service['gender']}",
+                                            style: GlobalTextStyles.hintStyle(
+                                                context)),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                            "Price: \$${service['price']}",
+                                            style: GlobalTextStyles.hintStyle(
+                                                context)),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(Icons.delete,
+                                              color: ColorTheme.red),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                    ],
+                  ),
+
+                  SizedBox(height: isMobile ? 10.h : 20.h),
+                  Text("Service List",
+                      style: GlobalTextStyles.subHeadding(context)),
+                  SizedBox(height: isMobile ? 10.h : 20.h),
+                  SearchBarSalon(hintText: 'Search Service'),
+                  SizedBox(height: isMobile ? 10.h : 20.h),
+
+                  // Service Grid
+                  SizedBox(
+                    height: 300.h, // Set a height for GridView
+                    child: GridView.builder(
+                      itemCount: serviceCategories.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount,
+                        crossAxisSpacing: 10.w,
+                        mainAxisSpacing: 10.h,
+                        childAspectRatio: aspectRatio,
+                      ),
+                      itemBuilder: (context, index) {
+                        return ServiceContainer(
+                          name: serviceCategories[index]['category'],
+                          isMobile: isMobile,
+                          isTablet: isTablet,
+                          isLaptop: isLaptop,
+                          services: List<Map<String, String>>.from(
+                              serviceCategories[index]['services']),
+                          onSelectService: (service) {
+                            Provider.of<SelectedServiceProvider>(context,
+                                    listen: false)
+                                .selectService(service);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: Container(
         color: ColorTheme.white,
