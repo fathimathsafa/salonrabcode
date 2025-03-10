@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
 import 'package:salonrabcode/core/common/widget/serach_bar.dart';
@@ -13,6 +12,18 @@ class ServiceScreen extends StatelessWidget {
     {
       "category": "Haircut",
       "services": [
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
+        {"name": "Men's Haircut", "gender": "Male", "price": "20"},
+        {"name": "Women's Haircut", "gender": "Female", "price": "30"},
+        {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
         {"name": "Men's Haircut", "gender": "Male", "price": "20"},
         {"name": "Women's Haircut", "gender": "Female", "price": "30"},
         {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
@@ -32,6 +43,34 @@ class ServiceScreen extends StatelessWidget {
         {"name": "Deep Conditioning", "gender": "Unisex", "price": "40"},
       ]
     },
+    {
+      "category": "Facial",
+      "services": [
+        {"name": "Basic Facial", "gender": "Unisex", "price": "25"},
+        {"name": "Anti-Aging Facial", "gender": "Unisex", "price": "40"},
+      ]
+    },
+    {
+      "category": "Manicure",
+      "services": [
+        {"name": "Classic Manicure", "gender": "Unisex", "price": "20"},
+        {"name": "Gel Manicure", "gender": "Unisex", "price": "30"},
+      ]
+    },
+    {
+      "category": "Pedicure",
+      "services": [
+        {"name": "Regular Pedicure", "gender": "Unisex", "price": "25"},
+        {"name": "Spa Pedicure", "gender": "Unisex", "price": "35"},
+      ]
+    },
+    {
+      "category": "Massage",
+      "services": [
+        {"name": "Full Body Massage", "gender": "Unisex", "price": "50"},
+        {"name": "Head Massage", "gender": "Unisex", "price": "20"},
+      ]
+    },
   ];
 
   @override
@@ -46,30 +85,34 @@ class ServiceScreen extends StatelessWidget {
     double padding = isMobile ? 10.w : (isTablet ? 20.w : 10.w);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF0D1137),
-                  Color(0xFF1A2151),
-                ],
-              ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFF0D1137),
+                Color(0xFF1A2151),
+              ],
             ),
           ),
-          centerTitle: true,
-          title: Text("RABLOON",
-              style: GoogleFonts.urbanist(
-                  fontSize: 20.sp, color: ColorTheme.white)),
         ),
+        centerTitle: true,
+        title: Text(
+          "RABLOON",
+          style: GlobalTextStyles.appBarHeadding(context),
+        ),
+        // actions: [
+        //   Text(
+        //     "RABLOON",
+        //     style: GlobalTextStyles.appBarHeadding(context),
+        //   ),
+        // ],
       ),
+      resizeToAvoidBottomInset: false,
       body: Stack(children: [
         Container(
           decoration: BoxDecoration(
@@ -87,10 +130,23 @@ class ServiceScreen extends StatelessWidget {
           padding: EdgeInsets.all(padding),
           child: Column(
             children: [
-              SizedBox(height: 10.h),
-              Text(
-                "Your Salon Services",
-                style: GlobalTextStyles.subHeadding(context),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.spa,
+                    size: 25.sp,
+                    color: Colors.teal,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    "Your Salon Services",
+                    style: GlobalTextStyles.subHeadding(context),
+                  ),
+                ],
               ),
               SizedBox(height: isMobile ? 10.h : 20.h),
               SearchBarWidget(),
@@ -99,10 +155,11 @@ class ServiceScreen extends StatelessWidget {
                 child: GridView.builder(
                   itemCount: serviceCategories.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
+                    crossAxisCount: crossAxisCount, // Adjust dynamically
                     crossAxisSpacing: 10.w,
                     mainAxisSpacing: 10.h,
-                    childAspectRatio: aspectRatio,
+                    childAspectRatio:
+                        aspectRatio, // Fixed for better visibility
                   ),
                   itemBuilder: (context, index) {
                     return ServiceCategoryContainer(
@@ -126,9 +183,9 @@ class ServiceScreen extends StatelessWidget {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => AddServiceScreen()));
         },
-        backgroundColor: ColorTheme.maincolor,
+        backgroundColor: ColorTheme.maincolor, // Use your theme color
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.r),
+          borderRadius: BorderRadius.circular(10.r), // Adjust radius
         ),
         label: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),

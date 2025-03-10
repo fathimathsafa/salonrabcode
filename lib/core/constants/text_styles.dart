@@ -9,34 +9,43 @@ class GlobalTextStyles {
     if (screenWidth > 1024) {
       // Laptop
       return GoogleFonts.urbanist(
-          fontSize: 5.sp,
-          fontWeight: FontWeight.bold,
-          color: ColorTheme.maincolor);
+          fontSize: 5.sp, fontWeight: FontWeight.bold, color: ColorTheme.white);
     } else if (screenWidth > 600) {
       // Tablet
       return GoogleFonts.urbanist(
           fontSize: 10.sp,
           fontWeight: FontWeight.bold,
-          color: ColorTheme.maincolor);
+          color: ColorTheme.white);
     } else {
       // Mobile
       return GoogleFonts.urbanist(
           fontSize: 20.sp,
           fontWeight: FontWeight.bold,
-          color: ColorTheme.maincolor);
+          color: ColorTheme.white);
     }
   }
 
   static TextStyle subHeadding(BuildContext context) {
-    return GoogleFonts.urbanist(
-      fontSize: (MediaQuery.of(context).size.width > 1024)
-          ? 5.sp // Laptop
-          : (MediaQuery.of(context).size.width > 600)
-              ? 10.sp // Tablet
-              : 20.sp, // Mobile
-      fontWeight: FontWeight.bold,
-      color: ColorTheme.maincolor,
-    );
+    double screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth > 1024) {
+      // Laptop
+      return GoogleFonts.urbanist(
+          fontSize: 5.sp,
+          fontWeight: FontWeight.normal,
+          color: ColorTheme.white);
+    } else if (screenWidth > 600) {
+      // Tablet
+      return GoogleFonts.urbanist(
+          fontSize: 10.sp,
+          fontWeight: FontWeight.normal,
+          color: ColorTheme.white);
+    } else {
+      // Mobile
+      return GoogleFonts.urbanist(
+          fontSize: 18.sp,
+          fontWeight: FontWeight.normal,
+          color: ColorTheme.white);
+    }
   }
 
   static TextStyle hintStyle(BuildContext context) {
