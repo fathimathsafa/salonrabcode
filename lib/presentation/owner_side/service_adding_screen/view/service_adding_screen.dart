@@ -17,6 +17,7 @@ class AddServiceScreen extends StatelessWidget {
     double padding = isMobile ? 10.w : (isTablet ? 20.w : 30.w);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorTheme.black,
       body: Stack(
         children: [
