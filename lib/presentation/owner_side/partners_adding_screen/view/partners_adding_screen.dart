@@ -1,158 +1,333 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
-import 'package:salonrabcode/presentation/owner_side/service_adding_screen/widgets/common_textformfield.dart';
+import '../controller/partners_adding_controller.dart';
 
 class PartnersAddingScreen extends StatelessWidget {
-  const PartnersAddingScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    bool isMobile = screenWidth <= 600;
-    bool isTablet = screenWidth > 600 && screenWidth <= 1024;
-    bool isLaptop = screenWidth > 1024;
-    double padding = isMobile ? 10.w : (isTablet ? 20.w : 10.w);
     return Scaffold(
-      backgroundColor: ColorTheme.white,
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: ColorTheme.maincolor,
-            size: isMobile ? 20.sp : (isTablet ? 10.sp : 5.sp),
-          ),
-        ),
-        centerTitle: true,
-        title: Text(
-          "RABLOON",
-          style: GlobalTextStyles.appBarHeadding(context),
-        ),
-        backgroundColor: ColorTheme.white,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(left: padding, right: padding),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: Colors.black,
+      body: Consumer<PartnersAddingController>(
+        builder: (context, provider, child) {
+          return Stack(
             children: [
-              Text(
-                "Add Your Partners",
-                style: GlobalTextStyles.subHeadding(context),
-              ),
-              SizedBox(height: isMobile ? 10.h : 20.h),
+              // Background gradient
               Container(
-                padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
-                  color: ColorTheme.maincolor,
-                  borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(color: ColorTheme.maincolor, width: 1),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xFF1A2151),
+                      Color(0xFF0D1137),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+
+              // Fixed "RABLOON" and back arrow at the top
+              Positioned(
+                top: 24.h,
+                left: 24.w,
+                right: 24.w,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    IconButton(
+                      icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                     Text(
-                      "Partner Name",
-                      style: GlobalTextStyles.textFormfieldHead(context),
+                        "RABLOON",
+                        style: GlobalTextStyles.appBarHeadding(context)
                     ),
-                    SizedBox(height: isMobile ? 10.h : 20.h),
-                    CommonTextFormField(
-                      hintText: 'Enter your Partner name ',
+                  ],
+                ),
+              ),
+
+              // Scrollable content
+              SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 100.h, left: 24.w, right: 24.w, bottom: 24.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Title with animated underline
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Add Your Partners",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 28.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8.h),
+                          Container(
+                            width: 100.w,
+                            height: 4.h,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Colors.teal, Colors.purple],
+                              ),
+                              borderRadius: BorderRadius.circular(2.r),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(height: 35.h),
+
+                      // Form
+                      Form(
+                        key: provider.formKey,
+                        child: Column(
+                          children: [
+                            _buildInputCard(
+                              icon: Icons.person_outline,
+                              title: "Partner Name",
+                              child: TextFormField(
+                                textInputAction: TextInputAction.next,
+                                controller: provider.partnerNameController,
+                                style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                                decoration: InputDecoration(
+                                  hintText: "Enter partner name",
+                                  hintStyle: TextStyle(color: Colors.white60, fontSize: 14.sp),
+                                  border: InputBorder.none,
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter partner name';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+
+                            SizedBox(height: 20.h),
+
+                            _buildInputCard(
+                              icon: Icons.email_outlined,
+                              title: "Email",
+                              child: TextFormField(
+                                textInputAction: TextInputAction.next,
+                                controller: provider.emailController,
+                                style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                                decoration: InputDecoration(
+                                  hintText: "Enter email address",
+                                  hintStyle: TextStyle(color: Colors.white60, fontSize: 14.sp),
+                                  border: InputBorder.none,
+                                ),
+                                keyboardType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter email address';
+                                  }
+                                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                                    return 'Please enter a valid email address';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+
+                            SizedBox(height: 20.h),
+
+                            _buildInputCard(
+                              icon: Icons.alternate_email,
+                              title: "Username",
+                              child: TextFormField(
+                                textInputAction: TextInputAction.next,
+                                controller: provider.usernameController,
+                                style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                                decoration: InputDecoration(
+                                  hintText: "Enter username",
+                                  hintStyle: TextStyle(color: Colors.white60, fontSize: 14.sp),
+                                  border: InputBorder.none,
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter username';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+
+                            SizedBox(height: 20.h),
+
+                            _buildInputCard(
+                              icon: Icons.lock_outline,
+                              title: "Password",
+                              child: TextFormField(
+                                controller: provider.passwordController,
+                                style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                                obscureText: !provider.isPasswordVisible,
+                                decoration: InputDecoration(
+                                  hintText: "Enter password",
+                                  hintStyle: TextStyle(color: Colors.white60, fontSize: 14.sp),
+                                  border: InputBorder.none,
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      provider.isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                                      color: Colors.white60,
+                                      size: 20.sp,
+                                    ),
+                                    onPressed: () {
+                                      provider.togglePasswordVisibility();
+                                    },
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter password';
+                                  }
+                                  if (value.length < 6) {
+                                    return 'Password must be at least 6 characters';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+
+                            SizedBox(height: 100.h),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // Bottom buttons
+              Positioned(
+                left: 24.w,
+                right: 24.w,
+                bottom: 24.h,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: _buildGradientButton(
+                        "SAVE & NEW",
+                        gradient: LinearGradient(
+                          colors: [Colors.deepPurple, Colors.blue],
+                        ),
+                        onPressed: () => provider.saveAndAddNew(context),
+                      ),
                     ),
-                    SizedBox(height: isMobile ? 10.h : 20.h),
-                    Text(
-                      "Email",
-                      style: GlobalTextStyles.textFormfieldHead(context),
-                    ),
-                    SizedBox(height: isMobile ? 10.h : 20.h),
-                    CommonTextFormField(
-                      hintText: 'Enter your email',
-                    ),
-                    SizedBox(height: isMobile ? 10.h : 20.h),
-                    Text(
-                      "Username",
-                      style: GlobalTextStyles.textFormfieldHead(context),
-                    ),
-                    SizedBox(height: isMobile ? 10.h : 20.h),
-                    CommonTextFormField(
-                      hintText: 'Enter username',
-                    ),
-                    SizedBox(height: isMobile ? 10.h : 20.h),
-                    Text(
-                      "Password",
-                      style: GlobalTextStyles.textFormfieldHead(context),
-                    ),
-                    SizedBox(height: isMobile ? 10.h : 20.h),
-                    CommonTextFormField(
-                      hintText: 'Enter password',
+                    SizedBox(width: 16.w),
+                    Expanded(
+                      child: _buildGradientButton(
+                        "SAVE",
+                        gradient: LinearGradient(
+                          colors: [Colors.teal, Colors.tealAccent],
+                        ),
+                        onPressed: () => provider.savePartner(context),
+                      ),
                     ),
                   ],
                 ),
               ),
             ],
-          ),
-        ),
+          );
+        },
       ),
-      bottomNavigationBar: Container(
-        color: ColorTheme.white,
-        padding: EdgeInsets.symmetric(
-          horizontal: 20.w, // Responsive horizontal padding
-          vertical: 15.h, // Responsive vertical padding
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    );
+  }
+
+  Widget _buildInputCard({
+    required IconData icon,
+    required String title,
+    required Widget child,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: GestureDetector(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: ColorTheme.maincolor,
-                      width: 1.w, // Responsive border width
-                    ),
-                    color: ColorTheme.white,
-                    borderRadius:
-                        BorderRadius.circular(10.r), // Responsive radius
-                  ),
-                  height: 50.h, // Responsive height
-                  child: Center(
-                    child: Text(
-                      'SAVE AND NEW',
-                      style: GlobalTextStyles.saveAndNewButtonText(context),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+              child: Row(
+                children: [
+                  Icon(icon, color: Colors.white70, size: 20),
+                  SizedBox(width: 8),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                ),
+                ],
               ),
             ),
-            SizedBox(width: 15.w), // Responsive spacing between buttons
-            Expanded(
-              child: GestureDetector(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: ColorTheme.maincolor,
-                    borderRadius:
-                        BorderRadius.circular(10.r), // Responsive radius
-                  ),
-                  height: 50.h, // Responsive height
-                  child: Center(
-                    child: Text(
-                      'SAVE SERVICE',
-                      style: GlobalTextStyles.saveButtonText(context),
-                    ),
-                  ),
-                ),
-              ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: child,
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGradientButton(
+      String text, {
+        required Gradient gradient,
+        required VoidCallback onPressed,
+      }) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: gradient,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 10,
+            offset: Offset(0, 5),
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.white,
+          shadowColor: Colors.transparent,
+          padding: EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1,
+          ),
         ),
       ),
     );

@@ -14,7 +14,9 @@ import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/con
 import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/view/employees_adding_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/owner_profile_screen/controller/owner_profile_screen_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/owner_profile_screen/view/owner_profile_screen.dart';
+import 'package:salonrabcode/presentation/owner_side/partners_adding_screen/controller/partners_adding_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/partners_adding_screen/view/partners_adding_screen.dart';
+import 'package:salonrabcode/presentation/owner_side/service_adding_screen/controller/service_adding_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/service_adding_screen/view/service_adding_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/service_details_screen/controller/service_details_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/service_details_screen/view/service_details_screen.dart';
@@ -29,6 +31,9 @@ void main() {
     ChangeNotifierProvider(create: (_) => OwnerProfileScreenController()),
     ChangeNotifierProvider(create: (_)=>CompanyProfileScreenController()),
     ChangeNotifierProvider(create: (_)=>BranchListScreenController()),
+
+    ChangeNotifierProvider(create: (_)=>AddServiceController()),
+    ChangeNotifierProvider(create: (_)=>PartnersAddingController()),
   ], child: MyApp()));
 }
 
