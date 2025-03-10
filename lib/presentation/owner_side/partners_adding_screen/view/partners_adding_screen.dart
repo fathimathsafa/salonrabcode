@@ -38,7 +38,7 @@ class PartnersAddingScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
+                      icon: Icon(Icons.arrow_back_ios, color: ColorTheme.white),
                       onPressed: () {
                         Navigator.pop(context);
                       },
