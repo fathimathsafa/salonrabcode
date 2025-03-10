@@ -34,6 +34,7 @@ void main() {
 
     ChangeNotifierProvider(create: (_)=>AddServiceController()),
     ChangeNotifierProvider(create: (_)=>PartnersAddingController()),
+    ChangeNotifierProvider(create: (_)=>CompanyProfileScreenController()),
   ], child: MyApp()));
 }
 
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: PartnersAddingScreen(),
+          home: CompanyProfileScreen(),
         );
       },
     );
