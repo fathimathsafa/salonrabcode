@@ -206,14 +206,11 @@ class AddServiceScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             color: ColorTheme.white,
-
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         SizedBox(height: isMobile ? 10.h : 20.h),
                         Container(
-
-
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           decoration: BoxDecoration(
                             color: ColorTheme.white.withOpacity(0.1),
