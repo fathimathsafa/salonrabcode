@@ -16,6 +16,8 @@ class CommonTextFormField extends StatelessWidget {
     bool isTablet = screenWidth > 600 && screenWidth <= 1024;
 
     return TextFormField(
+
+      textInputAction: TextInputAction.next,
       textAlignVertical: TextAlignVertical.top,
       style: GlobalTextStyles.textFormfieldStyle(context),
       decoration: InputDecoration(

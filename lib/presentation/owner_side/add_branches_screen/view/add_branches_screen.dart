@@ -48,12 +48,15 @@ class AddBranchesScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.help_outline,
-              color: Colors.white,
+            icon: Tooltip(
+              message: "You need to fill all the fields to add your branch.",
+              child: Icon(
+                Icons.help_outline,
+                color: Colors.white,
+              ),
             ),
             onPressed: () {
-              // Help action
+              // Optional
             },
           ),
         ],
