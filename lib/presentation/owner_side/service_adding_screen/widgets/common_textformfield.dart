@@ -20,7 +20,7 @@ class CommonTextFormField extends StatelessWidget {
       style: GlobalTextStyles.textFormfieldStyle(context),
       decoration: InputDecoration(
         hintText: hintText,
-        filled: true,        fillColor: ColorTheme.white,
+        filled: true,        fillColor: Colors.blueGrey,
         border: OutlineInputBorder(
           borderRadius:
               BorderRadius.circular(isMobile ? 10.r : (isTablet ? 10.r : 10.r)),
