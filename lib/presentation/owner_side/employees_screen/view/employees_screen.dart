@@ -130,8 +130,8 @@ class EmployeesScreen extends StatelessWidget {
 
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => EmployeesAddingScreen()));
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => EmployeesAddingScreen()));
         },
         backgroundColor: Colors.teal, // Use your theme color
         shape: RoundedRectangleBorder(

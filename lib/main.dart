@@ -31,10 +31,10 @@ void main() {
     ChangeNotifierProvider(create: (_) => EmployeeProfileScreenController()),
     ChangeNotifierProvider(create: (_) => OwnerProfileScreenController()),
     ChangeNotifierProvider(create: (_) => BranchListScreenController()),
-    ChangeNotifierProvider(create: (_)=>BranchListScreenController()),
-    ChangeNotifierProvider(create: (_)=>AddServiceController()),
-    ChangeNotifierProvider(create: (_)=>PartnersAddingController()),
-    ChangeNotifierProvider(create: (_)=>CompanyProfileScreenController()),
+    ChangeNotifierProvider(create: (_) => BranchListScreenController()),
+    ChangeNotifierProvider(create: (_) => AddServiceController()),
+    ChangeNotifierProvider(create: (_) => PartnersAddingController()),
+    ChangeNotifierProvider(create: (_) => CompanyProfileScreenController()),
   ], child: MyApp()));
 }
 

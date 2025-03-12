@@ -7,7 +7,7 @@ class ColorTheme {
   static Color filledlightcolor = const Color(0XFFC4EFC0);
 
   static Color lightgrey = const Color.fromARGB(255, 73, 72, 72);
-  static Color secondarycolor = const Color(0xffE4D3D7);
+  static Color secondarycolor = const Color.fromARGB(255, 147, 145, 145);
 
   static Color white = Colors.white;
   static Color black = const Color.fromARGB(255, 0, 0, 0);
