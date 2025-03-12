@@ -16,11 +16,13 @@ class CommonTextFormField extends StatelessWidget {
     bool isTablet = screenWidth > 600 && screenWidth <= 1024;
 
     return TextFormField(
+
+      textInputAction: TextInputAction.next,
       textAlignVertical: TextAlignVertical.top,
       style: GlobalTextStyles.textFormfieldStyle(context),
       decoration: InputDecoration(
         hintText: hintText,
-        filled: true,        fillColor: ColorTheme.white,
+        filled: true,        fillColor: Colors.blueGrey,
         border: OutlineInputBorder(
           borderRadius:
               BorderRadius.circular(isMobile ? 10.r : (isTablet ? 10.r : 10.r)),
