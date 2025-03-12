@@ -5,6 +5,9 @@ class BranchListScreenController with ChangeNotifier {
     {"branchName": "CABELLLO", "location": "LOCATION"},
     {"branchName": "CABELLLO", "location": "LOCATION"},
     {"branchName": "CABELLLO", "location": "LOCATION"},
+    {"branchName": "CABELLLO", "location": "LOCATION"},
+    {"branchName": "CABELLLO", "location": "LOCATION"},
+    {"branchName": "CABELLLO", "location": "LOCATION"},
   ];
 
   List<Map<String, String>> get subBranches => _subBranches;
