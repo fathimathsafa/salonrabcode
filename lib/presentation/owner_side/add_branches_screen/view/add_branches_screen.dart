@@ -210,6 +210,7 @@ class AddBranchesScreen extends StatelessWidget {
         ),
         child: Row(
           children: [
+            // SAVE & NEW Button
             Expanded(
               child: Container(
                 height: 45.h,
@@ -225,6 +226,7 @@ class AddBranchesScreen extends StatelessWidget {
                   icon: Icon(
                     Icons.add_circle_outline,
                     color: highlightBlue,
+                    size: 20.sp, // Reduced icon size
                   ),
                   label: Text(
                     "SAVE & NEW",
@@ -232,7 +234,7 @@ class AddBranchesScreen extends StatelessWidget {
                       color: highlightBlue,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1,
-                      fontSize: 14.sp,
+                      fontSize: 12.sp, // Reduced text size
                     ),
                   ),
                   style: TextButton.styleFrom(
@@ -240,11 +242,13 @@ class AddBranchesScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.r),
                     ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w), // Added padding
                   ),
                 ),
               ),
             ),
             SizedBox(width: 16.w),
+            // SAVE Button
             Expanded(
               child: Container(
                 height: 45.h,
@@ -271,6 +275,7 @@ class AddBranchesScreen extends StatelessWidget {
                   icon: Icon(
                     Icons.check_circle_outline,
                     color: Colors.white,
+                    size: 20.sp, // Reduced icon size
                   ),
                   label: Text(
                     "SAVE",
@@ -278,7 +283,7 @@ class AddBranchesScreen extends StatelessWidget {
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1,
-                      fontSize: 14.sp,
+                      fontSize: 12.sp, // Reduced text size
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -288,6 +293,7 @@ class AddBranchesScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.r),
                     ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w), // Added padding
                   ),
                 ),
               ),
