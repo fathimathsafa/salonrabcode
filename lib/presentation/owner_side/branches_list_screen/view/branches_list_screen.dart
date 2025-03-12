@@ -223,7 +223,12 @@ class BranchesListScreen extends StatelessWidget {
           color: Colors.white,
         ),
         onPressed: () {
-Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>AddBranchesScreen()));        },
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => AddBranchesScreen(),
+            ),
+          );
+        },
       ),
     );
   }
@@ -251,7 +256,7 @@ Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>AddB
         ),
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.zero,
+        contentPadding: EdgeInsets.zero, // Remove default padding
         title: Text(
           branchName,
           style: TextStyle(
@@ -268,24 +273,29 @@ Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>AddB
               size: 14.sp,
             ),
             SizedBox(width: 4.w),
-            Text(
-              location,
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 14.sp,
+            Expanded(
+              child: Text(
+                location,
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14.sp,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
         ),
-        trailing: IconButton(
-          icon: Icon(
-            Icons.delete_outline,
-            color: Colors.white70,
+        trailing: SizedBox( // Constrain the trailing widget
+          width: 40.w, // Adjust the width as needed
+          child: IconButton(
+            icon: Icon(
+              Icons.delete_outline,
+              color: Colors.white70,
+            ),
+            onPressed: () {
+              branchListScreenController.deleteBranch(index);
+            },
           ),
-          onPressed: () {
-            // Call the delete method from BranchProvider
-            branchListScreenController.deleteBranch(index);
-          },
         ),
       ),
     );
