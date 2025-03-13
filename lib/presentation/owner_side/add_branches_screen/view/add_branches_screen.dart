@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
+import 'package:salonrabcode/presentation/owner_side/branches_list_screen/controller/branch_list_screen_controller.dart';
+import 'package:salonrabcode/presentation/owner_side/branches_list_screen/view/branches_list_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/service_adding_screen/widgets/common_textformfield.dart';
+
+import '../controller/add_branch_screen_controller.dart';
 
 class AddBranchesScreen extends StatelessWidget {
   const AddBranchesScreen({super.key});
@@ -19,6 +24,11 @@ class AddBranchesScreen extends StatelessWidget {
     final lightBlue = const Color(0xFF31639C);
     final accentBlue = const Color(0xFF4D9DE0);
     final highlightBlue = const Color(0xFF7EDFFF);
+
+    // Get the controllers
+    final addBranchesController = Provider.of<AddBranchesController>(context);
+    final branchListController =
+        Provider.of<BranchListScreenController>(context, listen: false);
 
     return Scaffold(
       backgroundColor: darkBlue,
@@ -86,7 +96,8 @@ class AddBranchesScreen extends StatelessWidget {
                   children: [
                     SizedBox(height: 24.h),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                       decoration: BoxDecoration(
                         color: accentBlue.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(8.r),
@@ -121,6 +132,8 @@ class AddBranchesScreen extends StatelessWidget {
                           label: "Branch Name",
                           hint: "Enter your branch name",
                           icon: Icons.business_center,
+                          controller:
+                              addBranchesController.branchNameController,
                           mediumBlue: mediumBlue,
                           accentBlue: accentBlue,
                           highlightBlue: highlightBlue,
@@ -130,6 +143,8 @@ class AddBranchesScreen extends StatelessWidget {
                           label: "Branch Location",
                           hint: "Enter your branch location",
                           icon: Icons.location_on,
+                          controller:
+                              addBranchesController.branchLocationController,
                           mediumBlue: mediumBlue,
                           accentBlue: accentBlue,
                           highlightBlue: highlightBlue,
@@ -150,6 +165,8 @@ class AddBranchesScreen extends StatelessWidget {
                           label: "Company Registration Number",
                           hint: "Enter company registration number",
                           icon: Icons.numbers,
+                          controller: addBranchesController
+                              .registrationNumberController,
                           mediumBlue: mediumBlue,
                           accentBlue: accentBlue,
                           highlightBlue: highlightBlue,
@@ -159,6 +176,8 @@ class AddBranchesScreen extends StatelessWidget {
                           label: "Branch Number",
                           hint: "Enter branch number",
                           icon: Icons.tag,
+                          controller:
+                              addBranchesController.branchNumberController,
                           mediumBlue: mediumBlue,
                           accentBlue: accentBlue,
                           highlightBlue: highlightBlue,
@@ -179,6 +198,8 @@ class AddBranchesScreen extends StatelessWidget {
                           label: "Number of Employees",
                           hint: "Enter number of employees",
                           icon: Icons.person_add,
+                          controller:
+                              addBranchesController.employeesCountController,
                           mediumBlue: mediumBlue,
                           accentBlue: accentBlue,
                           highlightBlue: highlightBlue,
@@ -222,11 +243,40 @@ class AddBranchesScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16.r),
                 ),
                 child: TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Check if all fields are filled
+                    if (addBranchesController.areFieldsValid()) {
+                      // Get the branch data
+                      Map<String, dynamic> branchData =
+                          addBranchesController.getBranchData();
+
+                      // Add branch to the list
+                      branchListController.addBranch(branchData);
+
+                      // Clear all fields
+                      addBranchesController.clearFields();
+
+                      // Show success message
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Branch added successfully!"),
+                          backgroundColor: accentBlue,
+                        ),
+                      );
+                    } else {
+                      // Show error message
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Please fill all fields!"),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  },
                   icon: Icon(
                     Icons.add_circle_outline,
                     color: highlightBlue,
-                    size: 20.sp, // Reduced icon size
+                    size: 20.sp,
                   ),
                   label: Text(
                     "SAVE & NEW",
@@ -234,7 +284,7 @@ class AddBranchesScreen extends StatelessWidget {
                       color: highlightBlue,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1,
-                      fontSize: 12.sp, // Reduced text size
+                      fontSize: 12.sp,
                     ),
                   ),
                   style: TextButton.styleFrom(
@@ -242,7 +292,7 @@ class AddBranchesScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.r),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 8.w), // Added padding
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
                   ),
                 ),
               ),
@@ -271,11 +321,38 @@ class AddBranchesScreen extends StatelessWidget {
                   ],
                 ),
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Check if all fields are filled
+                    if (addBranchesController.areFieldsValid()) {
+                      // Get the branch data
+                      Map<String, dynamic> branchData =
+                          addBranchesController.getBranchData();
+
+                      // Add branch to the list
+                      branchListController.addBranch(branchData);
+                      // Clear all fields
+                      addBranchesController.clearFields();
+
+                      // Navigate back to the branch list screen
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => BranchesListScreen(),
+                        ),
+                      );
+                    } else {
+                      // Show error message
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Please fill all fields!"),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  },
                   icon: Icon(
                     Icons.check_circle_outline,
                     color: Colors.white,
-                    size: 20.sp, // Reduced icon size
+                    size: 20.sp,
                   ),
                   label: Text(
                     "SAVE",
@@ -283,7 +360,7 @@ class AddBranchesScreen extends StatelessWidget {
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1,
-                      fontSize: 12.sp, // Reduced text size
+                      fontSize: 12.sp,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -293,7 +370,7 @@ class AddBranchesScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.r),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 8.w), // Added padding
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
                   ),
                 ),
               ),
@@ -305,14 +382,14 @@ class AddBranchesScreen extends StatelessWidget {
   }
 
   Widget _buildFormSection(
-      BuildContext context, {
-        required String title,
-        required IconData icon,
-        required List<Widget> fields,
-        required Color mediumBlue,
-        required Color accentBlue,
-        required Color highlightBlue,
-      }) {
+    BuildContext context, {
+    required String title,
+    required IconData icon,
+    required List<Widget> fields,
+    required Color mediumBlue,
+    required Color accentBlue,
+    required Color highlightBlue,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: mediumBlue.withOpacity(0.6),
@@ -360,14 +437,15 @@ class AddBranchesScreen extends StatelessWidget {
   }
 
   Widget _buildFormField(
-      BuildContext context, {
-        required String label,
-        required String hint,
-        required IconData icon,
-        required Color mediumBlue,
-        required Color accentBlue,
-        required Color highlightBlue,
-      }) {
+    BuildContext context, {
+    required String label,
+    required String hint,
+    required IconData icon,
+    required TextEditingController controller,
+    required Color mediumBlue,
+    required Color accentBlue,
+    required Color highlightBlue,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -412,10 +490,51 @@ class AddBranchesScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: CommonTextFormField(
+                  child: TextFormField(
+                controller: controller,
+                textInputAction: TextInputAction.next,
+                textAlignVertical: TextAlignVertical.top,
+                // textCapitalization: TextCapitalization.words,
+
+                style: GlobalTextStyles.textFormfieldStyle(context),
+                decoration: InputDecoration(
                   hintText: hint,
+                  filled: true,
+                  fillColor: Colors.blueGrey,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                    borderSide: BorderSide(color: ColorTheme.maincolor),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                    borderSide:
+                        BorderSide(color: ColorTheme.white.withOpacity(0.5)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                    borderSide: BorderSide(color: ColorTheme.white, width: 2),
+                  ),
+                  hintStyle: GlobalTextStyles.hintStyle(context)
+                      .copyWith(color: Colors.grey),
                 ),
-              ),
+              )
+                  // TextField(
+                  //   textInputAction: TextInputAction.next,
+                  //   controller: controller,
+                  //   decoration: InputDecoration(
+                  //     hintText: hint,
+                  //     hintStyle: TextStyle(
+                  //       color: Colors.white38,
+                  //       fontSize: 14.sp,
+                  //     ),
+                  //     border: InputBorder.none,
+                  //   ),
+                  //   style: TextStyle(
+                  //     color: Colors.white,
+                  //     fontSize: 14.sp,
+                  //   ),
+                  // ),
+                  ),
             ],
           ),
         ),
@@ -442,7 +561,8 @@ class BackgroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // Draw the background
     Paint backgroundPaint = Paint()..color = darkBlue;
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
+    canvas.drawRect(
+        Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
 
     // Draw the top right decoration
     Paint gradientPaint = Paint()
