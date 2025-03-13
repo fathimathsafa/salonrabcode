@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:salonrabcode/presentation/owner_side/add_branches_screen/view/add_branches_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/branches_list_screen/controller/branch_list_screen_controller.dart';
+import '../../branch_details_screen/view/branch_details_screeen.dart';
 
 class BranchesListScreen extends StatelessWidget {
   const BranchesListScreen({super.key});
@@ -22,19 +23,19 @@ class BranchesListScreen extends StatelessWidget {
     final highlightBlue = const Color(0xFF7EDFFF);
 
     return Scaffold(
-      backgroundColor: darkBlue, // Changed background color
+      backgroundColor: darkBlue,
       resizeToAvoidBottomInset: false,
-      extendBodyBehindAppBar: true, // Match AddBranchesScreen style
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.transparent, // Transparent AppBar
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back_ios_new,
-            color: Colors.white, // Changed color
+            color: Colors.white,
             size: isMobile ? 20.sp : (isTablet ? 16.sp : 8.sp),
           ),
         ),
@@ -42,7 +43,7 @@ class BranchesListScreen extends StatelessWidget {
         title: Text(
           "RABLOON",
           style: TextStyle(
-            color: highlightBlue, // Changed color
+            color: highlightBlue,
             fontWeight: FontWeight.bold,
             fontSize: isMobile ? 20.sp : (isTablet ? 16.sp : 12.sp),
             letterSpacing: 1.5,
@@ -74,7 +75,8 @@ class BranchesListScreen extends StatelessWidget {
                   children: [
                     SizedBox(height: 24.h),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                       decoration: BoxDecoration(
                         color: accentBlue.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(8.r),
@@ -175,40 +177,48 @@ class BranchesListScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 16.h),
                     // Sub branches list
-                    SizedBox(
-                      height: 300.h,
-                      child: Consumer<BranchListScreenController>(
-                        builder: (context, branchListScreenController, child) {
-                          return branchListScreenController.subBranches.isEmpty
-                              ? Center(
-                            child: Text(
-                              "No sub branches added yet",
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 14.sp,
-                              ),
-                            ),
-                          )
-                              : ListView.builder(
-                            itemCount: branchListScreenController.subBranches.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.only(bottom: 16.h),
-                                child: _buildBranchCardWithDeleteIcon(
-                                  branchListScreenController.subBranches[index]["branchName"]!,
-                                  branchListScreenController.subBranches[index]["location"]!,
-                                  index,
-                                  branchListScreenController,
-                                  mediumBlue,
-                                  accentBlue,
-                                  highlightBlue,
+                    Consumer<BranchListScreenController>(
+                      builder: (context, branchListScreenController, child) {
+                        return branchListScreenController.subBranches.isEmpty
+                            ? Center(
+                                child: Container(
+                                  height: 100.h,
+                                  child: Text(
+                                    "No sub branches added yet",
+                                    style: TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
                                 ),
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: branchListScreenController
+                                    .subBranches.length,
+                                itemBuilder: (context, index) {
+                                  final branch = branchListScreenController
+                                      .subBranches[index];
+                                  return Padding(
+                                    padding: EdgeInsets.only(bottom: 16.h),
+                                    child: _buildBranchCardWithDeleteIcon(
+                                      context,
+                                      branch["branchName"] ?? "",
+                                      branch["location"] ?? "",
+                                      index,
+                                      branch,
+                                      branchListScreenController,
+                                      mediumBlue,
+                                      accentBlue,
+                                      highlightBlue,
+                                    ),
+                                  );
+                                },
                               );
-                            },
-                          );
-                        },
-                      ),
+                      },
                     ),
+                    SizedBox(height: 80.h), // Add space at bottom
                   ],
                 ),
               ),
@@ -223,7 +233,7 @@ class BranchesListScreen extends StatelessWidget {
           color: Colors.white,
         ),
         onPressed: () {
-          Navigator.of(context).pushReplacement(
+          Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => AddBranchesScreen(),
             ),
@@ -234,67 +244,128 @@ class BranchesListScreen extends StatelessWidget {
   }
 
   Widget _buildBranchCardWithDeleteIcon(
-      String branchName,
-      String location,
-      int index,
-      BranchListScreenController branchListScreenController,
-      Color mediumBlue,
-      Color accentBlue,
-      Color highlightBlue,
-      ) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: 8.h,
-        horizontal: 16.w,
-      ),
-      decoration: BoxDecoration(
-        color: mediumBlue.withOpacity(0.6),
-        borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(
-          color: accentBlue.withOpacity(0.3),
-          width: 1,
+    BuildContext context,
+    String branchName,
+    String location,
+    int index,
+    Map<String, dynamic> branchData,
+    BranchListScreenController branchListScreenController,
+    Color mediumBlue,
+    Color accentBlue,
+    Color highlightBlue,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        // Navigate to branch details screen when tapped
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BranchDetailsScreen(branchData: branchData),
+          ),
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: 8.h,
+          horizontal: 16.w,
         ),
-      ),
-      child: ListTile(
-        contentPadding: EdgeInsets.zero, // Remove default padding
-        title: Text(
-          branchName,
-          style: TextStyle(
-            color: highlightBlue,
-            fontWeight: FontWeight.w600,
-            fontSize: 16.sp,
+        decoration: BoxDecoration(
+          color: mediumBlue.withOpacity(0.6),
+          borderRadius: BorderRadius.circular(12.r),
+          border: Border.all(
+            color: accentBlue.withOpacity(0.3),
+            width: 1,
           ),
         ),
-        subtitle: Row(
-          children: [
-            Icon(
-              Icons.location_on,
-              color: Colors.white70,
-              size: 14.sp,
+        child: ListTile(
+          contentPadding: EdgeInsets.zero, // Remove default padding
+          title: Text(
+            branchName,
+            style: TextStyle(
+              color: highlightBlue,
+              fontWeight: FontWeight.w600,
+              fontSize: 16.sp,
             ),
-            SizedBox(width: 4.w),
-            Expanded(
-              child: Text(
-                location,
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 14.sp,
-                ),
-                overflow: TextOverflow.ellipsis,
+          ),
+          subtitle: Row(
+            children: [
+              Icon(
+                Icons.location_on,
+                color: Colors.white70,
+                size: 14.sp,
               ),
+              SizedBox(width: 4.w),
+              Expanded(
+                child: Text(
+                  location,
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 14.sp,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          trailing: SizedBox(
+            // Constrain the trailing widget
+            width: 40.w, // Adjust the width as needed
+            child: IconButton(
+              icon: Icon(
+                Icons.delete_outline,
+                color: Colors.white70,
+              ),
+              onPressed: () {
+                // Show confirmation dialog before deleting
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: mediumBlue,
+                      title: Text(
+                        "Delete Branch",
+                        style: TextStyle(color: highlightBlue),
+                      ),
+                      content: Text(
+                        "Are you sure you want to delete this branch?",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      actions: [
+                        TextButton(
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(color: Colors.white70),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: accentBlue,
+                          ),
+                          child: Text(
+                            "Delete",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () {
+                            branchListScreenController.deleteBranch(index);
+                            Navigator.of(context).pop();
+
+                            // Show snackbar confirmation
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Branch deleted successfully"),
+                                backgroundColor: accentBlue,
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
             ),
-          ],
-        ),
-        trailing: SizedBox( // Constrain the trailing widget
-          width: 40.w, // Adjust the width as needed
-          child: IconButton(
-            icon: Icon(
-              Icons.delete_outline,
-              color: Colors.white70,
-            ),
-            onPressed: () {
-              branchListScreenController.deleteBranch(index);
-            },
           ),
         ),
       ),
@@ -320,7 +391,8 @@ class BackgroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // Draw the background
     Paint backgroundPaint = Paint()..color = darkBlue;
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
+    canvas.drawRect(
+        Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
 
     // Draw the top right decoration
     Paint gradientPaint = Paint()

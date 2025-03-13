@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:salonrabcode/presentation/owner_side/add_branches_screen/controller/add_branch_screen_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/add_branches_screen/view/add_branches_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/bottom_navigation_screen/controller/bottom_navigation_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/bottom_navigation_screen/view/bottom_navigation_screen.dart';
@@ -31,10 +32,10 @@ void main() {
     ChangeNotifierProvider(create: (_) => EmployeeProfileScreenController()),
     ChangeNotifierProvider(create: (_) => OwnerProfileScreenController()),
     ChangeNotifierProvider(create: (_) => BranchListScreenController()),
-    ChangeNotifierProvider(create: (_)=>BranchListScreenController()),
-    ChangeNotifierProvider(create: (_)=>AddServiceController()),
-    ChangeNotifierProvider(create: (_)=>PartnersAddingController()),
-    ChangeNotifierProvider(create: (_)=>CompanyProfileScreenController()),
+    ChangeNotifierProvider(create: (_) => AddServiceController()),
+    ChangeNotifierProvider(create: (_) => PartnersAddingController()),
+    ChangeNotifierProvider(create: (_) => CompanyProfileScreenController()),
+    ChangeNotifierProvider(create: (_) => AddBranchesController()),
   ], child: MyApp()));
 }
 
