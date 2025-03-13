@@ -200,7 +200,7 @@ class EmployeesAddingScreen extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                Expanded(
+                                Flexible(
                                   child: _buildFormField(
                                     context,
                                     label: "Username",
@@ -213,7 +213,7 @@ class EmployeesAddingScreen extends StatelessWidget {
                                 ),
                                 SizedBox(
                                     width: 10), // Adds spacing between fields
-                                Expanded(
+                                Flexible(
                                   child: _buildFormField(
                                     context,
                                     label: "Password",
@@ -232,160 +232,49 @@ class EmployeesAddingScreen extends StatelessWidget {
                           highlightBlue: highlightBlue,
                         ),
 
-                        // Container(
-                        //   padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        //   decoration: BoxDecoration(
-                        //     color: accentBlue.withOpacity(0.2),
-                        //     borderRadius: BorderRadius.circular(8.r),
-                        //   ),
-                        //   child: Column(
-                        //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     children: [
-                        //       SizedBox(
-                        //         height: 10.h,
-                        //       ),
-                        //       // First Row with Text
-                        //       Align(
-                        //         alignment: Alignment.centerLeft,
-                        //         child: Row(
-                        //           children: [
-                        //             Icon(
-                        //               Icons.people_outline,
-                        //               color: highlightBlue,
-                        //               size: isMobile ? 24.sp : 18.sp,
-                        //             ),
-                        //             SizedBox(width: 12.w),
-                        //             Text("Employe Details",
-                        //                 style: GoogleFonts.urbanist(
-                        //                     fontSize: 18.sp,
-                        //                     color: ColorTheme.white)),
-                        //           ],
-                        //         ),
-                        //       ),
-                        //       SizedBox(height: 24.h),
+                        SizedBox(height: 24.h),
+// _buildFormSection(
+//   context,title: "Service List",
+//   icon: Icons.spa,
+//   fields: [
+    
+//   ]
+// )
+                        // Text("Service List",
+                        //     style: GoogleFonts.urbanist(),),
+                        // SizedBox(height: 35.h),
 
-                        //       // Container(
-                        //       //   // padding: EdgeInsets.symmetric(
-                        //       //   //     horizontal: 12.w, vertical: 4.h),
-                        //       //   decoration: BoxDecoration(
-                        //       //     color: Colors.teal, // Background color
-                        //       //     borderRadius: BorderRadius.circular(
-                        //       //         12.r), // Rounded edges
-                        //       //   ),
-                        //       //   child: TextFormField(
-                        //       //     decoration: InputDecoration(
-                        //       //       hintStyle: GoogleFonts.urbanist(
-                        //       //           color: Color(0xFF0D1137)),
-                        //       //       hintText: "Full Name",
-                        //       //       border: InputBorder.none, // Removes outline
-                        //       //       prefixIcon: Icon(
-                        //       //         Icons.person_2_outlined,
-                        //       //         size: 20.sp,
-                        //       //         color: Color(0xFF0D1137),
-                        //       //       ),
-                        //       //     ),
-                        //       //   ),
-                        //       // ),
-                        //       SizedBox(height: 12.h),
-
-                        //       // Third Column - Row with Two TextFormFields
-                        //       Row(
-                        //         children: [
-                        //           // First TextFormField
-                        //           Expanded(
-                        //             child: Container(
-                        //               // padding: EdgeInsets.symmetric(
-                        //               //     horizontal: 12.w, vertical: 4.h),
-                        //               decoration: BoxDecoration(
-                        //                 color: Colors.teal, // Background color
-                        //                 borderRadius: BorderRadius.circular(
-                        //                     12.r), // Rounded edges
-                        //               ),
-                        //               child: TextFormField(
-                        //                 decoration: InputDecoration(
-                        //                   hintStyle: GoogleFonts.urbanist(
-                        //                       color: Color(0xFF0D1137)),
-                        //                   hintText: "Username",
-                        //                   border: InputBorder
-                        //                       .none, // Removes outline
-                        //                   prefixIcon: Icon(
-                        //                     Icons.account_circle_outlined,
-                        //                     size: 20.sp,
-                        //                     color: Color(0xFF0D1137),
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //           SizedBox(width: 12.w),
-
-                        //           // Second TextFormField
-                        //           Expanded(
-                        //             child: Container(
-                        //               // padding: EdgeInsets.symmetric(
-                        //               //     horizontal: 12.w, vertical: 4.h),
-                        //               decoration: BoxDecoration(
-                        //                 color: Colors.teal, // Background color
-                        //                 borderRadius: BorderRadius.circular(
-                        //                     12.r), // Rounded edges
-                        //               ),
-                        //               child: TextFormField(
-                        //                 decoration: InputDecoration(
-                        //                   hintStyle: GoogleFonts.urbanist(
-                        //                       color: Color(0xFF0D1137)),
-                        //                   hintText: "Password",
-                        //                   border: InputBorder
-                        //                       .none, // Removes outline
-                        //                   prefixIcon: Icon(
-                        //                     Icons.lock_outline_rounded,
-                        //                     size: 20.sp,
-                        //                     color: Color(0xFF0D1137),
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ],
+                        // SearchBarSalon(
+                        //   hintText: 'Search Service',
+                        // ),
+                        // SizedBox(
+                        //   height: 300.h, // Set a height for GridView
+                        //   child: GridView.builder(
+                        //     itemCount: serviceCategories.length,
+                        //     gridDelegate:
+                        //         SliverGridDelegateWithFixedCrossAxisCount(
+                        //       crossAxisCount: crossAxisCount,
+                        //       crossAxisSpacing: 10.w,
+                        //       mainAxisSpacing: 10.h,
+                        //       childAspectRatio: aspectRatio,
+                        //     ),
+                        //     itemBuilder: (context, index) {
+                        //       return ServiceContainer(
+                        //         name: serviceCategories[index]['category'],
+                        //         isMobile: isMobile,
+                        //         isTablet: isTablet,
+                        //         isLaptop: isLaptop,
+                        //         services: List<Map<String, String>>.from(
+                        //             serviceCategories[index]['services']),
+                        //         onSelectService: (service) {
+                        //           Provider.of<SelectedServiceProvider>(context,
+                        //                   listen: false)
+                        //               .selectService(service);
+                        //         },
+                        //       );
+                        //     },
                         //   ),
                         // ),
-                        SizedBox(height: 35.h),
-                        Text("Service List",
-                            style: GlobalTextStyles.subHeadding(context)),
-                        SizedBox(height: 35.h),
-
-                        SearchBarSalon(
-                          hintText: 'Search Service',
-                        ),
-                        SizedBox(
-                          height: 300.h, // Set a height for GridView
-                          child: GridView.builder(
-                            itemCount: serviceCategories.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: crossAxisCount,
-                              crossAxisSpacing: 10.w,
-                              mainAxisSpacing: 10.h,
-                              childAspectRatio: aspectRatio,
-                            ),
-                            itemBuilder: (context, index) {
-                              return ServiceContainer(
-                                name: serviceCategories[index]['category'],
-                                isMobile: isMobile,
-                                isTablet: isTablet,
-                                isLaptop: isLaptop,
-                                services: List<Map<String, String>>.from(
-                                    serviceCategories[index]['services']),
-                                onSelectService: (service) {
-                                  Provider.of<SelectedServiceProvider>(context,
-                                          listen: false)
-                                      .selectService(service);
-                                },
-                              );
-                            },
-                          ),
-                        ),
                         // Bottom buttons
                       ],
                     )
@@ -484,18 +373,22 @@ Widget _buildFormField(
         padding: EdgeInsets.only(left: 4.w, bottom: 8.h),
         child: Row(
           children: [
-            Icon(
-              icon,
-              size: 16.sp,
-              color: Colors.white70,
+            Flexible(
+              child: Icon(
+                icon,
+                size: 16.sp,
+                color: Colors.white70,
+              ),
             ),
             SizedBox(width: 8.w),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-                color: Colors.white70,
+            Flexible(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white70,
+                ),
               ),
             ),
           ],
