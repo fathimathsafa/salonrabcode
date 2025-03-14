@@ -108,10 +108,7 @@ class EmployeesAddingScreen extends StatelessWidget {
           IconButton(
             icon: Tooltip(
               message: "You need to fill all the fields to add your employees.",
-              child: Icon(
-                Icons.help_outline,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.help_outline, color: Colors.white, size: 20.sp),
             ),
             onPressed: () {
               // Optional
@@ -198,33 +195,23 @@ class EmployeesAddingScreen extends StatelessWidget {
                               accentBlue: accentBlue,
                               highlightBlue: highlightBlue,
                             ),
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: _buildFormField(
-                                    context,
-                                    label: "Username",
-                                    hint: " username",
-                                    icon: Icons.alternate_email,
-                                    mediumBlue: mediumBlue,
-                                    accentBlue: accentBlue,
-                                    highlightBlue: highlightBlue,
-                                  ),
-                                ),
-                                SizedBox(
-                                    width: 10), // Adds spacing between fields
-                                Flexible(
-                                  child: _buildFormField(
-                                    context,
-                                    label: "Password",
-                                    hint: "Password",
-                                    icon: Icons.lock_outline_rounded,
-                                    mediumBlue: mediumBlue,
-                                    accentBlue: accentBlue,
-                                    highlightBlue: highlightBlue,
-                                  ),
-                                ),
-                              ],
+                            _buildFormField(
+                              context,
+                              label: "Username",
+                              hint: " username",
+                              icon: Icons.alternate_email,
+                              mediumBlue: mediumBlue,
+                              accentBlue: accentBlue,
+                              highlightBlue: highlightBlue,
+                            ),
+                            _buildFormField(
+                              context,
+                              label: "Password",
+                              hint: "Password",
+                              icon: Icons.lock_outline_rounded,
+                              mediumBlue: mediumBlue,
+                              accentBlue: accentBlue,
+                              highlightBlue: highlightBlue,
                             ),
                           ],
                           mediumBlue: mediumBlue,
@@ -233,13 +220,25 @@ class EmployeesAddingScreen extends StatelessWidget {
                         ),
 
                         SizedBox(height: 24.h),
-// _buildFormSection(
-//   context,title: "Service List",
-//   icon: Icons.spa,
-//   fields: [
-    
-//   ]
-// )
+                        // _buildFormSection(
+                        //   context,
+                        //   title: "Service List",
+                        //   icon: Icons.spa,
+                        //   fields: [
+                        //     _buildFormField(
+                        //       context,
+                        //       label: "Username",
+                        //       hint: " username",
+                        //       icon: Icons.alternate_email,
+                        //       mediumBlue: mediumBlue,
+                        //       accentBlue: accentBlue,
+                        //       highlightBlue: highlightBlue,
+                        //     ),
+                        //   ],
+                        //   mediumBlue: mediumBlue,
+                        //   accentBlue: accentBlue,
+                        //   highlightBlue: highlightBlue,
+                        // )
                         // Text("Service List",
                         //     style: GoogleFonts.urbanist(),),
                         // SizedBox(height: 35.h),
@@ -283,35 +282,168 @@ class EmployeesAddingScreen extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            left: 24.w,
-            right: 24.w,
-            bottom: 24.h,
-            child: Row(
-              children: [
-                Expanded(
-                  child: _buildGradientButton(
-                    "SAVE & NEW",
-                    gradient: LinearGradient(
-                      colors: [Colors.deepPurple, Colors.blue],
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-                SizedBox(width: 16.w),
-                Expanded(
-                  child: _buildGradientButton(
-                    "SAVE",
-                    gradient: LinearGradient(
-                      colors: [Colors.teal, Colors.tealAccent],
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-              ],
-            ),
-          ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        decoration: BoxDecoration(
+          color: darkBlue,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 10,
+              offset: Offset(0, -5),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // SAVE & NEW Button
+            Expanded(
+              child: Container(
+                height: 45.h,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: accentBlue,
+                    width: 1.5,
+                  ),
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+                child: TextButton.icon(
+                  onPressed: () {
+                    // // Check if all fields are filled
+                    // if (addBranchesController.areFieldsValid()) {
+                    //   // Get the branch data
+                    //   Map<String, dynamic> branchData =
+                    //       addBranchesController.getBranchData();
+
+                    //   // Add branch to the list
+                    //   branchListController.addBranch(branchData);
+
+                    //   // Clear all fields
+                    //   addBranchesController.clearFields();
+
+                    //   // Show success message
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     SnackBar(
+                    //       content: Text("Branch added successfully!"),
+                    //       backgroundColor: accentBlue,
+                    //     ),
+                    //   );
+                    // } else {
+                    //   // Show error message
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     SnackBar(
+                    //       content: Text("Please fill all fields!"),
+                    //       backgroundColor: Colors.red,
+                    //     ),
+                    //   );
+                    // }
+                  },
+                  icon: Icon(
+                    Icons.add_circle_outline,
+                    color: highlightBlue,
+                    size: 20.sp,
+                  ),
+                  label: Text(
+                    "SAVE & NEW",
+                    style: TextStyle(
+                      color: highlightBlue,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 16.w),
+            // SAVE Button
+            Expanded(
+              child: Container(
+                height: 45.h,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      accentBlue,
+                      highlightBlue,
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  borderRadius: BorderRadius.circular(16.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: accentBlue.withOpacity(0.4),
+                      blurRadius: 15,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
+                ),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    // // Check if all fields are filled
+                    // if (addBranchesController.areFieldsValid()) {
+                    //   // Get the branch data
+                    //   Map<String, dynamic> branchData =
+                    //       addBranchesController.getBranchData();
+
+                    //   // Add branch to the list
+                    //   branchListController.addBranch(branchData);
+                    //   // Clear all fields
+                    //   addBranchesController.clearFields();
+
+                    //   // Navigate back to the branch list screen
+                    //   Navigator.of(context).pushReplacement(
+                    //     MaterialPageRoute(
+                    //       builder: (context) => BranchesListScreen(),
+                    //     ),
+                    //   );
+                    // } else {
+                    //   // Show error message
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     SnackBar(
+                    //       content: Text("Please fill all fields!"),
+                    //       backgroundColor: Colors.red,
+                    //     ),
+                    //   );
+                    // }
+                  },
+                  icon: Icon(
+                    Icons.check_circle_outline,
+                    color: Colors.white,
+                    size: 20.sp,
+                  ),
+                  label: Text(
+                    "SAVE",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                    shadowColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

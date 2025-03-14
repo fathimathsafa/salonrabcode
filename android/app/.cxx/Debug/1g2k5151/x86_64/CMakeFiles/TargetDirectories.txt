@@ -1,0 +1,2 @@
+C:/Users/Rabcode/Desktop/Safa Projects/Studio projects/salonrabcode/android/app/.cxx/Debug/1g2k5151/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/Rabcode/Desktop/Safa Projects/Studio projects/salonrabcode/android/app/.cxx/Debug/1g2k5151/x86_64/CMakeFiles/rebuild_cache.dir
