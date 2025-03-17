@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
 import 'package:salonrabcode/core/common/widget/serach_bar.dart';
+import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/view/employees_adding_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/service_adding_screen/view/service_adding_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/service_screen/widgets/service_category_container.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -109,11 +110,12 @@ class ServiceScreen extends StatelessWidget {
       body: Stack(children: [
         Positioned.fill(
           child: CustomPaint(
+            size: Size.infinite, // Covers the entire screen
             painter: BackgroundPainter(
-              darkBlue: darkBlue,
-              mediumBlue: mediumBlue,
-              lightBlue: lightBlue,
-              accentBlue: accentBlue,
+              darkBlue: Color(0xFF0A1128),
+              mediumBlue: Color(0xFF1C2E4A),
+              lightBlue: Color(0xFF31639C),
+              accentBlue: Color(0xFF4D9DE0),
             ),
           ),
         ),
@@ -200,70 +202,4 @@ class ServiceScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-// Reuse the same BackgroundPainter class from the AddBranchesScreen
-class BackgroundPainter extends CustomPainter {
-  final Color darkBlue;
-  final Color mediumBlue;
-  final Color lightBlue;
-  final Color accentBlue;
-
-  BackgroundPainter({
-    required this.darkBlue,
-    required this.mediumBlue,
-    required this.lightBlue,
-    required this.accentBlue,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Draw the background
-    Paint backgroundPaint = Paint()..color = darkBlue;
-    canvas.drawRect(
-        Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
-
-    // Draw the top right decoration
-    Paint gradientPaint = Paint()
-      ..shader = RadialGradient(
-        colors: [
-          accentBlue.withOpacity(0.3),
-          accentBlue.withOpacity(0.1),
-          darkBlue.withOpacity(0),
-        ],
-        stops: const [0.2, 0.6, 1.0],
-      ).createShader(Rect.fromCircle(
-        center: Offset(size.width * 0.9, size.height * 0.1),
-        radius: size.width * 0.6,
-      ));
-
-    canvas.drawCircle(
-      Offset(size.width * 0.9, size.height * 0.1),
-      size.width * 0.6,
-      gradientPaint,
-    );
-
-    // Draw the bottom left decoration
-    Paint bottomGradientPaint = Paint()
-      ..shader = RadialGradient(
-        colors: [
-          lightBlue.withOpacity(0.15),
-          mediumBlue.withOpacity(0.05),
-          darkBlue.withOpacity(0),
-        ],
-        stops: const [0.2, 0.6, 1.0],
-      ).createShader(Rect.fromCircle(
-        center: Offset(size.width * 0.1, size.height * 0.85),
-        radius: size.width * 0.5,
-      ));
-
-    canvas.drawCircle(
-      Offset(size.width * 0.1, size.height * 0.85),
-      size.width * 0.5,
-      bottomGradientPaint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

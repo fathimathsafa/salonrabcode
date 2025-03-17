@@ -19,20 +19,13 @@ class AddBranchesScreen extends StatelessWidget {
     bool isMobile = screenWidth <= 600;
     bool isTablet = screenWidth > 600 && screenWidth <= 1024;
 
-    // Dark blue color palette from Company Profile Screen
-    final darkBlue = const Color(0xFF0A1128);
-    final mediumBlue = const Color(0xFF1C2E4A);
-    final lightBlue = const Color(0xFF31639C);
-    final accentBlue = const Color(0xFF4D9DE0);
-    final highlightBlue = const Color(0xFF7EDFFF);
-
     // Get the controllers
     final addBranchesController = Provider.of<AddBranchesController>(context);
     final branchListController =
         Provider.of<BranchListScreenController>(context, listen: false);
 
     return Scaffold(
-      backgroundColor: darkBlue,
+      backgroundColor: ColorTheme.darkBlue,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
@@ -50,7 +43,7 @@ class AddBranchesScreen extends StatelessWidget {
         title: Text(
           "RABLOON",
           style: TextStyle(
-            color: highlightBlue,
+            color: ColorTheme.highlightBlue,
             fontWeight: FontWeight.bold,
             fontSize: isMobile ? 20.sp : (isTablet ? 16.sp : 12.sp),
             letterSpacing: 1.5,
@@ -78,10 +71,10 @@ class AddBranchesScreen extends StatelessWidget {
           Positioned.fill(
             child: CustomPaint(
               painter: BackgroundPainter(
-                darkBlue: darkBlue,
-                mediumBlue: mediumBlue,
-                lightBlue: lightBlue,
-                accentBlue: accentBlue,
+                darkBlue: ColorTheme.darkBlue,
+                mediumBlue: ColorTheme.mediumBlue,
+                lightBlue: ColorTheme.lightBlue,
+                accentBlue: ColorTheme.accentBlue,
               ),
             ),
           ),
@@ -100,21 +93,21 @@ class AddBranchesScreen extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                       decoration: BoxDecoration(
-                        color: accentBlue.withOpacity(0.2),
+                        color: ColorTheme.accentBlue.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                       child: Row(
                         children: [
                           Icon(
                             Icons.business,
-                            color: highlightBlue,
+                            color: ColorTheme.highlightBlue,
                             size: isMobile ? 24.sp : 18.sp,
                           ),
                           SizedBox(width: 12.w),
                           Text(
                             "Branch Information",
                             style: TextStyle(
-                              color: highlightBlue,
+                              color: ColorTheme.highlightBlue,
                               fontWeight: FontWeight.bold,
                               fontSize: isMobile ? 18.sp : 14.sp,
                             ),
@@ -135,9 +128,9 @@ class AddBranchesScreen extends StatelessWidget {
                           icon: Icons.business_center,
                           controller:
                               addBranchesController.branchNameController,
-                          mediumBlue: mediumBlue,
-                          accentBlue: accentBlue,
-                          highlightBlue: highlightBlue,
+                          mediumBlue: ColorTheme.mediumBlue,
+                          accentBlue: ColorTheme.accentBlue,
+                          highlightBlue: ColorTheme.highlightBlue,
                         ),
                         _buildFormField(
                           context,
@@ -146,14 +139,14 @@ class AddBranchesScreen extends StatelessWidget {
                           icon: Icons.location_on,
                           controller:
                               addBranchesController.branchLocationController,
-                          mediumBlue: mediumBlue,
-                          accentBlue: accentBlue,
-                          highlightBlue: highlightBlue,
+                          mediumBlue: ColorTheme.mediumBlue,
+                          accentBlue: ColorTheme.accentBlue,
+                          highlightBlue: ColorTheme.highlightBlue,
                         ),
                       ],
-                      mediumBlue: mediumBlue,
-                      accentBlue: accentBlue,
-                      highlightBlue: highlightBlue,
+                      mediumBlue: ColorTheme.mediumBlue,
+                      accentBlue: ColorTheme.accentBlue,
+                      highlightBlue: ColorTheme.highlightBlue,
                     ),
                     SizedBox(height: 16.h),
                     _buildFormSection(
@@ -168,9 +161,9 @@ class AddBranchesScreen extends StatelessWidget {
                           icon: Icons.numbers,
                           controller: addBranchesController
                               .registrationNumberController,
-                          mediumBlue: mediumBlue,
-                          accentBlue: accentBlue,
-                          highlightBlue: highlightBlue,
+                          mediumBlue: ColorTheme.mediumBlue,
+                          accentBlue: ColorTheme.accentBlue,
+                          highlightBlue: ColorTheme.highlightBlue,
                         ),
                         _buildFormField(
                           context,
@@ -179,14 +172,14 @@ class AddBranchesScreen extends StatelessWidget {
                           icon: Icons.tag,
                           controller:
                               addBranchesController.branchNumberController,
-                          mediumBlue: mediumBlue,
-                          accentBlue: accentBlue,
-                          highlightBlue: highlightBlue,
+                          mediumBlue: ColorTheme.mediumBlue,
+                          accentBlue: ColorTheme.accentBlue,
+                          highlightBlue: ColorTheme.highlightBlue,
                         ),
                       ],
-                      mediumBlue: mediumBlue,
-                      accentBlue: accentBlue,
-                      highlightBlue: highlightBlue,
+                      mediumBlue: ColorTheme.mediumBlue,
+                      accentBlue: ColorTheme.accentBlue,
+                      highlightBlue: ColorTheme.highlightBlue,
                     ),
                     SizedBox(height: 16.h),
                     _buildFormSection(
@@ -201,14 +194,14 @@ class AddBranchesScreen extends StatelessWidget {
                           icon: Icons.person_add,
                           controller:
                               addBranchesController.employeesCountController,
-                          mediumBlue: mediumBlue,
-                          accentBlue: accentBlue,
-                          highlightBlue: highlightBlue,
+                          mediumBlue: ColorTheme.mediumBlue,
+                          accentBlue: ColorTheme.accentBlue,
+                          highlightBlue: ColorTheme.highlightBlue,
                         ),
                       ],
-                      mediumBlue: mediumBlue,
-                      accentBlue: accentBlue,
-                      highlightBlue: highlightBlue,
+                      mediumBlue: ColorTheme.mediumBlue,
+                      accentBlue: ColorTheme.accentBlue,
+                      highlightBlue: ColorTheme.highlightBlue,
                     ),
                     SizedBox(height: 90.h), // Extra space for bottom buttons
                   ],
@@ -221,7 +214,7 @@ class AddBranchesScreen extends StatelessWidget {
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         decoration: BoxDecoration(
-          color: darkBlue,
+          color: ColorTheme.darkBlue,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
@@ -238,7 +231,7 @@ class AddBranchesScreen extends StatelessWidget {
                 height: 45.h,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: accentBlue,
+                    color: ColorTheme.accentBlue,
                     width: 1.5,
                   ),
                   borderRadius: BorderRadius.circular(16.r),
@@ -261,7 +254,7 @@ class AddBranchesScreen extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text("Branch added successfully!"),
-                          backgroundColor: accentBlue,
+                          backgroundColor: ColorTheme.accentBlue,
                         ),
                       );
                     } else {
@@ -276,13 +269,13 @@ class AddBranchesScreen extends StatelessWidget {
                   },
                   icon: Icon(
                     Icons.add_circle_outline,
-                    color: highlightBlue,
+                    color: ColorTheme.highlightBlue,
                     size: 20.sp,
                   ),
                   label: Text(
                     "SAVE & NEW",
                     style: TextStyle(
-                      color: highlightBlue,
+                      color: ColorTheme.highlightBlue,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1,
                       fontSize: 12.sp,
@@ -306,8 +299,8 @@ class AddBranchesScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      accentBlue,
-                      highlightBlue,
+                      ColorTheme.accentBlue,
+                      ColorTheme.highlightBlue,
                     ],
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
@@ -315,7 +308,7 @@ class AddBranchesScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16.r),
                   boxShadow: [
                     BoxShadow(
-                      color: accentBlue.withOpacity(0.4),
+                      color: ColorTheme.accentBlue.withOpacity(0.4),
                       blurRadius: 15,
                       offset: const Offset(0, 8),
                     ),
@@ -519,22 +512,6 @@ class AddBranchesScreen extends StatelessWidget {
                       .copyWith(color: Colors.grey),
                 ),
               )
-                  // TextField(
-                  //   textInputAction: TextInputAction.next,
-                  //   controller: controller,
-                  //   decoration: InputDecoration(
-                  //     hintText: hint,
-                  //     hintStyle: TextStyle(
-                  //       color: Colors.white38,
-                  //       fontSize: 14.sp,
-                  //     ),
-                  //     border: InputBorder.none,
-                  //   ),
-                  //   style: TextStyle(
-                  //     color: Colors.white,
-                  //     fontSize: 14.sp,
-                  //   ),
-                  // ),
                   ),
             ],
           ),

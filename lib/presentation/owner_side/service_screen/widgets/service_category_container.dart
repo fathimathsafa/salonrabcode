@@ -35,11 +35,11 @@ class ServiceCategoryContainer extends StatelessWidget {
           builder: (context, scrollController) {
             return Container(
               decoration: BoxDecoration(
-                color: Colors.teal[900],
+                color: ColorTheme.mediumBlue,
                 borderRadius: BorderRadius.circular(12.r),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withOpacity(0.5),
                     blurRadius: 5.r,
                     spreadRadius: 2.r,
                   ),
@@ -87,7 +87,7 @@ class ServiceCategoryContainer extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.1),
+          color: Colors.black.withOpacity(0.5),
           borderRadius: BorderRadius.circular(12.r),
           boxShadow: [
             BoxShadow(
