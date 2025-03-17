@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/common/painters/background_painter.dart';
+
 class BranchDetailsScreen extends StatelessWidget {
   final Map<String, dynamic> branchData;
 
@@ -63,179 +65,244 @@ class BranchDetailsScreen extends StatelessWidget {
 
           // Content
           SafeArea(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 24.h),
-                    // Branch name header
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(vertical: 24.h),
-                      decoration: BoxDecoration(
-                        color: mediumBlue.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(12.r),
-                        border: Border.all(
-                          color: accentBlue.withOpacity(0.3),
-                          width: 1,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: lightBlue.withOpacity(0.1),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
+            child: Container(
+              height: MediaQuery.of(context).size.height, // Fill the screen height
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 24.h),
+                      // Branch name header
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(vertical: 24.h),
+                        decoration: BoxDecoration(
+                          color: mediumBlue.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(12.r),
+                          border: Border.all(
+                            color: accentBlue.withOpacity(0.3),
+                            width: 1,
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.business,
-                            color: highlightBlue,
-                            size: 40.sp,
-                          ),
-                          SizedBox(height: 16.h),
-                          Text(
-                            branchData["branchName"] ?? "Branch Name",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24.sp,
+                          boxShadow: [
+                            BoxShadow(
+                              color: lightBlue.withOpacity(0.1),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 24.h),
-
-                    // Branch details section
-                    _buildDetailSection(
-                      title: "Branch Details",
-                      icon: Icons.store,
-                      details: [
-                        _buildDetailItem(
-                          label: "Branch Name",
-                          value: branchData["branchName"] ?? "-",
-                          icon: Icons.business_center,
-                        ),
-                        _buildDetailItem(
-                          label: "Branch Location",
-                          value: branchData["location"] ?? "-",
-                          icon: Icons.location_on,
-                        ),
-                      ],
-                      mediumBlue: mediumBlue,
-                      accentBlue: accentBlue,
-                      highlightBlue: highlightBlue,
-                    ),
-                    SizedBox(height: 16.h),
-
-                    // Registration information section
-                    _buildDetailSection(
-                      title: "Registration Information",
-                      icon: Icons.description,
-                      details: [
-                        _buildDetailItem(
-                          label: "Company Registration Number",
-                          value: branchData["registrationNumber"] ?? "-",
-                          icon: Icons.numbers,
-                        ),
-                        _buildDetailItem(
-                          label: "Branch Number",
-                          value: branchData["branchNumber"] ?? "-",
-                          icon: Icons.tag,
-                        ),
-                      ],
-                      mediumBlue: mediumBlue,
-                      accentBlue: accentBlue,
-                      highlightBlue: highlightBlue,
-                    ),
-                    SizedBox(height: 16.h),
-
-                    // Staffing section
-                    _buildDetailSection(
-                      title: "Staffing",
-                      icon: Icons.people,
-                      details: [
-                        _buildDetailItem(
-                          label: "Number of Employees",
-                          value: branchData["employeesCount"] ?? "-",
-                          icon: Icons.person_add,
-                        ),
-                      ],
-                      mediumBlue: mediumBlue,
-                      accentBlue: accentBlue,
-                      highlightBlue: highlightBlue,
-                    ),
-                    SizedBox(height: 24.h),
-
-                    // Edit button
-                    Container(
-                      width: double.infinity,
-                      height: 50.h,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            accentBlue,
-                            highlightBlue,
                           ],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
                         ),
-                        borderRadius: BorderRadius.circular(16.r),
-                        boxShadow: [
-                          BoxShadow(
-                            color: accentBlue.withOpacity(0.4),
-                            blurRadius: 15,
-                            offset: const Offset(0, 8),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.business,
+                              color: highlightBlue,
+                              size: 40.sp,
+                            ),
+                            SizedBox(height: 16.h),
+                            Text(
+                              branchData["branchName"] ?? "Branch Name",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 24.h),
+
+                      // Branch details section
+                      _buildDetailSection(
+                        title: "Branch Details",
+                        icon: Icons.store,
+                        details: [
+                          _buildDetailItem(
+                            label: "Branch Name",
+                            value: branchData["branchName"] ?? "-",
+                            icon: Icons.business_center,
+                          ),
+                          _buildDetailItem(
+                            label: "Branch Location",
+                            value: branchData["location"] ?? "-",
+                            icon: Icons.location_on,
                           ),
                         ],
+                        mediumBlue: mediumBlue,
+                        accentBlue: accentBlue,
+                        highlightBlue: highlightBlue,
                       ),
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // Navigate to edit screen (you can create this as a future enhancement)
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text("Edit functionality coming soon!"),
-                              backgroundColor: accentBlue,
-                            ),
-                          );
-                        },
-                        icon: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                          size: 20.sp,
-                        ),
-                        label: Text(
-                          "EDIT BRANCH",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1,
-                            fontSize: 14.sp,
+                      SizedBox(height: 16.h),
+
+                      // Registration information section
+                      _buildDetailSection(
+                        title: "Registration Information",
+                        icon: Icons.description,
+                        details: [
+                          _buildDetailItem(
+                            label: "Company Registration Number",
+                            value: branchData["registrationNumber"] ?? "-",
+                            icon: Icons.numbers,
                           ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          foregroundColor: Colors.white,
-                          shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.r),
+                          _buildDetailItem(
+                            label: "Branch Number",
+                            value: branchData["branchNumber"] ?? "-",
+                            icon: Icons.tag,
                           ),
-                        ),
+                        ],
+                        mediumBlue: mediumBlue,
+                        accentBlue: accentBlue,
+                        highlightBlue: highlightBlue,
                       ),
-                    ),
-                    SizedBox(height: 32.h),
-                  ],
+                      SizedBox(height: 16.h),
+
+                      // Staffing section
+                      _buildDetailSection(
+                        title: "Staffing",
+                        icon: Icons.people,
+                        details: [
+                          _buildDetailItem(
+                            label: "Number of Employees",
+                            value: branchData["employeesCount"] ?? "-",
+                            icon: Icons.person_add,
+                          ),
+                        ],
+                        mediumBlue: mediumBlue,
+                        accentBlue: accentBlue,
+                        highlightBlue: highlightBlue,
+                      ),
+                      SizedBox(height: 24.h),
+
+                      // // Edit button
+                      // Container(
+                      //   width: double.infinity,
+                      //   height: 50.h,
+                      //   decoration: BoxDecoration(
+                      //     gradient: LinearGradient(
+                      //       colors: [
+                      //         accentBlue,
+                      //         highlightBlue,
+                      //       ],
+                      //       begin: Alignment.centerLeft,
+                      //       end: Alignment.centerRight,
+                      //     ),
+                      //     borderRadius: BorderRadius.circular(16.r),
+                      //     boxShadow: [
+                      //       BoxShadow(
+                      //         color: accentBlue.withOpacity(0.4),
+                      //         blurRadius: 15,
+                      //         offset: const Offset(0, 8),
+                      //       ),
+                      //     ],
+                      //   ),
+                      //   child: ElevatedButton(
+                      //     onPressed: () {
+                      //       // Navigate to edit screen (you can create this as a future enhancement)
+                      //       ScaffoldMessenger.of(context).showSnackBar(
+                      //         SnackBar(
+                      //           content: Text("Edit functionality coming soon!"),
+                      //           backgroundColor: accentBlue,
+                      //         ),
+                      //       );
+                      //     },
+                      //     // icon: Icon(
+                      //     //   Icons.edit,
+                      //     //   color: Colors.white,
+                      //     //   size: 20.sp,
+                      //     // ),
+                      //     child:  Text(
+                      //       "EDIT BRANCH",
+                      //       style: TextStyle(
+                      //         color: Colors.white,
+                      //         fontWeight: FontWeight.bold,
+                      //         letterSpacing: 1,
+                      //         fontSize: 14.sp,
+                      //       ),
+                      //     ),
+                      //     style: ElevatedButton.styleFrom(
+                      //       backgroundColor: Colors.transparent,
+                      //       foregroundColor: Colors.white,
+                      //       shadowColor: Colors.transparent,
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(16.r),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      SizedBox(height: 32.h),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        decoration: BoxDecoration(
+          color: darkBlue,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 10,
+              offset: Offset(0, -5),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // SAVE & NEW Button
+            Expanded(
+              child: Container(
+                height: 45.h,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: accentBlue,
+                    width: 1.5,
+                  ),
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+                child: TextButton.icon(
+                  onPressed: () {
+                  //  Navigate to edit screen (you can create this as a future enhancement)
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Edit functionality coming soon!"),
+                        backgroundColor: accentBlue,
+                      ),
+                    );
+                  },
+                  icon: Icon(
+                    Icons.mode_edit_outline_outlined,
+                    color: highlightBlue,
+                    size: 20.sp,
+                  ),
+                  label: Text(
+                    "EDIT BRANCH",
+                    style: TextStyle(
+                      color: highlightBlue,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -338,67 +405,3 @@ class BranchDetailsScreen extends StatelessWidget {
   }
 }
 
-class BackgroundPainter extends CustomPainter {
-  final Color darkBlue;
-  final Color mediumBlue;
-  final Color lightBlue;
-  final Color accentBlue;
-
-  BackgroundPainter({
-    required this.darkBlue,
-    required this.mediumBlue,
-    required this.lightBlue,
-    required this.accentBlue,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Background gradient
-    Paint backgroundPaint = Paint()
-      ..shader = LinearGradient(
-        colors: [darkBlue, mediumBlue],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
-
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, size.width, size.height),
-      backgroundPaint,
-    );
-
-    // Decorative elements
-    Paint circlePaint = Paint()
-      ..color = lightBlue.withOpacity(0.1)
-      ..style = PaintingStyle.fill;
-
-    // Top right circle
-    canvas.drawCircle(
-      Offset(size.width * 0.9, size.height * 0.1),
-      size.width * 0.2,
-      circlePaint,
-    );
-
-    // Bottom left circle
-    canvas.drawCircle(
-      Offset(size.width * 0.1, size.height * 0.85),
-      size.width * 0.15,
-      circlePaint,
-    );
-
-    // Center accent line
-    Paint linePaint = Paint()
-      ..color = accentBlue.withOpacity(0.1)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-
-    Path path = Path();
-    path.moveTo(0, size.height * 0.4);
-    path.quadraticBezierTo(
-        size.width * 0.5, size.height * 0.2, size.width, size.height * 0.5);
-
-    canvas.drawPath(path, linePaint);
-  }
-
-  @override
-  bool shouldRepaint(BackgroundPainter oldDelegate) => false;
-}
