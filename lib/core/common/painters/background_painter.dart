@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:salonrabcode/core/constants/colors.dart';
 
 class BackgroundPainter extends CustomPainter {
-  final Color darkBlue;
-  final Color mediumBlue;
-  final Color lightBlue;
-  final Color accentBlue;
-
-  BackgroundPainter({
-    required this.darkBlue,
-    required this.mediumBlue,
-    required this.lightBlue,
-    required this.accentBlue,
-  });
-
   @override
   void paint(Canvas canvas, Size size) {
     // Draw the background
-    Paint backgroundPaint = Paint()..color = darkBlue;
+    Paint backgroundPaint = Paint()..color = ColorTheme.darkBlue;
     canvas.drawRect(
         Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
 
@@ -24,9 +13,9 @@ class BackgroundPainter extends CustomPainter {
     Paint gradientPaint = Paint()
       ..shader = RadialGradient(
         colors: [
-          accentBlue.withOpacity(0.3),
-          accentBlue.withOpacity(0.1),
-          darkBlue.withOpacity(0),
+          ColorTheme.accentBlue.withOpacity(0.3),
+          ColorTheme.accentBlue.withOpacity(0.1),
+          ColorTheme.darkBlue.withOpacity(0),
         ],
         stops: const [0.2, 0.6, 1.0],
       ).createShader(Rect.fromCircle(
@@ -44,9 +33,9 @@ class BackgroundPainter extends CustomPainter {
     Paint bottomGradientPaint = Paint()
       ..shader = RadialGradient(
         colors: [
-          lightBlue.withOpacity(0.15),
-          mediumBlue.withOpacity(0.05),
-          darkBlue.withOpacity(0),
+          ColorTheme.lightBlue.withOpacity(0.15),
+          ColorTheme.mediumBlue.withOpacity(0.05),
+          ColorTheme.darkBlue.withOpacity(0),
         ],
         stops: const [0.2, 0.6, 1.0],
       ).createShader(Rect.fromCircle(

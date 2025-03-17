@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/presentation/owner_side/add_branches_screen/view/add_branches_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/branches_list_screen/controller/branch_list_screen_controller.dart';
 import '../../../../core/common/painters/background_painter.dart';
@@ -16,15 +17,10 @@ class BranchesListScreen extends StatelessWidget {
     bool isMobile = screenWidth <= 600;
     bool isTablet = screenWidth > 600 && screenWidth <= 1024;
 
-    // Dark blue color palette from AddBranchesScreen
-    final darkBlue = const Color(0xFF0A1128);
-    final mediumBlue = const Color(0xFF1C2E4A);
-    final lightBlue = const Color(0xFF31639C);
-    final accentBlue = const Color(0xFF4D9DE0);
-    final highlightBlue = const Color(0xFF7EDFFF);
+
 
     return Scaffold(
-      backgroundColor: darkBlue,
+      backgroundColor: ColorTheme.darkBlue,
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -44,7 +40,7 @@ class BranchesListScreen extends StatelessWidget {
         title: Text(
           "RABLOON",
           style: TextStyle(
-            color: highlightBlue,
+            color: ColorTheme.highlightBlue,
             fontWeight: FontWeight.bold,
             fontSize: isMobile ? 20.sp : (isTablet ? 16.sp : 12.sp),
             letterSpacing: 1.5,
@@ -57,10 +53,7 @@ class BranchesListScreen extends StatelessWidget {
           Positioned.fill(
             child: CustomPaint(
               painter: BackgroundPainter(
-                darkBlue: darkBlue,
-                mediumBlue: mediumBlue,
-                lightBlue: lightBlue,
-                accentBlue: accentBlue,
+
               ),
             ),
           ),
@@ -79,21 +72,21 @@ class BranchesListScreen extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                       decoration: BoxDecoration(
-                        color: accentBlue.withOpacity(0.2),
+                        color: ColorTheme.accentBlue.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                       child: Row(
                         children: [
                           Icon(
                             Icons.business,
-                            color: highlightBlue,
+                            color: ColorTheme.highlightBlue,
                             size: isMobile ? 24.sp : 18.sp,
                           ),
                           SizedBox(width: 12.w),
                           Text(
                             "Branches",
                             style: TextStyle(
-                              color: highlightBlue,
+                              color: ColorTheme.highlightBlue,
                               fontWeight: FontWeight.bold,
                               fontSize: isMobile ? 18.sp : 14.sp,
                             ),
@@ -119,15 +112,15 @@ class BranchesListScreen extends StatelessWidget {
                         horizontal: 16.w,
                       ),
                       decoration: BoxDecoration(
-                        color: mediumBlue.withOpacity(0.6),
+                        color: ColorTheme.mediumBlue.withOpacity(0.6),
                         borderRadius: BorderRadius.circular(12.r),
                         border: Border.all(
-                          color: accentBlue.withOpacity(0.3),
+                          color: ColorTheme.accentBlue.withOpacity(0.3),
                           width: 1,
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: lightBlue.withOpacity(0.1),
+                            color: ColorTheme.lightBlue.withOpacity(0.1),
                             blurRadius: 10,
                             offset: const Offset(0, 4),
                           ),
@@ -139,7 +132,7 @@ class BranchesListScreen extends StatelessWidget {
                           Text(
                             "CABELLO",
                             style: TextStyle(
-                              color: highlightBlue,
+                              color: ColorTheme.highlightBlue,
                               fontWeight: FontWeight.bold,
                               fontSize: 18.sp,
                               letterSpacing: 1.5,
@@ -212,9 +205,9 @@ class BranchesListScreen extends StatelessWidget {
                                       index,
                                       branch,
                                       branchListScreenController,
-                                      mediumBlue,
-                                      accentBlue,
-                                      highlightBlue,
+                                      ColorTheme.mediumBlue,
+                                      ColorTheme.accentBlue,
+                                      ColorTheme.highlightBlue,
                                     ),
                                   );
                                 },
@@ -230,7 +223,7 @@ class BranchesListScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: accentBlue,
+        backgroundColor: ColorTheme.accentBlue,
         child: Icon(
           Icons.add,
           color: Colors.white,
@@ -375,4 +368,3 @@ class BranchesListScreen extends StatelessWidget {
     );
   }
 }
-

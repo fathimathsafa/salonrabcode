@@ -5,8 +5,6 @@ import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
 import 'package:salonrabcode/presentation/owner_side/branches_list_screen/controller/branch_list_screen_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/branches_list_screen/view/branches_list_screen.dart';
-import 'package:salonrabcode/presentation/owner_side/service_adding_screen/widgets/common_textformfield.dart';
-
 import '../../../../core/common/painters/background_painter.dart';
 import '../controller/add_branch_screen_controller.dart';
 
@@ -71,10 +69,7 @@ class AddBranchesScreen extends StatelessWidget {
           Positioned.fill(
             child: CustomPaint(
               painter: BackgroundPainter(
-                darkBlue: ColorTheme.darkBlue,
-                mediumBlue: ColorTheme.mediumBlue,
-                lightBlue: ColorTheme.lightBlue,
-                accentBlue: ColorTheme.accentBlue,
+
               ),
             ),
           ),
@@ -128,9 +123,6 @@ class AddBranchesScreen extends StatelessWidget {
                           icon: Icons.business_center,
                           controller:
                               addBranchesController.branchNameController,
-                          mediumBlue: ColorTheme.mediumBlue,
-                          accentBlue: ColorTheme.accentBlue,
-                          highlightBlue: ColorTheme.highlightBlue,
                         ),
                         _buildFormField(
                           context,
@@ -139,14 +131,8 @@ class AddBranchesScreen extends StatelessWidget {
                           icon: Icons.location_on,
                           controller:
                               addBranchesController.branchLocationController,
-                          mediumBlue: ColorTheme.mediumBlue,
-                          accentBlue: ColorTheme.accentBlue,
-                          highlightBlue: ColorTheme.highlightBlue,
                         ),
                       ],
-                      mediumBlue: ColorTheme.mediumBlue,
-                      accentBlue: ColorTheme.accentBlue,
-                      highlightBlue: ColorTheme.highlightBlue,
                     ),
                     SizedBox(height: 16.h),
                     _buildFormSection(
@@ -161,9 +147,6 @@ class AddBranchesScreen extends StatelessWidget {
                           icon: Icons.numbers,
                           controller: addBranchesController
                               .registrationNumberController,
-                          mediumBlue: ColorTheme.mediumBlue,
-                          accentBlue: ColorTheme.accentBlue,
-                          highlightBlue: ColorTheme.highlightBlue,
                         ),
                         _buildFormField(
                           context,
@@ -172,14 +155,8 @@ class AddBranchesScreen extends StatelessWidget {
                           icon: Icons.tag,
                           controller:
                               addBranchesController.branchNumberController,
-                          mediumBlue: ColorTheme.mediumBlue,
-                          accentBlue: ColorTheme.accentBlue,
-                          highlightBlue: ColorTheme.highlightBlue,
                         ),
                       ],
-                      mediumBlue: ColorTheme.mediumBlue,
-                      accentBlue: ColorTheme.accentBlue,
-                      highlightBlue: ColorTheme.highlightBlue,
                     ),
                     SizedBox(height: 16.h),
                     _buildFormSection(
@@ -194,14 +171,8 @@ class AddBranchesScreen extends StatelessWidget {
                           icon: Icons.person_add,
                           controller:
                               addBranchesController.employeesCountController,
-                          mediumBlue: ColorTheme.mediumBlue,
-                          accentBlue: ColorTheme.accentBlue,
-                          highlightBlue: ColorTheme.highlightBlue,
                         ),
                       ],
-                      mediumBlue: ColorTheme.mediumBlue,
-                      accentBlue: ColorTheme.accentBlue,
-                      highlightBlue: ColorTheme.highlightBlue,
                     ),
                     SizedBox(height: 90.h), // Extra space for bottom buttons
                   ],
@@ -380,16 +351,15 @@ class AddBranchesScreen extends StatelessWidget {
     required String title,
     required IconData icon,
     required List<Widget> fields,
-    required Color mediumBlue,
-    required Color accentBlue,
-    required Color highlightBlue,
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: mediumBlue.withOpacity(0.6),
+        color: ColorTheme.mediumBlue.withOpacity(0.6),
+        // Use ColorTheme directly
         borderRadius: BorderRadius.circular(12.r),
         border: Border.all(
-          color: accentBlue.withOpacity(0.3),
+          color: ColorTheme.accentBlue.withOpacity(0.3),
+          // Use ColorTheme directly
           width: 1,
         ),
       ),
@@ -402,14 +372,14 @@ class AddBranchesScreen extends StatelessWidget {
               children: [
                 Icon(
                   icon,
-                  color: highlightBlue,
+                  color: ColorTheme.highlightBlue, // Use ColorTheme directly
                   size: 20.sp,
                 ),
                 SizedBox(width: 8.w),
                 Text(
                   title,
                   style: TextStyle(
-                    color: highlightBlue,
+                    color: ColorTheme.highlightBlue, // Use ColorTheme directly
                     fontWeight: FontWeight.w600,
                     fontSize: 16.sp,
                   ),
@@ -417,7 +387,8 @@ class AddBranchesScreen extends StatelessWidget {
               ],
             ),
           ),
-          Divider(height: 1, color: accentBlue.withOpacity(0.2)),
+          Divider(height: 1, color: ColorTheme.accentBlue.withOpacity(0.2)),
+          // Use ColorTheme directly
           Padding(
             padding: EdgeInsets.all(16.w),
             child: Column(
@@ -436,9 +407,6 @@ class AddBranchesScreen extends StatelessWidget {
     required String hint,
     required IconData icon,
     required TextEditingController controller,
-    required Color mediumBlue,
-    required Color accentBlue,
-    required Color highlightBlue,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -466,10 +434,12 @@ class AddBranchesScreen extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            color: mediumBlue.withOpacity(0.8),
+            color: ColorTheme.mediumBlue.withOpacity(0.8),
+            // Use ColorTheme directly
             borderRadius: BorderRadius.circular(16.r),
             border: Border.all(
-              color: accentBlue.withOpacity(0.3),
+              color: ColorTheme.accentBlue.withOpacity(0.3),
+              // Use ColorTheme directly
               width: 1,
             ),
           ),
@@ -479,40 +449,44 @@ class AddBranchesScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 12.w),
                 child: Icon(
                   icon,
-                  color: highlightBlue.withOpacity(0.7),
+                  color: ColorTheme.highlightBlue.withOpacity(0.7),
+                  // Use ColorTheme directly
                   size: 20.sp,
                 ),
               ),
               Expanded(
-                  child: TextFormField(
-                controller: controller,
-                textInputAction: TextInputAction.next,
-                textAlignVertical: TextAlignVertical.top,
-                // textCapitalization: TextCapitalization.words,
-
-                style: GlobalTextStyles.textFormfieldStyle(context),
-                decoration: InputDecoration(
-                  hintText: hint,
-                  filled: true,
-                  fillColor: Colors.blueGrey,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                    borderSide: BorderSide(color: ColorTheme.maincolor),
+                child: TextFormField(
+                  controller: controller,
+                  textInputAction: TextInputAction.next,
+                  textAlignVertical: TextAlignVertical.top,
+                  style: GlobalTextStyles.textFormfieldStyle(context),
+                  decoration: InputDecoration(
+                    hintText: hint,
+                    filled: true,
+                    fillColor: Colors.blueGrey,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                      borderSide: BorderSide(
+                          color:
+                              ColorTheme.maincolor), // Use ColorTheme directly
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                      borderSide: BorderSide(
+                          color: ColorTheme.white
+                              .withOpacity(0.5)), // Use ColorTheme directly
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                      borderSide: BorderSide(
+                          color: ColorTheme.white,
+                          width: 2), // Use ColorTheme directly
+                    ),
+                    hintStyle: GlobalTextStyles.hintStyle(context)
+                        .copyWith(color: Colors.grey),
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                    borderSide:
-                        BorderSide(color: ColorTheme.white.withOpacity(0.5)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                    borderSide: BorderSide(color: ColorTheme.white, width: 2),
-                  ),
-                  hintStyle: GlobalTextStyles.hintStyle(context)
-                      .copyWith(color: Colors.grey),
                 ),
-              )
-                  ),
+              ),
             ],
           ),
         ),
@@ -521,4 +495,3 @@ class AddBranchesScreen extends StatelessWidget {
     );
   }
 }
-
