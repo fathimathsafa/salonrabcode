@@ -32,13 +32,6 @@ void main() {
     ChangeNotifierProvider(create: (_) => EmployeeProfileScreenController()),
     ChangeNotifierProvider(create: (_) => OwnerProfileScreenController()),
     ChangeNotifierProvider(create: (_) => BranchListScreenController()),
-<<<<<<< HEAD
-    ChangeNotifierProvider(create: (_) => BranchListScreenController()),
-    ChangeNotifierProvider(create: (_) => AddServiceController()),
-    ChangeNotifierProvider(create: (_) => PartnersAddingController()),
-    ChangeNotifierProvider(create: (_) => CompanyProfileScreenController()),
-=======
->>>>>>> 2558caedd6af7a519f95e3004c7845b325d00ce7
     ChangeNotifierProvider(create: (_) => AddServiceController()),
     ChangeNotifierProvider(create: (_) => PartnersAddingController()),
     ChangeNotifierProvider(create: (_) => CompanyProfileScreenController()),
@@ -56,11 +49,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-<<<<<<< HEAD
-          home: ServiceScreen(),
-=======
           home: OwnerBottomNavigationScreen(),
->>>>>>> 2558caedd6af7a519f95e3004c7845b325d00ce7
         );
       },
     );
