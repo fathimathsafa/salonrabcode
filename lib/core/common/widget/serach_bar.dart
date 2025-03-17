@@ -10,6 +10,12 @@ class SearchBarSalon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Dark blue color palette from AddBranchesScreen
+    final darkBlue = const Color(0xFF0A1128);
+    final mediumBlue = const Color(0xFF1C2E4A);
+    final lightBlue = const Color(0xFF31639C);
+    final accentBlue = const Color(0xFF4D9DE0);
+    final highlightBlue = const Color(0xFF7EDFFF);
     double screenWidth = MediaQuery.of(context).size.width;
 
     bool isMobile = screenWidth <= 600;
@@ -24,9 +30,9 @@ class SearchBarSalon extends StatelessWidget {
         vertical: verticalPadding,
       ),
       decoration: BoxDecoration(
-        color: ColorTheme.white.withOpacity(0.1),
+        color: accentBlue.withOpacity(0.2),
         borderRadius:
-            BorderRadius.circular(isMobile ? 30.r : (isTablet ? 10.r : 10.r)),
+            BorderRadius.circular(isMobile ? 10.r : (isTablet ? 10.r : 10.r)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -48,16 +54,6 @@ class SearchBarSalon extends StatelessWidget {
           hintStyle: GlobalTextStyles.hintStyle(context),
         ),
       ),
-      // GestureDetector(
-      //   onTap: () {
-      //     // Add button action here
-      //   },
-      //   child: Icon(
-      //     Icons.search,
-      //     color: ColorTheme.maincolor,
-      //     size: isMobile ? 20.sp : (isTablet ? 20.sp : 15.sp),
-      //   ),
-      // ),
     );
   }
 }

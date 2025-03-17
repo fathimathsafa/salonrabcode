@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
 import 'package:salonrabcode/core/common/widget/serach_bar.dart';
@@ -82,47 +83,37 @@ class ServiceScreen extends StatelessWidget {
     int crossAxisCount = isMobile ? 2 : (isTablet ? 3 : 4);
     double aspectRatio = isMobile ? 2 : (isTablet ? 1.8 : 1.6);
     double padding = isMobile ? 10.w : (isTablet ? 20.w : 10.w);
-
+    final darkBlue = const Color(0xFF0A1128);
+    final mediumBlue = const Color(0xFF1C2E4A);
+    final lightBlue = const Color(0xFF31639C);
+    final accentBlue = const Color(0xFF4D9DE0);
+    final highlightBlue = const Color(0xFF7EDFFF);
     return Scaffold(
+      backgroundColor: darkBlue,
+      resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     gradient: LinearGradient(
-        //       begin: Alignment.topCenter,
-        //       end: Alignment.bottomCenter,
-        //       colors: [
-        //         Color(0xFF0D1137),
-        //         Color(0xFF1A2151),
-        //       ],
-        //     ),
-        //   ),
-        // ),
+        backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Text(
           "RABLOON",
-          style: GlobalTextStyles.appBarHeadding(context),
+          style: TextStyle(
+            color: highlightBlue,
+            fontWeight: FontWeight.bold,
+            fontSize: isMobile ? 20.sp : (isTablet ? 16.sp : 12.sp),
+            letterSpacing: 1.5,
+          ),
         ),
-        // actions: [
-        //   Text(
-        //     "RABLOON",
-        //     style: GlobalTextStyles.appBarHeadding(context),
-        //   ),
-        // ],
       ),
-      resizeToAvoidBottomInset: false,
       body: Stack(children: [
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xFF1A2151),
-                Color(0xFF0D1137),
-              ],
+        Positioned.fill(
+          child: CustomPaint(
+            painter: BackgroundPainter(
+              darkBlue: darkBlue,
+              mediumBlue: mediumBlue,
+              lightBlue: lightBlue,
+              accentBlue: accentBlue,
             ),
           ),
         ),
@@ -131,23 +122,31 @@ class ServiceScreen extends StatelessWidget {
             padding: EdgeInsets.all(padding),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.spa,
-                      size: 25.sp,
-                      color: Colors.teal,
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Text(
-                      "Your Salon Services",
-                      style: GlobalTextStyles.subHeadding(context),
-                    ),
-                  ],
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                  decoration: BoxDecoration(
+                    color: accentBlue.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.spa,
+                        color: highlightBlue,
+                        size: isMobile ? 24.sp : 18.sp,
+                      ),
+                      SizedBox(width: 12.w),
+                      Text(
+                        "Your Salon Services",
+                        style: GoogleFonts.urbanist(
+                          color: highlightBlue,
+                          fontWeight: FontWeight.bold,
+                          fontSize: isMobile ? 18.sp : 14.sp,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: isMobile ? 15.h : 20.h),
                 SearchBarSalon(
@@ -187,7 +186,7 @@ class ServiceScreen extends StatelessWidget {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => AddServiceScreen()));
         },
-        backgroundColor: Colors.teal, // Use your theme color
+        backgroundColor: accentBlue, // Use your theme color
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.r), // Adjust radius
         ),
@@ -201,4 +200,70 @@ class ServiceScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+// Reuse the same BackgroundPainter class from the AddBranchesScreen
+class BackgroundPainter extends CustomPainter {
+  final Color darkBlue;
+  final Color mediumBlue;
+  final Color lightBlue;
+  final Color accentBlue;
+
+  BackgroundPainter({
+    required this.darkBlue,
+    required this.mediumBlue,
+    required this.lightBlue,
+    required this.accentBlue,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Draw the background
+    Paint backgroundPaint = Paint()..color = darkBlue;
+    canvas.drawRect(
+        Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
+
+    // Draw the top right decoration
+    Paint gradientPaint = Paint()
+      ..shader = RadialGradient(
+        colors: [
+          accentBlue.withOpacity(0.3),
+          accentBlue.withOpacity(0.1),
+          darkBlue.withOpacity(0),
+        ],
+        stops: const [0.2, 0.6, 1.0],
+      ).createShader(Rect.fromCircle(
+        center: Offset(size.width * 0.9, size.height * 0.1),
+        radius: size.width * 0.6,
+      ));
+
+    canvas.drawCircle(
+      Offset(size.width * 0.9, size.height * 0.1),
+      size.width * 0.6,
+      gradientPaint,
+    );
+
+    // Draw the bottom left decoration
+    Paint bottomGradientPaint = Paint()
+      ..shader = RadialGradient(
+        colors: [
+          lightBlue.withOpacity(0.15),
+          mediumBlue.withOpacity(0.05),
+          darkBlue.withOpacity(0),
+        ],
+        stops: const [0.2, 0.6, 1.0],
+      ).createShader(Rect.fromCircle(
+        center: Offset(size.width * 0.1, size.height * 0.85),
+        radius: size.width * 0.5,
+      ));
+
+    canvas.drawCircle(
+      Offset(size.width * 0.1, size.height * 0.85),
+      size.width * 0.5,
+      bottomGradientPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

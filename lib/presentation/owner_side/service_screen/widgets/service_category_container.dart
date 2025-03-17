@@ -127,6 +127,12 @@ class ServiceCategoryContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Dark blue color palette from AddBranchesScreen
+    final darkBlue = const Color(0xFF0A1128);
+    final mediumBlue = const Color(0xFF1C2E4A);
+    final lightBlue = const Color(0xFF31639C);
+    final accentBlue = const Color(0xFF4D9DE0);
+    final highlightBlue = const Color(0xFF7EDFFF);
     double padding = isMobile ? 12.w : (isTablet ? 16.w : 20.w);
     double radius = isMobile ? 12.r : (isTablet ? 18.r : 24.r);
 
@@ -137,15 +143,8 @@ class ServiceCategoryContainer extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10.h),
             decoration: BoxDecoration(
-              color: ColorTheme.white.withOpacity(0.1),
+              color: accentBlue.withOpacity(0.2),
               borderRadius: BorderRadius.circular(12.r),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 5.r,
-                  spreadRadius: 2.r,
-                ),
-              ],
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -162,7 +161,7 @@ class ServiceCategoryContainer extends StatelessWidget {
                     // Your delete function here
                     print("Delete $name");
                   },
-                  child: Icon(Icons.delete, color: Colors.teal, size: 20.sp),
+                  child: Icon(Icons.delete, color: highlightBlue, size: 20.sp),
                 ),
               ],
             ),
