@@ -10,7 +10,7 @@ class PartnersAddingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.black,
+      backgroundColor: ColorTheme.darkBlue,
       body: Consumer<PartnersAddingController>(
         builder: (context, provider, child) {
           return Stack(
@@ -22,8 +22,8 @@ class PartnersAddingScreen extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Color(0xFF1A2151),
-                      Color(0xFF0D1137),
+                      ColorTheme.darkBlue,
+                      ColorTheme.mediumBlue,
                     ],
                   ),
                 ),
@@ -35,6 +35,7 @@ class PartnersAddingScreen extends StatelessWidget {
                 left: 24.w,
                 right: 24.w,
                 child: Row(
+                  // mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
@@ -76,7 +77,7 @@ class PartnersAddingScreen extends StatelessWidget {
                             height: 4.h,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                colors: [Colors.teal, Colors.purple],
+                                colors: [ColorTheme.accentBlue, ColorTheme.highlightBlue],
                               ),
                               borderRadius: BorderRadius.circular(2.r),
                             ),
@@ -219,23 +220,92 @@ class PartnersAddingScreen extends StatelessWidget {
                 bottom: 24.h,
                 child: Row(
                   children: [
+                    // SAVE & NEW Button
                     Expanded(
-                      child: _buildGradientButton(
-                        "SAVE & NEW",
-                        gradient: LinearGradient(
-                          colors: [Colors.deepPurple, Colors.blue],
+                      child: Container(
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorTheme.accentBlue,
+                            width: 1.5,
+                          ),
+                          borderRadius: BorderRadius.circular(12.r),
                         ),
-                        onPressed: () => provider.saveAndAddNew(context),
+                        child: TextButton.icon(
+                          onPressed: () => provider.saveAndAddNew(context),
+                          icon: Icon(
+                            Icons.add_circle_outline,
+                            color: ColorTheme.highlightBlue,
+                            size: 20.sp,
+                          ),
+                          label: Text(
+                            "SAVE & NEW",
+                            style: TextStyle(
+                              color: ColorTheme.highlightBlue,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.r),
+                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 8.w),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(width: 16.w),
+                    // SAVE Button
                     Expanded(
-                      child: _buildGradientButton(
-                        "SAVE",
-                        gradient: LinearGradient(
-                          colors: [Colors.teal, Colors.tealAccent],
+                      child: Container(
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              ColorTheme.accentBlue,
+                              ColorTheme.highlightBlue,
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ),
+                          borderRadius: BorderRadius.circular(12.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorTheme.accentBlue.withOpacity(0.4),
+                              blurRadius: 15,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
                         ),
-                        onPressed: () => provider.savePartner(context),
+                        child: ElevatedButton.icon(
+                          onPressed: () => provider.savePartner(context),
+                          icon: Icon(
+                            Icons.check_circle_outline,
+                            color: Colors.white,
+                            size: 20.sp,
+                          ),
+                          label: Text(
+                            "SAVE",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            foregroundColor: Colors.white,
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.r),
+                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 8.w),
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -255,7 +325,7 @@ class PartnersAddingScreen extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: ColorTheme.mediumBlue.withOpacity(0.6),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -274,15 +344,19 @@ class PartnersAddingScreen extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(icon, color: Colors.white70, size: 20),
-                  SizedBox(width: 8),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                  Icon(icon, color: ColorTheme.highlightBlue.withOpacity(0.7), size: 18.sp),
+                  SizedBox(width: 6.w),
+                  Flexible(
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
@@ -297,6 +371,7 @@ class PartnersAddingScreen extends StatelessWidget {
       ),
     );
   }
+<<<<<<< HEAD
 
   Widget _buildGradientButton(
     String text, {
@@ -338,3 +413,6 @@ class PartnersAddingScreen extends StatelessWidget {
     );
   }
 }
+=======
+}
+>>>>>>> a615c7341bd580a3a1c305e7a61061684f493cf3

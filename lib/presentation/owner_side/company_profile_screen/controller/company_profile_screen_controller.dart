@@ -20,6 +20,9 @@ class CompanyProfileScreenController with ChangeNotifier {
 
   int get currentField => _currentField;
 
+  // Focus nodes for each field
+  final List<FocusNode> focusNodes = List.generate(7, (index) => FocusNode());
+
   void setCurrentField(int index) {
     _currentField = index;
     notifyListeners();
@@ -28,11 +31,11 @@ class CompanyProfileScreenController with ChangeNotifier {
   void saveField(BuildContext context, int index) {
     if (_formKey.currentState!.validate()) {
       _currentField = -1; // Reset the current field
+      focusNodes[index].unfocus(); // Un focus the current field
       notifyListeners();
       showSuccessMessage(context);
     }
   }
-
   void showSuccessMessage(BuildContext context) {
     // Show the dialog
     showDialog(
@@ -111,6 +114,10 @@ class CompanyProfileScreenController with ChangeNotifier {
     branchesController.dispose();
     mainBranchController.dispose();
     employeesController.dispose();
+    for (var node in focusNodes) {
+      node.dispose();
+    }
     super.dispose();
   }
 }
+
