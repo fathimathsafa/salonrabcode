@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: EmployeesScreen(),
+          home: OwnerBottomNavigationScreen(),
         );
       },
     );

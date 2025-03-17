@@ -44,8 +44,9 @@ class PartnersAddingScreen extends StatelessWidget {
                         Navigator.pop(context);
                       },
                     ),
-                    Text("RABLOON",
-                        style: GlobalTextStyles.appBarHeadding1(context)),
+                    Text(
+                        "RABLOON",
+                    ),
                   ],
                 ),
               ),
@@ -54,8 +55,7 @@ class PartnersAddingScreen extends StatelessWidget {
               SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      top: 100.h, left: 24.w, right: 24.w, bottom: 24.h),
+                  padding: EdgeInsets.only(top: 100.h, left: 24.w, right: 24.w, bottom: 24.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -98,12 +98,10 @@ class PartnersAddingScreen extends StatelessWidget {
                               child: TextFormField(
                                 textInputAction: TextInputAction.next,
                                 controller: provider.partnerNameController,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 14.sp),
+                                style: TextStyle(color: Colors.white, fontSize: 14.sp),
                                 decoration: InputDecoration(
                                   hintText: "Enter partner name",
-                                  hintStyle: TextStyle(
-                                      color: Colors.white60, fontSize: 14.sp),
+                                  hintStyle: TextStyle(color: Colors.white60, fontSize: 14.sp),
                                   border: InputBorder.none,
                                 ),
                                 validator: (value) {
@@ -114,19 +112,19 @@ class PartnersAddingScreen extends StatelessWidget {
                                 },
                               ),
                             ),
+
                             SizedBox(height: 20.h),
+
                             _buildInputCard(
                               icon: Icons.email_outlined,
                               title: "Email",
                               child: TextFormField(
                                 textInputAction: TextInputAction.next,
                                 controller: provider.emailController,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 14.sp),
+                                style: TextStyle(color: Colors.white, fontSize: 14.sp),
                                 decoration: InputDecoration(
                                   hintText: "Enter email address",
-                                  hintStyle: TextStyle(
-                                      color: Colors.white60, fontSize: 14.sp),
+                                  hintStyle: TextStyle(color: Colors.white60, fontSize: 14.sp),
                                   border: InputBorder.none,
                                 ),
                                 keyboardType: TextInputType.emailAddress,
@@ -134,28 +132,26 @@ class PartnersAddingScreen extends StatelessWidget {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter email address';
                                   }
-                                  if (!RegExp(
-                                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                      .hasMatch(value)) {
+                                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
                                     return 'Please enter a valid email address';
                                   }
                                   return null;
                                 },
                               ),
                             ),
+
                             SizedBox(height: 20.h),
+
                             _buildInputCard(
                               icon: Icons.alternate_email,
                               title: "Username",
                               child: TextFormField(
                                 textInputAction: TextInputAction.next,
                                 controller: provider.usernameController,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 14.sp),
+                                style: TextStyle(color: Colors.white, fontSize: 14.sp),
                                 decoration: InputDecoration(
                                   hintText: "Enter username",
-                                  hintStyle: TextStyle(
-                                      color: Colors.white60, fontSize: 14.sp),
+                                  hintStyle: TextStyle(color: Colors.white60, fontSize: 14.sp),
                                   border: InputBorder.none,
                                 ),
                                 validator: (value) {
@@ -166,25 +162,23 @@ class PartnersAddingScreen extends StatelessWidget {
                                 },
                               ),
                             ),
+
                             SizedBox(height: 20.h),
+
                             _buildInputCard(
                               icon: Icons.lock_outline,
                               title: "Password",
                               child: TextFormField(
                                 controller: provider.passwordController,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 14.sp),
+                                style: TextStyle(color: Colors.white, fontSize: 14.sp),
                                 obscureText: !provider.isPasswordVisible,
                                 decoration: InputDecoration(
                                   hintText: "Enter password",
-                                  hintStyle: TextStyle(
-                                      color: Colors.white60, fontSize: 14.sp),
+                                  hintStyle: TextStyle(color: Colors.white60, fontSize: 14.sp),
                                   border: InputBorder.none,
                                   suffixIcon: IconButton(
                                     icon: Icon(
-                                      provider.isPasswordVisible
-                                          ? Icons.visibility_off
-                                          : Icons.visibility,
+                                      provider.isPasswordVisible ? Icons.visibility_off : Icons.visibility,
                                       color: Colors.white60,
                                       size: 20.sp,
                                     ),
@@ -204,6 +198,7 @@ class PartnersAddingScreen extends StatelessWidget {
                                 },
                               ),
                             ),
+
                             SizedBox(height: 100.h),
                           ],
                         ),
@@ -341,8 +336,7 @@ class PartnersAddingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -371,48 +365,4 @@ class PartnersAddingScreen extends StatelessWidget {
       ),
     );
   }
-<<<<<<< HEAD
-
-  Widget _buildGradientButton(
-    String text, {
-    required Gradient gradient,
-    required VoidCallback onPressed,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: gradient,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.white,
-          shadowColor: Colors.transparent,
-          padding: EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1,
-          ),
-        ),
-      ),
-    );
-  }
 }
-=======
-}
->>>>>>> a615c7341bd580a3a1c305e7a61061684f493cf3
