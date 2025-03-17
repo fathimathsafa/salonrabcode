@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/presentation/owner_side/add_branches_screen/view/add_branches_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/company_profile_screen/controller/company_profile_screen_controller.dart';
 
@@ -30,10 +31,10 @@ class CompanyProfileScreen extends StatelessWidget {
           Positioned.fill(
             child: CustomPaint(
               painter: BackgroundPainter(
-                darkBlue: const Color(0xFF0A1128),
-                mediumBlue: const Color(0xFF1C2E4A),
-                lightBlue: const Color(0xFF31639C),
-                accentBlue: const Color(0xFF4D9DE0),
+                darkBlue: ColorTheme.darkBlue,
+                mediumBlue:ColorTheme.mediumBlue,
+                lightBlue:ColorTheme.lightBlue,
+                accentBlue: ColorTheme.accentBlue,
               ),
             ),
           ),
