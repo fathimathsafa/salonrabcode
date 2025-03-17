@@ -15,38 +15,84 @@ class EmpllooyeeNameContainer extends StatelessWidget {
     required this.isTablet,
     required this.isLaptop,
   });
-  void _showDeleteConfirmation(BuildContext context) {
+
+  void _showDeleteConfirmationDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text(
-            "Are you sure you want to delete \"$name\"?",
-            style: GlobalTextStyles.serviceContainer(context),
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(16.r), // Responsive border radius
           ),
-          actions: [
-            // Cancel Button
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text(
-                "No",
-                style: GlobalTextStyles.serviceContainer(context),
-              ),
+          backgroundColor: Color(0xFF1C2E4A), // Custom background color
+          child: Padding(
+            padding: EdgeInsets.all(20.w), // Responsive padding
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Prevent unnecessary space
+              children: [
+                Text("Delete Category",
+                    style: GlobalTextStyles.alertBoxText(context)),
+                SizedBox(height: 10.h), // Responsive spacing
+                Text(
+                  "Are you sure you want to delete this category?",
+                  style: GlobalTextStyles.alertBoxSUBText(context),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20.h), // Responsive spacing
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Flexible(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green, // No button color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                8.r), // Responsive border radius
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h,
+                              horizontal: 20.w), // Responsive padding
+                        ),
+                        child: Text(
+                          "No",
+                          style: GlobalTextStyles.hintAndCategoryText(
+                              context), // Responsive font size
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          print(
+                              "Category deleted"); // Replace with actual delete logic
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red, // Yes button color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                8.r), // Responsive border radius
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h,
+                              horizontal: 20.w), // Responsive padding
+                        ),
+                        child: Text("Yes",
+                            style: GlobalTextStyles.hintAndCategoryText(
+                                context) // Responsive font size
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-
-            // Delete Button
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text(
-                "Yes",
-                style: GlobalTextStyles.serviceContainer(context),
-              ),
-            ),
-          ],
+          ),
         );
       },
     );
@@ -55,9 +101,6 @@ class EmpllooyeeNameContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double padding = isMobile ? 12.w : (isTablet ? 16.w : 20.w);
-    double radius = isMobile ? 12.r : (isTablet ? 18.r : 24.r);
-    double height = isMobile ? 80.h : (isTablet ? 100.h : 120.h);
-    double width = isMobile ? 150.w : (isTablet ? 180.w : 200.w);
 
     return AspectRatio(
       aspectRatio: isMobile ? 2.5 : (isTablet ? 3 : 3.5), // Adjust aspect ratio
@@ -65,15 +108,8 @@ class EmpllooyeeNameContainer extends StatelessWidget {
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10.h),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.1),
+          color: ColorTheme.accentBlue.withOpacity(0.2),
           borderRadius: BorderRadius.circular(12.r),
-          boxShadow: [
-            BoxShadow(
-              color: ColorTheme.black.withOpacity(0.1),
-              blurRadius: 5.r,
-              spreadRadius: 2.r,
-            ),
-          ],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -87,11 +123,13 @@ class EmpllooyeeNameContainer extends StatelessWidget {
               ),
             ),
             IconButton(
-                onPressed: () => _showDeleteConfirmation(context),
+                onPressed: () {
+                  _showDeleteConfirmationDialog(context);
+                },
                 icon: Icon(
                   Icons.delete,
-                  size: 25.sp,
-                  color: Colors.teal,
+                  size: 20.sp,
+                  color: ColorTheme.highlightBlue,
                 ))
           ],
         ),

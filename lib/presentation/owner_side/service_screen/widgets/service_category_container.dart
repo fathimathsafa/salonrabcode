@@ -121,8 +121,6 @@ class ServiceCategoryContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accentBlue = const Color(0xFF4D9DE0);
-    final highlightBlue = const Color(0xFF7EDFFF);
     double padding = isMobile ? 12.w : (isTablet ? 16.w : 20.w);
 
     return GestureDetector(
@@ -130,7 +128,7 @@ class ServiceCategoryContainer extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10.h),
         decoration: BoxDecoration(
-          color: accentBlue.withOpacity(0.2),
+          color: ColorTheme.accentBlue.withOpacity(0.2),
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: Row(
@@ -147,7 +145,8 @@ class ServiceCategoryContainer extends StatelessWidget {
               onTap: () {
                 _showDeleteConfirmationDialog(context);
               },
-              child: Icon(Icons.delete, color: highlightBlue, size: 20.sp),
+              child: Icon(Icons.delete,
+                  color: ColorTheme.highlightBlue, size: 20.sp),
             ),
           ],
         ),

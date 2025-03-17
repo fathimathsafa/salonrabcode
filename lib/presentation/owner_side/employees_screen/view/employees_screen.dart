@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
-import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/view/employees_adding_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/employees_screen/widget/employee_name_conatiner.dart';
 import 'package:salonrabcode/core/common/widget/serach_bar.dart';
+
+import '../../../../core/common/painters/background_painter.dart';
 
 class EmployeesScreen extends StatelessWidget {
   final List<String> employees = [
@@ -28,47 +29,20 @@ class EmployeesScreen extends StatelessWidget {
     double aspectRatio = isMobile ? 2 : (isTablet ? 1.8 : 1.6);
     double padding = isMobile ? 10.w : (isTablet ? 20.w : 10.w);
     return Scaffold(
+      backgroundColor: ColorTheme.darkBlue,
+      resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFF0D1137),
-                Color(0xFF1A2151),
-              ],
-            ),
-          ),
-        ),
+        backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Text(
-          "RABLOON",
-          style: GlobalTextStyles.appBarHeadding1(context),
-        ),
-        // actions: [
-        //   Text(
-        //     "RABLOON",
-        //     style: GlobalTextStyles.appBarHeadding(context),
-        //   ),
-        // ],
+        title: Text("RABLOON", style: GlobalTextStyles.appBarHeading(context)),
       ),
-      backgroundColor: Colors.grey[100],
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF1A2151),
-                  Color(0xFF0D1137),
-                ],
-              ),
+          Positioned.fill(
+            child: CustomPaint(
+              painter: BackgroundPainter(),
             ),
           ),
           SafeArea(
@@ -76,23 +50,27 @@ class EmployeesScreen extends StatelessWidget {
               padding: EdgeInsets.all(padding),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.person_2_rounded,
-                        size: 25.sp,
-                        color: Colors.teal,
-                      ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      Text(
-                        "Your Salon Employees",
-                        style: GlobalTextStyles.subHeadding1(context),
-                      ),
-                    ],
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                    decoration: BoxDecoration(
+                      color: ColorTheme.accentBlue.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.person,
+                          color: ColorTheme.highlightBlue,
+                          size: isMobile ? 24.sp : 18.sp,
+                        ),
+                        SizedBox(width: 12.w),
+                        Text(
+                          "Your Salon Employees",
+                          style: GlobalTextStyles.subHeading(context),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: isMobile ? 15.h : 20.h),
                   SearchBarSalon(
