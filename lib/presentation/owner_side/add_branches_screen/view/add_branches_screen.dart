@@ -6,6 +6,7 @@ import 'package:salonrabcode/core/constants/text_styles.dart';
 import 'package:salonrabcode/presentation/owner_side/branches_list_screen/controller/branch_list_screen_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/branches_list_screen/view/branches_list_screen.dart';
 import '../../../../core/common/painters/background_painter.dart';
+import '../../company_profile_screen/view/company_profile_screen.dart';
 import '../controller/add_branch_screen_controller.dart';
 
 class AddBranchesScreen extends StatelessWidget {
@@ -30,7 +31,7 @@ class AddBranchesScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>CompanyProfileScreen()));
           },
           icon: Icon(
             Icons.arrow_back_ios_new,
@@ -68,9 +69,7 @@ class AddBranchesScreen extends StatelessWidget {
           // Background decoration
           Positioned.fill(
             child: CustomPaint(
-              painter: BackgroundPainter(
-
-              ),
+              painter: BackgroundPainter(),
             ),
           ),
 

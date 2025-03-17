@@ -72,7 +72,7 @@ class OwnerBottomNavigationScreen extends StatelessWidget {
             bottomNavigationcontroller.setSelectedIndex(index);
           },
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.teal,
+          backgroundColor: ColorTheme.mediumBlue,
           items: List.generate(_navItems.length, (index) {
             final item = _navItems[index];
             return BottomNavigationBarItem(

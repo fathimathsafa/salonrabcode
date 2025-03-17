@@ -63,7 +63,7 @@ class OwnerProfileScreen extends StatelessWidget {
                               children: [
                                 // Header
                                 buildHeaderSection(),
-                                SizedBox(height: 40.h),
+                                SizedBox(height: 30.h),
 
                                 // Form Fields
                                 Column(
