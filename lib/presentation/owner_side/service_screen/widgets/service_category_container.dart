@@ -22,15 +22,15 @@ class ServiceCategoryContainer extends StatelessWidget {
   void _showServiceDetails(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // Allow the bottom sheet to take more height
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       ),
       builder: (context) {
         return DraggableScrollableSheet(
-          initialChildSize: 0.5, // Start at 50% of the screen height
-          minChildSize: 0.3, // Minimum height is 30% of screen height
-          maxChildSize: 0.9, // Maximum height is 90% of screen height
+          initialChildSize: 0.5,
+          minChildSize: 0.3,
+          maxChildSize: 0.9,
           expand: false,
           builder: (context, scrollController) {
             return Container(
@@ -55,16 +55,18 @@ class ServiceCategoryContainer extends StatelessWidget {
                   ),
                   SizedBox(height: 10.h),
                   Expanded(
-                    child: SingleChildScrollView(
+                    child: GridView.builder(
                       controller: scrollController,
-                      child: Wrap(
-                        spacing: 10.w,
-                        runSpacing: 10.h,
-                        children: services
-                            .map((service) =>
-                                _buildServiceItem(context, service))
-                            .toList(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, // Two items per row
+                        crossAxisSpacing: 10.w,
+                        mainAxisSpacing: 10.h,
+                        childAspectRatio: isMobile ? 1.8 : (isTablet ? 2 : 2.5),
                       ),
+                      itemCount: services.length,
+                      itemBuilder: (context, index) {
+                        return _buildServiceItem(context, services[index]);
+                      },
                     ),
                   ),
                 ],
@@ -82,44 +84,38 @@ class ServiceCategoryContainer extends StatelessWidget {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => ServiceDetailsScreen()));
       },
-      child: AspectRatio(
-        aspectRatio:
-            isMobile ? 2.5 : (isTablet ? 3 : 3.5), // Adjust aspect ratio
-
-        child: Container(
-          width: (MediaQuery.of(context).size.width / 2) - 24.w,
-          padding: EdgeInsets.all(12.w),
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12.r),
-            boxShadow: [
-              BoxShadow(
-                color: ColorTheme.white.withOpacity(0.1),
-                blurRadius: 5.r,
-                spreadRadius: 2.r,
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(service['name'] ?? "Service",
+      child: Container(
+        padding: EdgeInsets.all(12.w),
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12.r),
+          boxShadow: [
+            BoxShadow(
+              color: ColorTheme.white.withOpacity(0.1),
+              blurRadius: 5.r,
+              spreadRadius: 2.r,
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Text(service['name'] ?? "Service",
                   style: GlobalTextStyles.floatingButtonText(context)),
-              SizedBox(height: 4.h),
-              Text("Gender: ${service['gender'] ?? "Unisex"}",
-                  style: GlobalTextStyles.floatingButtonText(context)),
-              SizedBox(height: 4.h),
-              Text("Price: \$${service['price'] ?? "0"}",
-                  style: GlobalTextStyles.floatingButtonText(context)),
-              Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.delete, color: ColorTheme.red),
-                ),
-              ),
-            ],
-          ),
+            ),
+            Text("Gender: ${service['gender'] ?? "Unisex"}",
+                style: GlobalTextStyles.floatingButtonText(context)),
+            Text("Price: \$${service['price'] ?? "0"}",
+                style: GlobalTextStyles.floatingButtonText(context)),
+            // Align(
+            //   alignment: Alignment.topRight,
+            //   child: IconButton(
+            //     onPressed: () {},
+            //     icon: Icon(Icons.delete, color: ColorTheme.red),
+            //   ),
+            // ),
+          ],
         ),
       ),
     );
@@ -127,45 +123,37 @@ class ServiceCategoryContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Dark blue color palette from AddBranchesScreen
-    final darkBlue = const Color(0xFF0A1128);
-    final mediumBlue = const Color(0xFF1C2E4A);
-    final lightBlue = const Color(0xFF31639C);
     final accentBlue = const Color(0xFF4D9DE0);
     final highlightBlue = const Color(0xFF7EDFFF);
     double padding = isMobile ? 12.w : (isTablet ? 16.w : 20.w);
-    double radius = isMobile ? 12.r : (isTablet ? 18.r : 24.r);
 
     return GestureDetector(
       onTap: () => _showServiceDetails(context),
-      child: AspectRatio(
-          aspectRatio: isMobile ? 2.5 : (isTablet ? 3 : 3.5),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10.h),
-            decoration: BoxDecoration(
-              color: accentBlue.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(12.r),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10.h),
+        decoration: BoxDecoration(
+          color: accentBlue.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                name,
+                style: GlobalTextStyles.serviceContainer(context),
+                textAlign: TextAlign.center,
+              ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    name,
-                    style: GlobalTextStyles.serviceContainer(context),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    // Your delete function here
-                    print("Delete $name");
-                  },
-                  child: Icon(Icons.delete, color: highlightBlue, size: 20.sp),
-                ),
-              ],
+            GestureDetector(
+              onTap: () {
+                print("Delete $name");
+              },
+              child: Icon(Icons.delete, color: highlightBlue, size: 20.sp),
             ),
-          )),
+          ],
+        ),
+      ),
     );
   }
 }
