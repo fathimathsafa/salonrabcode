@@ -68,9 +68,7 @@ class AddBranchesScreen extends StatelessWidget {
           // Background decoration
           Positioned.fill(
             child: CustomPaint(
-              painter: BackgroundPainter(
-
-              ),
+              painter: BackgroundPainter(),
             ),
           ),
 

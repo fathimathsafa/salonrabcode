@@ -47,7 +47,7 @@ class EmployeesScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "RABLOON",
-          style: GlobalTextStyles.appBarHeadding(context),
+          style: GlobalTextStyles.appBarHeadding1(context),
         ),
         // actions: [
         //   Text(
@@ -90,7 +90,7 @@ class EmployeesScreen extends StatelessWidget {
                       ),
                       Text(
                         "Your Salon Employees",
-                        style: GlobalTextStyles.subHeadding(context),
+                        style: GlobalTextStyles.subHeadding1(context),
                       ),
                     ],
                   ),

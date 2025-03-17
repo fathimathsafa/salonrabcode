@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
 import 'package:salonrabcode/presentation/owner_side/service_details_screen/view/service_details_screen.dart';
@@ -51,7 +52,7 @@ class ServiceCategoryContainer extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: GlobalTextStyles.serviceContainer(context),
+                    style: GlobalTextStyles.hintAndCategoryText(context),
                   ),
                   SizedBox(height: 10.h),
                   Expanded(
@@ -102,19 +103,16 @@ class ServiceCategoryContainer extends StatelessWidget {
           children: [
             Expanded(
               child: Text(service['name'] ?? "Service",
-                  style: GlobalTextStyles.floatingButtonText(context)),
+                  style: GlobalTextStyles.hintAndCategoryText(context)),
             ),
-            Text("Gender: ${service['gender'] ?? "Unisex"}",
-                style: GlobalTextStyles.floatingButtonText(context)),
-            Text("Price: \$${service['price'] ?? "0"}",
-                style: GlobalTextStyles.floatingButtonText(context)),
-            // Align(
-            //   alignment: Alignment.topRight,
-            //   child: IconButton(
-            //     onPressed: () {},
-            //     icon: Icon(Icons.delete, color: ColorTheme.red),
-            //   ),
-            // ),
+            Expanded(
+              child: Text("Gender: ${service['gender'] ?? "Unisex"}",
+                  style: GlobalTextStyles.hintAndCategoryText(context)),
+            ),
+            Expanded(
+              child: Text("Price: \$${service['price'] ?? "0"}",
+                  style: GlobalTextStyles.hintAndCategoryText(context)),
+            ),
           ],
         ),
       ),
@@ -141,13 +139,13 @@ class ServiceCategoryContainer extends StatelessWidget {
             Expanded(
               child: Text(
                 name,
-                style: GlobalTextStyles.serviceContainer(context),
+                style: GlobalTextStyles.hintAndCategoryText(context),
                 textAlign: TextAlign.center,
               ),
             ),
             GestureDetector(
               onTap: () {
-                print("Delete $name");
+                _showDeleteConfirmationDialog(context);
               },
               child: Icon(Icons.delete, color: highlightBlue, size: 20.sp),
             ),
@@ -156,4 +154,85 @@ class ServiceCategoryContainer extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showDeleteConfirmationDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r), // Responsive border radius
+        ),
+        backgroundColor: Color(0xFF1C2E4A), // Custom background color
+        child: Padding(
+          padding: EdgeInsets.all(20.w), // Responsive padding
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // Prevent unnecessary space
+            children: [
+              Text("Delete Category",
+                  style: GlobalTextStyles.alertBoxText(context)),
+              SizedBox(height: 10.h), // Responsive spacing
+              Text(
+                "Are you sure you want to delete this category?",
+                style: GlobalTextStyles.alertBoxSUBText(context),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 20.h), // Responsive spacing
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Flexible(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Close the dialog
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green, // No button color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              8.r), // Responsive border radius
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.h,
+                            horizontal: 20.w), // Responsive padding
+                      ),
+                      child: Text(
+                        "No",
+                        style: GlobalTextStyles.hintAndCategoryText(
+                            context), // Responsive font size
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        print(
+                            "Category deleted"); // Replace with actual delete logic
+                        Navigator.of(context).pop(); // Close the dialog
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red, // Yes button color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              8.r), // Responsive border radius
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.h,
+                            horizontal: 20.w), // Responsive padding
+                      ),
+                      child: Text("Yes",
+                          style: GlobalTextStyles.hintAndCategoryText(
+                              context) // Responsive font size
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }

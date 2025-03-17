@@ -30,13 +30,13 @@ class AddServiceScreen extends StatelessWidget {
           // Background gradient
           Positioned.fill(
             child: CustomPaint(
-              painter: BackgroundPainter(
-              ),
+              painter: BackgroundPainter(),
             ),
           ),
           SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.only(left: padding, right: padding, top: 50.h),
+              padding:
+                  EdgeInsets.only(left: padding, right: padding, top: 50.h),
               child: Consumer<AddServiceController>(
                 builder: (context, provider, child) {
                   return Form(
@@ -79,7 +79,8 @@ class AddServiceScreen extends StatelessWidget {
                                   color: ColorTheme.mediumBlue.withOpacity(0.6),
                                   borderRadius: BorderRadius.circular(60.r),
                                   border: Border.all(
-                                    color: ColorTheme.accentBlue.withOpacity(0.3),
+                                    color:
+                                        ColorTheme.accentBlue.withOpacity(0.3),
                                     width: 1,
                                   ),
                                 ),
@@ -138,7 +139,8 @@ class AddServiceScreen extends StatelessWidget {
                               hintText: "Enter service name",
                               hintStyle: TextStyle(color: Colors.white38),
                               prefixIcon: Icon(Icons.volunteer_activism,
-                                  color: ColorTheme.highlightBlue.withOpacity(0.7)),
+                                  color: ColorTheme.highlightBlue
+                                      .withOpacity(0.7)),
                               border: InputBorder.none,
                             ),
                             validator: (value) {
@@ -148,7 +150,8 @@ class AddServiceScreen extends StatelessWidget {
                               return null;
                             },
                             onFieldSubmitted: (value) {
-                              FocusScope.of(context).requestFocus(categoryFocusNode);
+                              FocusScope.of(context)
+                                  .requestFocus(categoryFocusNode);
                             },
                           ),
                         ),
@@ -187,7 +190,8 @@ class AddServiceScreen extends StatelessWidget {
                               isExpanded: true,
                               value: provider.selectedCategory,
                               icon: Icon(Icons.keyboard_arrow_down,
-                                  color: ColorTheme.highlightBlue.withOpacity(0.7)),
+                                  color: ColorTheme.highlightBlue
+                                      .withOpacity(0.7)),
                               iconSize: 24.h,
                               elevation: 1,
                               style: TextStyle(
@@ -197,10 +201,12 @@ class AddServiceScreen extends StatelessWidget {
                               dropdownColor: ColorTheme.mediumBlue,
                               onChanged: (String? newValue) {
                                 provider.setSelectedCategory(newValue!);
-                                FocusScope.of(context).requestFocus(priceFocusNode);
+                                FocusScope.of(context)
+                                    .requestFocus(priceFocusNode);
                               },
                               items: provider.categories
-                                  .map<DropdownMenuItem<String>>((String value) {
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Row(
@@ -208,7 +214,8 @@ class AddServiceScreen extends StatelessWidget {
                                     children: [
                                       Icon(
                                         _getCategoryIcon(value),
-                                        color: ColorTheme.highlightBlue.withOpacity(0.7),
+                                        color: ColorTheme.highlightBlue
+                                            .withOpacity(0.7),
                                         size: 20.h,
                                       ),
                                       SizedBox(width: 12.w),
@@ -265,7 +272,8 @@ class AddServiceScreen extends StatelessWidget {
                               hintText: "Enter price",
                               hintStyle: TextStyle(color: Colors.white38),
                               prefixIcon: Icon(Icons.attach_money,
-                                  color: ColorTheme.highlightBlue.withOpacity(0.7)),
+                                  color: ColorTheme.highlightBlue
+                                      .withOpacity(0.7)),
                               border: InputBorder.none,
                             ),
                             validator: (value) {
@@ -298,7 +306,8 @@ class AddServiceScreen extends StatelessWidget {
                               label: Text(gender),
                               selected: provider.selectedGender == gender,
                               selectedColor: ColorTheme.accentBlue,
-                              backgroundColor: ColorTheme.mediumBlue.withOpacity(0.8),
+                              backgroundColor:
+                                  ColorTheme.mediumBlue.withOpacity(0.8),
                               onSelected: (selected) {
                                 provider.setSelectedGender(gender);
                               },

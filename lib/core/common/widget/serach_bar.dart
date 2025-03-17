@@ -44,14 +44,13 @@ class SearchBarSalon extends StatelessWidget {
       ),
       child: TextField(
         textAlignVertical: TextAlignVertical.top,
-        style:
-            TextStyle(fontSize: isMobile ? 14.sp : (isTablet ? 14.sp : 14.sp)),
+        style: GlobalTextStyles.hintAndCategoryText(context),
         decoration: InputDecoration(
           icon:
               Icon(Icons.search, color: ColorTheme.white), // Prefix search icon
           hintText: hintText, // 👈 Custom hint text for each screen
           border: InputBorder.none,
-          hintStyle: GlobalTextStyles.hintStyle(context),
+          hintStyle: GlobalTextStyles.hintAndCategoryText(context),
         ),
       ),
     );

@@ -12,7 +12,6 @@ class EmployeeProfileOwnerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     double screenWidth = ScreenUtil().screenWidth;
 
     bool isMobile = screenWidth <= 600.w;
@@ -33,7 +32,7 @@ class EmployeeProfileOwnerScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "RABLOON",
-          style: GlobalTextStyles.appBarHeadding(context),
+          style: GlobalTextStyles.appBarHeadding1(context),
         ),
         backgroundColor: ColorTheme.white,
       ),
@@ -90,59 +89,61 @@ class EmployeeProfileOwnerScreen extends StatelessWidget {
               ),
               SizedBox(height: 16.h),
               Text("Today's Work",
-                  style: GlobalTextStyles.subHeadding(context)),
+                  style: GlobalTextStyles.subHeadding1(context)),
               // Inside EmployeeProfileOwnerScreen
-     Consumer<EmployeeProfileScreenController>(
-  builder: (context, controller, child) {
-    return controller.todaysWork.isEmpty
-        ? Text(
-            "No work assigned",
-            style: GlobalTextStyles.textFormfieldHead(context),
-          ) 
-        : GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10.w,
-              mainAxisSpacing: 10.h,
-              childAspectRatio: 2,
-            ),
-            itemCount: controller.todaysWork.length,
-            itemBuilder: (context, index) {
-              final work = controller.todaysWork[index];
+              Consumer<EmployeeProfileScreenController>(
+                builder: (context, controller, child) {
+                  return controller.todaysWork.isEmpty
+                      ? Text(
+                          "No work assigned",
+                          style: GlobalTextStyles.textFormfieldHead(context),
+                        )
+                      : GridView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10.w,
+                            mainAxisSpacing: 10.h,
+                            childAspectRatio: 2,
+                          ),
+                          itemCount: controller.todaysWork.length,
+                          itemBuilder: (context, index) {
+                            final work = controller.todaysWork[index];
 
-              return Card(
-                color: ColorTheme.maincolor,
-                elevation: 2,
-                margin: EdgeInsets.symmetric(vertical: 5.h),
-                child: ListTile(
-  title: Text(
-    work['customerName'] ?? "Unknown Customer",
-    style: GlobalTextStyles.floatingButtonText(context),
-  ),
-  subtitle: Text(
-    " ${work['customerID'] is List ? work['customerID'] : work['customerID'] ?? "N/A"}",
-    style: GlobalTextStyles.floatingButtonText(context),
-  ),
-  trailing: SizedBox(
-    width: 40.w,  // ✅ Set a fixed width to prevent overflow
-    child: IconButton(
-      icon: Icon(Icons.arrow_downward, color: ColorTheme.white),
-      onPressed: () {
-        _showBottomSheet(context, work);
-      },
-    ),
-  ),
-),
-
-              );
-            },
-          );
-  },
-),
-
-
+                            return Card(
+                              color: ColorTheme.maincolor,
+                              elevation: 2,
+                              margin: EdgeInsets.symmetric(vertical: 5.h),
+                              child: ListTile(
+                                title: Text(
+                                  work['customerName'] ?? "Unknown Customer",
+                                  style: GlobalTextStyles.floatingButtonText(
+                                      context),
+                                ),
+                                subtitle: Text(
+                                  " ${work['customerID'] is List ? work['customerID'] : work['customerID'] ?? "N/A"}",
+                                  style: GlobalTextStyles.floatingButtonText(
+                                      context),
+                                ),
+                                trailing: SizedBox(
+                                  width: 40
+                                      .w, // ✅ Set a fixed width to prevent overflow
+                                  child: IconButton(
+                                    icon: Icon(Icons.arrow_downward,
+                                        color: ColorTheme.white),
+                                    onPressed: () {
+                                      _showBottomSheet(context, work);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                },
+              ),
             ],
           ),
         ),
@@ -247,57 +248,57 @@ class EmployeeProfileOwnerScreen extends StatelessWidget {
       },
     );
   }
-  void _showBottomSheet(BuildContext context, Map<String, dynamic> work) {
-  showModalBottomSheet(
-    context: context,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-    ),
-    builder: (context) {
-      return Container(
-        padding: EdgeInsets.all(16.w),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Services for ${work['customerName']}",
-              style: GlobalTextStyles.subHeadding(context),
-            ),
-            SizedBox(height: 10.h),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: work['services']?.length ?? 0,
-              itemBuilder: (context, index) {
-                final service = work['services'][index];
-                return Container(
-                  padding: EdgeInsets.all(12.w),
-                  margin: EdgeInsets.only(bottom: 10.h),
-                  decoration: BoxDecoration(
-                    color: ColorTheme.white,
-                    borderRadius: BorderRadius.circular(12.r),
-                    border: Border.all(color: ColorTheme.maincolor, width: 1),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Service: ${service['name']}", 
-                          style: GlobalTextStyles.textFormfieldHead(context)),
-                      Text("Price: ₹${service['price']}", 
-                          style: GlobalTextStyles.subHeadding(context)),
-                      Text("Discount: ${service['discount']}%", 
-                          style: GlobalTextStyles.subHeadding(context)),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      );
-    },
-  );
-}
 
+  void _showBottomSheet(BuildContext context, Map<String, dynamic> work) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+      builder: (context) {
+        return Container(
+          padding: EdgeInsets.all(16.w),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Services for ${work['customerName']}",
+                style: GlobalTextStyles.subHeadding1(context),
+              ),
+              SizedBox(height: 10.h),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: work['services']?.length ?? 0,
+                itemBuilder: (context, index) {
+                  final service = work['services'][index];
+                  return Container(
+                    padding: EdgeInsets.all(12.w),
+                    margin: EdgeInsets.only(bottom: 10.h),
+                    decoration: BoxDecoration(
+                      color: ColorTheme.white,
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(color: ColorTheme.maincolor, width: 1),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Service: ${service['name']}",
+                            style: GlobalTextStyles.textFormfieldHead(context)),
+                        Text("Price: ₹${service['price']}",
+                            style: GlobalTextStyles.subHeadding1(context)),
+                        Text("Discount: ${service['discount']}%",
+                            style: GlobalTextStyles.subHeadding1(context)),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }

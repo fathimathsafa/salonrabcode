@@ -38,7 +38,7 @@ class ServiceDetailsScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "RABLOON",
-          style: GlobalTextStyles.appBarHeadding(context),
+          style: GlobalTextStyles.appBarHeadding1(context),
         ),
         backgroundColor: ColorTheme.white,
       ),
