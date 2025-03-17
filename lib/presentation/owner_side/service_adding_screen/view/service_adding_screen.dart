@@ -31,10 +31,6 @@ class AddServiceScreen extends StatelessWidget {
           Positioned.fill(
             child: CustomPaint(
               painter: BackgroundPainter(
-                darkBlue: ColorTheme.darkBlue,
-                mediumBlue: ColorTheme.mediumBlue,
-                lightBlue: ColorTheme.lightBlue,
-                accentBlue: ColorTheme.accentBlue,
               ),
             ),
           ),

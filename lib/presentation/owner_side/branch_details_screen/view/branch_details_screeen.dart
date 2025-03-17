@@ -55,10 +55,7 @@ class BranchDetailsScreen extends StatelessWidget {
           Positioned.fill(
             child: CustomPaint(
               painter: BackgroundPainter(
-                darkBlue: darkBlue,
-                mediumBlue: mediumBlue,
-                lightBlue: lightBlue,
-                accentBlue: accentBlue,
+
               ),
             ),
           ),
@@ -66,7 +63,8 @@ class BranchDetailsScreen extends StatelessWidget {
           // Content
           SafeArea(
             child: Container(
-              height: MediaQuery.of(context).size.height, // Fill the screen height
+              height:
+                  MediaQuery.of(context).size.height, // Fill the screen height
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Padding(
@@ -269,7 +267,7 @@ class BranchDetailsScreen extends StatelessWidget {
                 ),
                 child: TextButton.icon(
                   onPressed: () {
-                  //  Navigate to edit screen (you can create this as a future enhancement)
+                    //  Navigate to edit screen (you can create this as a future enhancement)
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text("Edit functionality coming soon!"),
@@ -404,4 +402,3 @@ class BranchDetailsScreen extends StatelessWidget {
     );
   }
 }
-
