@@ -36,6 +36,7 @@ class CompanyProfileScreenController with ChangeNotifier {
       showSuccessMessage(context);
     }
   }
+
   void showSuccessMessage(BuildContext context) {
     // Show the dialog
     showDialog(
@@ -120,4 +121,3 @@ class CompanyProfileScreenController with ChangeNotifier {
     super.dispose();
   }
 }
-

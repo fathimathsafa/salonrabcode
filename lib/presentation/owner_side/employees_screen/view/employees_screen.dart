@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
+import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/view/employees_adding_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/employees_screen/widget/employee_name_conatiner.dart';
 import 'package:salonrabcode/core/common/widget/serach_bar.dart';
 
@@ -108,10 +109,10 @@ class EmployeesScreen extends StatelessWidget {
 
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (context) => EmployeesAddingScreen()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => EmployeesAddingScreen()));
         },
-        backgroundColor: Colors.teal, // Use your theme color
+        backgroundColor: ColorTheme.accentBlue, // Use your theme color
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.r), // Adjust radius
         ),
@@ -120,7 +121,7 @@ class EmployeesScreen extends StatelessWidget {
               horizontal: 16.w, vertical: 10.h), // Adjust padding
           child: Text(
             "Add Employees",
-            style: GlobalTextStyles.floatingButtonText(context),
+            style: GlobalTextStyles.hintAndCategoryText(context),
           ),
         ),
       ),

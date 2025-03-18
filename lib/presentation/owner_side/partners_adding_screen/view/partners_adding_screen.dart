@@ -77,7 +77,10 @@ class PartnersAddingScreen extends StatelessWidget {
                             height: 4.h,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                colors: [ColorTheme.accentBlue, ColorTheme.highlightBlue],
+                                colors: [
+                                  ColorTheme.accentBlue,
+                                  ColorTheme.highlightBlue
+                                ],
                               ),
                               borderRadius: BorderRadius.circular(2.r),
                             ),
@@ -346,7 +349,9 @@ class PartnersAddingScreen extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(icon, color: ColorTheme.highlightBlue.withOpacity(0.7), size: 18.sp),
+                  Icon(icon,
+                      color: ColorTheme.highlightBlue.withOpacity(0.7),
+                      size: 18.sp),
                   SizedBox(width: 6.w),
                   Flexible(
                     child: Text(
@@ -371,7 +376,6 @@ class PartnersAddingScreen extends StatelessWidget {
       ),
     );
   }
-<<<<<<< HEAD
 
   Widget _buildGradientButton(
     String text, {
@@ -413,6 +417,3 @@ class PartnersAddingScreen extends StatelessWidget {
     );
   }
 }
-=======
-}
->>>>>>> a615c7341bd580a3a1c305e7a61061684f493cf3

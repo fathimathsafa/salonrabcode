@@ -27,7 +27,7 @@ import 'package:salonrabcode/presentation/owner_side/service_screen/view/service
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => OwnerBottomNavigationController()),
-    ChangeNotifierProvider(create: (_) => ServiceDetailsScreenController()),
+    ChangeNotifierProvider(create: (_) => ServiceDetailsController()),
     ChangeNotifierProvider(create: (_) => SelectedServiceProvider()),
     ChangeNotifierProvider(create: (_) => EmployeeProfileScreenController()),
     ChangeNotifierProvider(create: (_) => OwnerProfileScreenController()),
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: EmployeesScreen(),
+          home: OwnerBottomNavigationScreen(),
         );
       },
     );

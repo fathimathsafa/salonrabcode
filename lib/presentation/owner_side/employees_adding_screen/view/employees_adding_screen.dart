@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:salonrabcode/core/common/painters/background_painter.dart';
 import 'package:salonrabcode/core/common/widget/serach_bar.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
@@ -102,7 +103,9 @@ class EmployeesAddingScreen extends StatelessWidget {
         leading: IconButton(
           icon:
               Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20.sp),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           IconButton(
@@ -120,12 +123,7 @@ class EmployeesAddingScreen extends StatelessWidget {
         children: [
           Positioned.fill(
             child: CustomPaint(
-              painter: BackgroundPainter(
-                darkBlue: const Color(0xFF0A1128),
-                mediumBlue: const Color(0xFF1C2E4A),
-                lightBlue: const Color(0xFF31639C),
-                accentBlue: const Color(0xFF4D9DE0),
-              ),
+              painter: BackgroundPainter(),
             ),
           ),
           SafeArea(
@@ -613,70 +611,6 @@ Widget _buildFormSection(
   );
 }
 
-class BackgroundPainter extends CustomPainter {
-  final Color darkBlue;
-  final Color mediumBlue;
-  final Color lightBlue;
-  final Color accentBlue;
-
-  BackgroundPainter({
-    required this.darkBlue,
-    required this.mediumBlue,
-    required this.lightBlue,
-    required this.accentBlue,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Draw the background
-    Paint backgroundPaint = Paint()..color = darkBlue;
-    canvas.drawRect(
-        Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
-
-    // Draw the top right decoration
-    Paint gradientPaint = Paint()
-      ..shader = RadialGradient(
-        colors: [
-          accentBlue.withOpacity(0.3),
-          accentBlue.withOpacity(0.1),
-          darkBlue.withOpacity(0),
-        ],
-        stops: const [0.2, 0.6, 1.0],
-      ).createShader(Rect.fromCircle(
-        center: Offset(size.width * 0.9, size.height * 0.1),
-        radius: size.width * 0.6,
-      ));
-
-    canvas.drawCircle(
-      Offset(size.width * 0.9, size.height * 0.1),
-      size.width * 0.6,
-      gradientPaint,
-    );
-
-    // Draw the bottom left decoration
-    Paint bottomGradientPaint = Paint()
-      ..shader = RadialGradient(
-        colors: [
-          lightBlue.withOpacity(0.15),
-          mediumBlue.withOpacity(0.05),
-          darkBlue.withOpacity(0),
-        ],
-        stops: const [0.2, 0.6, 1.0],
-      ).createShader(Rect.fromCircle(
-        center: Offset(size.width * 0.1, size.height * 0.85),
-        radius: size.width * 0.5,
-      ));
-
-    canvas.drawCircle(
-      Offset(size.width * 0.1, size.height * 0.85),
-      size.width * 0.5,
-      bottomGradientPaint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 // import 'package:salonrabcode/core/constants/colors.dart';

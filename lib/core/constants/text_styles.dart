@@ -59,6 +59,28 @@ class GlobalTextStyles {
     );
   }
 
+  static TextStyle saveAndNewButton(BuildContext context) {
+    double scaleFactor =
+        ScreenUtil().scaleText; // Gets scale based on screen size
+
+    return GoogleFonts.urbanist(
+      fontSize: (12 * scaleFactor).sp, // Adjust based on device scale
+      fontWeight: FontWeight.normal,
+      color: ColorTheme.highlightBlue,
+    );
+  }
+
+  static TextStyle saveButton(BuildContext context) {
+    double scaleFactor =
+        ScreenUtil().scaleText; // Gets scale based on screen size
+
+    return GoogleFonts.urbanist(
+      fontSize: (12 * scaleFactor).sp, // Adjust based on device scale
+      fontWeight: FontWeight.normal,
+      color: ColorTheme.white,
+    );
+  }
+
   static TextStyle appBarHeadding1(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     if (screenWidth > 1024) {
