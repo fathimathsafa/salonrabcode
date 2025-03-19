@@ -7,6 +7,7 @@
   import 'package:salonrabcode/presentation/owner_side/company_profile_screen/controller/company_profile_screen_controller.dart';
 
   import '../../../../core/common/painters/background_painter.dart';
+import '../../../../core/constants/text_styles.dart';
 
 
   class CompanyProfileScreen extends StatelessWidget {
@@ -20,9 +21,16 @@
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
+          centerTitle: true,
+          title: Text(
+              "RABLOON",
+              style: GlobalTextStyles.appBarHeading(context)
+          ),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20.sp),
-            onPressed: () {},
+            icon: Icon(Icons.arrow_back_ios_new, color: ColorTheme.highlightBlue, size: 20.sp),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
         ),
         body: Stack(
@@ -53,7 +61,7 @@
                                 children: [
                                   // Header
                                   buildHeaderSection(),
-                                  SizedBox(height: 40.h),
+                                  SizedBox(height: 30.h),
 
                                   // Form Fields
                                   Column(

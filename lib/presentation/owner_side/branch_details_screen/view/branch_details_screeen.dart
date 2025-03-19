@@ -1,29 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:provider/provider.dart';
 import '../../../../core/common/painters/background_painter.dart';
+import '../../../../core/constants/colors.dart';
+import '../../branches_list_screen/controller/branch_list_screen_controller.dart';
+import '../controller/branch_details_screen_controller.dart';
+
+
 
 class BranchDetailsScreen extends StatelessWidget {
   final Map<String, dynamic> branchData;
+  final int branchIndex;
 
-  const BranchDetailsScreen({Key? key, required this.branchData})
-      : super(key: key);
+  const BranchDetailsScreen({
+    Key? key,
+    required this.branchData,
+    required this.branchIndex,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) {
+        final controller = BranchDetailsController();
+        controller.init(branchData);
+        return controller;
+      },
+      child: _BranchDetailsView(branchIndex: branchIndex),
+    );
+  }
+}
+
+class _BranchDetailsView extends StatelessWidget {
+  final int branchIndex;
+
+  const _BranchDetailsView({
+    Key? key,
+    required this.branchIndex,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Get the controller from provider
+    final controller = Provider.of<BranchDetailsController>(context);
+
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth <= 600;
     bool isTablet = screenWidth > 600 && screenWidth <= 1024;
 
-    // Dark blue color palette from Company Profile Screen
-    final darkBlue = const Color(0xFF0A1128);
-    final mediumBlue = const Color(0xFF1C2E4A);
-    final lightBlue = const Color(0xFF31639C);
-    final accentBlue = const Color(0xFF4D9DE0);
-    final highlightBlue = const Color(0xFF7EDFFF);
 
     return Scaffold(
-      backgroundColor: darkBlue,
+      backgroundColor: ColorTheme.darkBlue,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
@@ -34,14 +61,14 @@ class BranchDetailsScreen extends StatelessWidget {
           },
           icon: Icon(
             Icons.arrow_back_ios_new,
-            color: Colors.white,
+            color: ColorTheme.highlightBlue,
             size: isMobile ? 20.sp : (isTablet ? 16.sp : 8.sp),
           ),
         ),
         title: Text(
           "RABLOON",
           style: TextStyle(
-            color: highlightBlue,
+            color: ColorTheme.highlightBlue,
             fontWeight: FontWeight.bold,
             fontSize: isMobile ? 20.sp : (isTablet ? 16.sp : 12.sp),
             letterSpacing: 1.5,
@@ -54,18 +81,16 @@ class BranchDetailsScreen extends StatelessWidget {
           // Background decoration
           Positioned.fill(
             child: CustomPaint(
-              painter: BackgroundPainter(
-
-              ),
+              painter: BackgroundPainter(),
             ),
           ),
 
           // Content
           SafeArea(
             child: Container(
-              height:
-                  MediaQuery.of(context).size.height, // Fill the screen height
+              height: MediaQuery.of(context).size.height,
               child: SingleChildScrollView(
+                controller: controller.scrollController,
                 physics: const BouncingScrollPhysics(),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -78,15 +103,15 @@ class BranchDetailsScreen extends StatelessWidget {
                         width: double.infinity,
                         padding: EdgeInsets.symmetric(vertical: 24.h),
                         decoration: BoxDecoration(
-                          color: mediumBlue.withOpacity(0.6),
+                          color: ColorTheme.mediumBlue.withOpacity(0.6),
                           borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
-                            color: accentBlue.withOpacity(0.3),
+                            color: ColorTheme.accentBlue.withOpacity(0.3),
                             width: 1,
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: lightBlue.withOpacity(0.1),
+                              color: ColorTheme.lightBlue.withOpacity(0.1),
                               blurRadius: 10,
                               offset: const Offset(0, 4),
                             ),
@@ -97,12 +122,32 @@ class BranchDetailsScreen extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.business,
-                              color: highlightBlue,
+                              color: ColorTheme.highlightBlue,
                               size: 40.sp,
                             ),
                             SizedBox(height: 16.h),
-                            Text(
-                              branchData["branchName"] ?? "Branch Name",
+                            controller.isEditing
+                                ? TextField(
+                              controller: controller.branchNameController,
+                              focusNode: controller.branchNameFocusNode,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24.sp,
+                              ),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Branch Name",
+                                hintStyle: TextStyle(
+                                  color: Colors.white70,
+                                ),
+                              ),
+                              textInputAction: TextInputAction.next,
+                              onSubmitted: (_) {
+                                FocusScope.of(context).requestFocus(controller.locationFocusNode);
+                              },
+                            )
+                                : Text(
+                              controller.editedBranchData["branchName"] ?? "Branch Name",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -116,23 +161,34 @@ class BranchDetailsScreen extends StatelessWidget {
 
                       // Branch details section
                       _buildDetailSection(
+                        context: context,
                         title: "Branch Details",
                         icon: Icons.store,
                         details: [
                           _buildDetailItem(
+                            context: context,
                             label: "Branch Name",
-                            value: branchData["branchName"] ?? "-",
+                            value: controller.editedBranchData["branchName"] ?? "-",
                             icon: Icons.business_center,
+                            isEditing: controller.isEditing,
+                            controller: controller.branchNameController,
+                            focusNode: controller.branchNameFocusNode,
+                            nextFocusNode: controller.locationFocusNode,
                           ),
                           _buildDetailItem(
+                            context: context,
                             label: "Branch Location",
-                            value: branchData["location"] ?? "-",
+                            value: controller.editedBranchData["location"] ?? "-",
                             icon: Icons.location_on,
+                            isEditing: controller.isEditing,
+                            controller: controller.locationController,
+                            focusNode: controller.locationFocusNode,
+                            nextFocusNode: controller.registrationNumberFocusNode,
                           ),
                         ],
-                        mediumBlue: mediumBlue,
-                        accentBlue: accentBlue,
-                        highlightBlue: highlightBlue,
+                        mediumBlue: ColorTheme.mediumBlue,
+                        accentBlue: ColorTheme.accentBlue,
+                        highlightBlue: ColorTheme.highlightBlue,
                       ),
                       SizedBox(height: 16.h),
 
@@ -143,18 +199,27 @@ class BranchDetailsScreen extends StatelessWidget {
                         details: [
                           _buildDetailItem(
                             label: "Company Registration Number",
-                            value: branchData["registrationNumber"] ?? "-",
+                            value: controller.editedBranchData["registrationNumber"] ?? "-",
                             icon: Icons.numbers,
+                            isEditing: controller.isEditing,
+                            controller: controller.registrationNumberController,
+                            focusNode: controller.registrationNumberFocusNode,
+                            nextFocusNode: controller.branchNumberFocusNode, context: context,
                           ),
                           _buildDetailItem(
+
                             label: "Branch Number",
-                            value: branchData["branchNumber"] ?? "-",
+                            value: controller.editedBranchData["branchNumber"] ?? "-",
                             icon: Icons.tag,
+                            isEditing: controller.isEditing,
+                            controller: controller.branchNumberController,
+                            focusNode: controller.branchNumberFocusNode,
+                            nextFocusNode: controller.employeesCountFocusNode, context: context,
                           ),
                         ],
-                        mediumBlue: mediumBlue,
-                        accentBlue: accentBlue,
-                        highlightBlue: highlightBlue,
+                        mediumBlue: ColorTheme.mediumBlue,
+                        accentBlue: ColorTheme.accentBlue,
+                        highlightBlue: ColorTheme.highlightBlue, context: context,
                       ),
                       SizedBox(height: 16.h),
 
@@ -165,73 +230,19 @@ class BranchDetailsScreen extends StatelessWidget {
                         details: [
                           _buildDetailItem(
                             label: "Number of Employees",
-                            value: branchData["employeesCount"] ?? "-",
+                            value: controller.editedBranchData["employeesCount"] ?? "-",
                             icon: Icons.person_add,
+                            isEditing: controller.isEditing,
+                            controller: controller.employeesCountController,
+                            focusNode: controller.employeesCountFocusNode,
+                            nextFocusNode: null, context: context, // No next field
                           ),
                         ],
-                        mediumBlue: mediumBlue,
-                        accentBlue: accentBlue,
-                        highlightBlue: highlightBlue,
+                        mediumBlue: ColorTheme.mediumBlue,
+                        accentBlue: ColorTheme.accentBlue,
+                        highlightBlue: ColorTheme.highlightBlue, context: context,
                       ),
                       SizedBox(height: 24.h),
-
-                      // // Edit button
-                      // Container(
-                      //   width: double.infinity,
-                      //   height: 50.h,
-                      //   decoration: BoxDecoration(
-                      //     gradient: LinearGradient(
-                      //       colors: [
-                      //         accentBlue,
-                      //         highlightBlue,
-                      //       ],
-                      //       begin: Alignment.centerLeft,
-                      //       end: Alignment.centerRight,
-                      //     ),
-                      //     borderRadius: BorderRadius.circular(16.r),
-                      //     boxShadow: [
-                      //       BoxShadow(
-                      //         color: accentBlue.withOpacity(0.4),
-                      //         blurRadius: 15,
-                      //         offset: const Offset(0, 8),
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   child: ElevatedButton(
-                      //     onPressed: () {
-                      //       // Navigate to edit screen (you can create this as a future enhancement)
-                      //       ScaffoldMessenger.of(context).showSnackBar(
-                      //         SnackBar(
-                      //           content: Text("Edit functionality coming soon!"),
-                      //           backgroundColor: accentBlue,
-                      //         ),
-                      //       );
-                      //     },
-                      //     // icon: Icon(
-                      //     //   Icons.edit,
-                      //     //   color: Colors.white,
-                      //     //   size: 20.sp,
-                      //     // ),
-                      //     child:  Text(
-                      //       "EDIT BRANCH",
-                      //       style: TextStyle(
-                      //         color: Colors.white,
-                      //         fontWeight: FontWeight.bold,
-                      //         letterSpacing: 1,
-                      //         fontSize: 14.sp,
-                      //       ),
-                      //     ),
-                      //     style: ElevatedButton.styleFrom(
-                      //       backgroundColor: Colors.transparent,
-                      //       foregroundColor: Colors.white,
-                      //       shadowColor: Colors.transparent,
-                      //       shape: RoundedRectangleBorder(
-                      //         borderRadius: BorderRadius.circular(16.r),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      SizedBox(height: 32.h),
                     ],
                   ),
                 ),
@@ -243,7 +254,7 @@ class BranchDetailsScreen extends StatelessWidget {
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         decoration: BoxDecoration(
-          color: darkBlue,
+          color: ColorTheme.darkBlue,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
@@ -254,36 +265,30 @@ class BranchDetailsScreen extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // SAVE & NEW Button
+            // SAVE & EDIT Button
             Expanded(
               child: Container(
                 height: 45.h,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: accentBlue,
+                    color: ColorTheme.accentBlue,
                     width: 1.5,
                   ),
                   borderRadius: BorderRadius.circular(16.r),
                 ),
                 child: TextButton.icon(
-                  onPressed: () {
-                    //  Navigate to edit screen (you can create this as a future enhancement)
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Edit functionality coming soon!"),
-                        backgroundColor: accentBlue,
-                      ),
-                    );
-                  },
+                  onPressed: controller.isEditing
+                      ? () => controller.saveChanges(context, branchIndex)
+                      : controller.toggleEditMode,
                   icon: Icon(
-                    Icons.mode_edit_outline_outlined,
-                    color: highlightBlue,
+                    controller.isEditing ? Icons.save : Icons.mode_edit_outline_outlined,
+                    color: ColorTheme.highlightBlue,
                     size: 20.sp,
                   ),
                   label: Text(
-                    "EDIT BRANCH",
+                    controller.isEditing ? "SAVE CHANGES" : "EDIT BRANCH",
                     style: TextStyle(
-                      color: highlightBlue,
+                      color: ColorTheme.highlightBlue,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1,
                       fontSize: 12.sp,
@@ -306,6 +311,7 @@ class BranchDetailsScreen extends StatelessWidget {
   }
 
   Widget _buildDetailSection({
+    required BuildContext context,
     required String title,
     required IconData icon,
     required List<Widget> details,
@@ -359,9 +365,14 @@ class BranchDetailsScreen extends StatelessWidget {
   }
 
   Widget _buildDetailItem({
+    required BuildContext context,
     required String label,
     required String value,
     required IconData icon,
+    required bool isEditing,
+    required TextEditingController controller,
+    required FocusNode focusNode,
+    FocusNode? nextFocusNode,
   }) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.h),
@@ -386,7 +397,36 @@ class BranchDetailsScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 4.h),
-                Text(
+                isEditing
+                    ? TextField(
+                  controller: controller,
+                  focusNode: focusNode,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14.sp,
+                  ),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: value,
+                    hintStyle: TextStyle(
+                      color: Colors.white70,
+                    ),
+                  ),
+                  textInputAction: nextFocusNode != null
+                      ? TextInputAction.next
+                      : TextInputAction.done,
+                  onSubmitted: (_) {
+                    if (nextFocusNode != null) {
+                      FocusScope.of(context).requestFocus(nextFocusNode);
+                    } else {
+                      // Get controller and save changes if it's the last field
+                      final detailsController = Provider.of<BranchDetailsController>(context, listen: false);
+                      detailsController.saveChanges(context, branchIndex);
+                    }
+                  },
+                )
+                    : Text(
                   value,
                   style: TextStyle(
                     color: Colors.white,

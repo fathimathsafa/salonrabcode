@@ -32,7 +32,7 @@ class BranchesListScreen extends StatelessWidget {
           },
           icon: Icon(
             Icons.arrow_back_ios_new,
-            color: Colors.white,
+            color: ColorTheme.highlightBlue,
             size: isMobile ? 20.sp : (isTablet ? 16.sp : 8.sp),
           ),
         ),
@@ -255,7 +255,7 @@ class BranchesListScreen extends StatelessWidget {
         // Navigate to branch details screen when tapped
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => BranchDetailsScreen(branchData: branchData),
+            builder: (context) => BranchDetailsScreen(branchData: branchData,  branchIndex: index,),
           ),
         );
       },

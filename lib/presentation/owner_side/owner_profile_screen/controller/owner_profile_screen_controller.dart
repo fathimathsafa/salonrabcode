@@ -15,6 +15,9 @@ class OwnerProfileScreenController with ChangeNotifier {
   int _currentField = -1;
 
   int get currentField => _currentField;
+  // Focus nodes for each field
+  final List<FocusNode> focusNodes = List.generate(4, (index) => FocusNode());
+
 
   void setCurrentField(int index) {
     _currentField = index;
@@ -24,6 +27,7 @@ class OwnerProfileScreenController with ChangeNotifier {
   void saveField(BuildContext context, int index) {
     if (formKey.currentState!.validate()) {
       _currentField = -1; // Reset the current field
+      focusNodes[index].unfocus(); // Un focus the current field
       notifyListeners();
       showSuccessMessage(context);
     }
@@ -105,6 +109,9 @@ class OwnerProfileScreenController with ChangeNotifier {
     phoneController.dispose();
     emailController.dispose();
     aadharController.dispose();
+    for (var node in focusNodes) {
+      node.dispose();
+    }
     super.dispose();
   }
 }
