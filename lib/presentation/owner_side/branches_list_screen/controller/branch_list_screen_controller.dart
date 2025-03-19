@@ -16,4 +16,10 @@ class BranchListScreenController with ChangeNotifier {
     _subBranches.add(branchData);
     notifyListeners();
   }
+
+  // Update a branch
+  void updateBranch(int index, Map<String, dynamic> updatedBranchData) {
+    _subBranches[index] = updatedBranchData;
+    notifyListeners();
+  }
 }

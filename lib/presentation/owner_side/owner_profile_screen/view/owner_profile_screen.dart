@@ -6,6 +6,7 @@ import 'package:salonrabcode/presentation/owner_side/owner_profile_screen/contro
 import 'package:salonrabcode/presentation/owner_side/partners_adding_screen/view/partners_adding_screen.dart';
 
 import '../../../../core/common/painters/background_painter.dart';
+import '../../../../core/constants/text_styles.dart';
 
 class OwnerProfileScreen extends StatelessWidget {
   const OwnerProfileScreen({Key? key}) : super(key: key);
@@ -21,27 +22,30 @@ class OwnerProfileScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "RABLOON",
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2,
-            color: Colors.white,
-          ),
+          style: GlobalTextStyles.appBarHeading(context),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20.sp),
+          icon: Icon(Icons.arrow_back_ios_new, color: ColorTheme.highlightBlue, size: 20.sp),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
+        actions: [
+          // Add Employee Icon in AppBar Trailing
+          IconButton(
+            icon: Icon(Icons.badge, color: ColorTheme.highlightBlue, size: 20.sp),
+            onPressed: () {
+              _showMakeMeEmployeeBottomSheet(context); // Show bottom sheet
+            },
+          ),
+        ],
       ),
       body: Stack(
         children: [
           // Background decoration
           Positioned.fill(
             child: CustomPaint(
-              painter: BackgroundPainter(
-              ),
+              painter: BackgroundPainter(),
             ),
           ),
 
@@ -70,6 +74,7 @@ class OwnerProfileScreen extends StatelessWidget {
                                   children: [
                                     buildInputField(
                                       controller: controller.nameController,
+                                      focusNode: controller.focusNodes[0], // Pass the focus node
                                       label: "Owner Name",
                                       icon: Icons.person,
                                       index: 0,
@@ -78,6 +83,7 @@ class OwnerProfileScreen extends StatelessWidget {
                                       context: context,
                                     ),
                                     buildInputField(
+                                      focusNode: controller.focusNodes[1], // Pass the focus node
                                       controller: controller.phoneController,
                                       label: "Phone Number",
                                       icon: Icons.phone,
@@ -87,6 +93,7 @@ class OwnerProfileScreen extends StatelessWidget {
                                       context: context,
                                     ),
                                     buildInputField(
+                                      focusNode: controller.focusNodes[2], // Pass the focus node
                                       controller: controller.emailController,
                                       label: "Email",
                                       icon: Icons.email,
@@ -96,6 +103,7 @@ class OwnerProfileScreen extends StatelessWidget {
                                       context: context,
                                     ),
                                     buildInputField(
+                                      focusNode: controller.focusNodes[3], // Pass the focus node
                                       controller: controller.aadharController,
                                       label: "Aadhar Number",
                                       icon: Icons.badge,
@@ -115,14 +123,14 @@ class OwnerProfileScreen extends StatelessWidget {
                   ),
                 ),
 
-                // Button Section
+                // Button Section (Only Add Salon Partners Button Remains)
                 Column(
                   children: [
                     // First Button - Add Salon Partners
                     Container(
                       width: double.infinity,
                       height: 45.h,
-                      margin: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 10.h),
+                      margin: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 20.h),
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
                           colors: [
@@ -176,63 +184,6 @@ class OwnerProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10.h,),
-
-                    // Second Button - Make Me As An Employee
-                    Container(
-                      width: double.infinity,
-                      height: 45.h,
-                      margin: EdgeInsets.fromLTRB(20.w, 0, 20.w, 20.h),
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [
-                            Color(0xFF31639C),
-                            Color(0xFF4D9DE0),
-                          ],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                        borderRadius: BorderRadius.circular(16.r),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF31639C).withOpacity(0.4),
-                            blurRadius: 15,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
-                      ),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          print("Button Pressed!");
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          foregroundColor: Colors.white,
-                          shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.r),
-                          ),
-                        ),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "MAKE ME AS AN EMPLOYEE",
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1,
-                                ),
-                              ),
-                              SizedBox(width: 8.w),
-                              Icon(Icons.badge, size: 20.sp),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ],
@@ -240,6 +191,49 @@ class OwnerProfileScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  // Function to show the bottom sheet
+  void _showMakeMeEmployeeBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) {
+        return Container(
+          padding: EdgeInsets.all(20.w),
+          decoration: BoxDecoration(
+            color:ColorTheme.mediumBlue,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24.r),
+              topRight: Radius.circular(24.r),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Make Me As An Employee",
+                style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              SizedBox(height: 10.h),
+IconButton(   onPressed: () {
+  Navigator.pop(context); // Close the bottom sheet
+  // Navigate to the desired screen
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => EmployeeScreen(), // Replace with your screen
+    ),
+  );
+}, icon: Icon(Icons.arrow_circle_right,color: ColorTheme.highlightBlue,))            ],
+          ),
+        );
+      },
     );
   }
 
@@ -303,6 +297,7 @@ class OwnerProfileScreen extends StatelessWidget {
     required int currentField,
     required VoidCallback onTap,
     required BuildContext context,
+    required FocusNode focusNode, // Add this parameter
   }) {
     bool isActive = currentField == index;
 
@@ -350,6 +345,7 @@ class OwnerProfileScreen extends StatelessWidget {
             ),
             child: TextFormField(
               controller: controller,
+              focusNode: focusNode, // Assign the focus node
               keyboardType: isNumeric ? TextInputType.number : TextInputType.text,
               onTap: onTap,
               style: TextStyle(
@@ -364,6 +360,7 @@ class OwnerProfileScreen extends StatelessWidget {
                   icon: Icon(Icons.save, size: 18.sp),
                   color: const Color(0xFF7EDFFF),
                   onPressed: () {
+                    // Save the field
                     Provider.of<OwnerProfileScreenController>(context, listen: false).saveField(context, index);
                   },
                 ) : null,
@@ -382,3 +379,19 @@ class OwnerProfileScreen extends StatelessWidget {
   }
 }
 
+// Dummy Employee Screen (Replace with your actual screen)
+class EmployeeScreen extends StatelessWidget {
+  const EmployeeScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Employee Screen"),
+      ),
+      body: Center(
+        child: Text("Welcome to the Employee Screen!"),
+      ),
+    );
+  }
+}

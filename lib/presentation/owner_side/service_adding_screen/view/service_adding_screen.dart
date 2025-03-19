@@ -25,6 +25,22 @@ class AddServiceScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorTheme.darkBlue,
+      // extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: Text(
+            "RABLOON",
+            style: GlobalTextStyles.appBarHeading(context)
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20.sp),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Stack(
         children: [
           // Background gradient
@@ -36,7 +52,7 @@ class AddServiceScreen extends StatelessWidget {
           SingleChildScrollView(
             child: Padding(
               padding:
-                  EdgeInsets.only(left: padding, right: padding, top: 50.h),
+                  EdgeInsets.only(left: padding, right: padding, top: 30.h),
               child: Consumer<AddServiceController>(
                 builder: (context, provider, child) {
                   return Form(
@@ -44,29 +60,6 @@ class AddServiceScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Back Button
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context); // Navigate back
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(8.w),
-                            decoration: BoxDecoration(
-                              color: ColorTheme.mediumBlue.withOpacity(0.6),
-                              borderRadius: BorderRadius.circular(12.r),
-                              border: Border.all(
-                                color: ColorTheme.accentBlue.withOpacity(0.3),
-                                width: 1,
-                              ),
-                            ),
-                            child: Icon(
-                              Icons.arrow_back,
-                              size: 24.sp,
-                              color: ColorTheme.highlightBlue,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20.h),
 
                         // Service Image Header
                         Center(
