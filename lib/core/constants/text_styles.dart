@@ -81,6 +81,28 @@ class GlobalTextStyles {
     );
   }
 
+  static TextStyle containerHeadding(BuildContext context) {
+    double scaleFactor =
+        ScreenUtil().scaleText; // Gets scale based on screen size
+
+    return GoogleFonts.urbanist(
+      fontSize: (16 * scaleFactor).sp, // Adjust based on device scale
+      fontWeight: FontWeight.w600,
+      color: ColorTheme.highlightBlue,
+    );
+  }
+
+  static TextStyle buttonText(BuildContext context) {
+    double scaleFactor =
+        ScreenUtil().scaleText; // Gets scale based on screen size
+
+    return GoogleFonts.urbanist(
+      fontSize: (16 * scaleFactor).sp, // Adjust based on device scale
+      fontWeight: FontWeight.normal,
+      color: ColorTheme.white,
+    );
+  }
+
   static TextStyle appBarHeadding1(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     if (screenWidth > 1024) {

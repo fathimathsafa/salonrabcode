@@ -11,7 +11,7 @@ class ServiceContainer extends StatelessWidget {
   final bool isTablet;
   final bool isLaptop;
   final List<Map<String, String>> services;
-  final Function(Map<String, String>) onSelectService; // ✅ Added this
+  final Function(Map<String, String>) onSelectService;
 
   ServiceContainer({
     required this.name,
@@ -19,7 +19,7 @@ class ServiceContainer extends StatelessWidget {
     required this.isTablet,
     required this.isLaptop,
     required this.services,
-    required this.onSelectService, // ✅ Ensure this is required
+    required this.onSelectService,
   });
 
   void _showServiceDetails(BuildContext context) {
@@ -38,18 +38,8 @@ class ServiceContainer extends StatelessWidget {
           builder: (context, scrollController) {
             return Container(
               decoration: BoxDecoration(
-                gradient:
-                    LinearGradient(colors: [Colors.deepPurple, Colors.blue]),
-                color: Colors.teal[900],
+                color: ColorTheme.mediumBlue,
                 borderRadius: BorderRadius.circular(12.r),
-                // boxShadow: [
-                //   BoxShadow(
-                //     color: Colors.black.withOpacity(0.1),
-                //     blurRadius: 8.r,
-                //     spreadRadius: 2.r,
-                //     offset: Offset(0, 4),
-                //   ),
-                // ],
               ),
               padding: EdgeInsets.all(16.w),
               child: Column(
@@ -84,15 +74,14 @@ class ServiceContainer extends StatelessWidget {
 
   Widget _buildServiceItem(BuildContext context, Map<String, String> service) {
     final selectedServices =
-        Provider.of<SelectedServiceProvider>(context).selectedServices;
-    bool isSelected = selectedServices
-        .any((s) => s['name'] == service['name']); // ✅ Check if selected
+        Provider.of<EmployeesAddingController>(context).selectedServices;
+    bool isSelected = selectedServices.any((s) => s['name'] == service['name']);
 
     return GestureDetector(
       onTap: () {
-        Provider.of<SelectedServiceProvider>(context, listen: false)
-            .selectService(service);
-        Navigator.pop(context); // ✅ Close bottom sheet
+        onSelectService(
+            service); // ✅ Calls the function to update selected services
+        Navigator.pop(context);
       },
       child: Container(
         width: (MediaQuery.of(context).size.width / 2) - 24.w,
@@ -102,7 +91,7 @@ class ServiceContainer extends StatelessWidget {
               ? LinearGradient(
                   colors: [
                     ColorTheme.white.withOpacity(0.1),
-                    Colors.black.withOpacity(0.1)
+                    Colors.black.withOpacity(0.1),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -114,15 +103,8 @@ class ServiceContainer extends StatelessWidget {
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                ), // ✅ Change color
+                ),
           borderRadius: BorderRadius.circular(12.r),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              blurRadius: 5.r,
-              spreadRadius: 2.r,
-            ),
-          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,33 +125,19 @@ class ServiceContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double padding = isMobile ? 12.w : (isTablet ? 16.w : 20.w);
-    double radius = isMobile ? 12.r : (isTablet ? 18.r : 24.r);
-
     return GestureDetector(
       onTap: () => _showServiceDetails(context),
-      child: AspectRatio(
-        aspectRatio: isMobile ? 2.5 : (isTablet ? 3 : 3.5),
-        child: Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10.h),
-          decoration: BoxDecoration(
-            color: ColorTheme.white.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12.r),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 8.r,
-                spreadRadius: 2.r,
-                offset: Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Text(
-            name,
-            style: GlobalTextStyles.serviceContainer(context),
-            textAlign: TextAlign.center,
-          ),
+      child: Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+        decoration: BoxDecoration(
+          color: ColorTheme.accentBlue.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        child: Text(
+          name,
+          style: GlobalTextStyles.serviceContainer(context),
+          textAlign: TextAlign.center,
         ),
       ),
     );

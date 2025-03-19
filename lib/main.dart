@@ -9,6 +9,8 @@ import 'package:salonrabcode/presentation/owner_side/branches_list_screen/contro
 import 'package:salonrabcode/presentation/owner_side/branches_list_screen/view/branches_list_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/company_profile_screen/controller/company_profile_screen_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/company_profile_screen/view/company_profile_screen.dart';
+import 'package:salonrabcode/presentation/owner_side/employee_details_screen/controller/employee_details_controller.dart';
+import 'package:salonrabcode/presentation/owner_side/employee_details_screen/view/employee_details_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/employee_profile_owner_screen/controller/employee_profile_owner_screen_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/employee_profile_owner_screen/view/employee_profile_owner_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/controller/employees_adding_controller.dart';
@@ -28,7 +30,7 @@ void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => OwnerBottomNavigationController()),
     ChangeNotifierProvider(create: (_) => ServiceDetailsController()),
-    ChangeNotifierProvider(create: (_) => SelectedServiceProvider()),
+    ChangeNotifierProvider(create: (_) => EmployeesAddingController()),
     ChangeNotifierProvider(create: (_) => EmployeeProfileScreenController()),
     ChangeNotifierProvider(create: (_) => OwnerProfileScreenController()),
     ChangeNotifierProvider(create: (_) => BranchListScreenController()),
@@ -40,6 +42,9 @@ void main() {
     ChangeNotifierProvider(create: (_) => PartnersAddingController()),
     ChangeNotifierProvider(create: (_) => CompanyProfileScreenController()),
     ChangeNotifierProvider(create: (_) => AddBranchesController()),
+    ChangeNotifierProvider(
+      create: (_) => EmployeeDetailsController(),
+    )
   ], child: MyApp()));
 }
 

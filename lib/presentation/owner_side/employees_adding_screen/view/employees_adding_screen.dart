@@ -78,11 +78,7 @@ class EmployeesAddingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Dark blue color palette from Company Profile Screen
-    final darkBlue = const Color(0xFF0A1128);
-    final mediumBlue = const Color(0xFF1C2E4A);
-    final lightBlue = const Color(0xFF31639C);
-    final accentBlue = const Color(0xFF4D9DE0);
-    final highlightBlue = const Color(0xFF7EDFFF);
+
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth <= 600;
     bool isTablet = screenWidth > 600 && screenWidth <= 1024;
@@ -90,13 +86,14 @@ class EmployeesAddingScreen extends StatelessWidget {
     int crossAxisCount = isMobile ? 2 : (isTablet ? 3 : 4);
     double aspectRatio = isMobile ? 2 : (isTablet ? 1.8 : 1.6);
     return Scaffold(
+      backgroundColor: ColorTheme.darkBlue,
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
           "RABLOON",
-          style: GoogleFonts.urbanist(fontSize: 20.sp, color: ColorTheme.white),
+          style: GlobalTextStyles.appBarHeading(context),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -141,7 +138,7 @@ class EmployeesAddingScreen extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: 16.w, vertical: 8.h),
                           decoration: BoxDecoration(
-                            color: accentBlue.withOpacity(0.2),
+                            color: ColorTheme.accentBlue.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(8.r),
                           ),
                           child: Column(
@@ -152,27 +149,19 @@ class EmployeesAddingScreen extends StatelessWidget {
                                 children: [
                                   Icon(
                                     Icons.group_add_outlined,
-                                    color: highlightBlue,
+                                    color: ColorTheme.highlightBlue,
                                     size: isMobile ? 24.sp : 18.sp,
                                   ),
                                   SizedBox(width: 12.w),
-                                  Text(
-                                    "Add Your Salon Team",
-                                    style: TextStyle(
-                                      color: highlightBlue,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: isMobile ? 18.sp : 14.sp,
-                                    ),
-                                  ),
+                                  Text("Add Your Salon Team",
+                                      style:
+                                          GlobalTextStyles.subHeading(context)),
                                 ],
                               ),
                               Text(
                                 "Add employees and assign their work ",
-                                style: TextStyle(
-                                  color: ColorTheme.secondarycolor,
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: GlobalTextStyles.hintAndCategoryText(
+                                    context),
                               ),
                             ],
                           ),
@@ -189,89 +178,199 @@ class EmployeesAddingScreen extends StatelessWidget {
                               label: "Employee Name",
                               hint: "Enter your employee name",
                               icon: Icons.badge_outlined,
-                              mediumBlue: mediumBlue,
-                              accentBlue: accentBlue,
-                              highlightBlue: highlightBlue,
+                              mediumBlue: ColorTheme.mediumBlue,
+                              accentBlue: ColorTheme.accentBlue,
+                              highlightBlue: ColorTheme.highlightBlue,
                             ),
                             _buildFormField(
                               context,
                               label: "Username",
                               hint: " username",
                               icon: Icons.alternate_email,
-                              mediumBlue: mediumBlue,
-                              accentBlue: accentBlue,
-                              highlightBlue: highlightBlue,
+                              mediumBlue: ColorTheme.mediumBlue,
+                              accentBlue: ColorTheme.accentBlue,
+                              highlightBlue: ColorTheme.highlightBlue,
                             ),
                             _buildFormField(
                               context,
                               label: "Password",
                               hint: "Password",
                               icon: Icons.lock_outline_rounded,
-                              mediumBlue: mediumBlue,
-                              accentBlue: accentBlue,
-                              highlightBlue: highlightBlue,
+                              mediumBlue: ColorTheme.mediumBlue,
+                              accentBlue: ColorTheme.accentBlue,
+                              highlightBlue: ColorTheme.highlightBlue,
                             ),
                           ],
-                          mediumBlue: mediumBlue,
-                          accentBlue: accentBlue,
-                          highlightBlue: highlightBlue,
+                          mediumBlue: ColorTheme.mediumBlue,
+                          accentBlue: ColorTheme.accentBlue,
+                          highlightBlue: ColorTheme.highlightBlue,
                         ),
 
-                        SizedBox(height: 24.h),
-                        // _buildFormSection(
-                        //   context,
-                        //   title: "Service List",
-                        //   icon: Icons.spa,
-                        //   fields: [
-                        //     _buildFormField(
-                        //       context,
-                        //       label: "Username",
-                        //       hint: " username",
-                        //       icon: Icons.alternate_email,
-                        //       mediumBlue: mediumBlue,
-                        //       accentBlue: accentBlue,
-                        //       highlightBlue: highlightBlue,
-                        //     ),
-                        //   ],
-                        //   mediumBlue: mediumBlue,
-                        //   accentBlue: accentBlue,
-                        //   highlightBlue: highlightBlue,
-                        // )
-                        // Text("Service List",
-                        //     style: GoogleFonts.urbanist(),),
-                        // SizedBox(height: 35.h),
+                        SizedBox(height: 10.h),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Consumer<EmployeesAddingController>(
+                              builder: (context, provider, child) {
+                                if (provider.selectedServices.isEmpty) {
+                                  return SizedBox
+                                      .shrink(); // Hide if no services selected
+                                }
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Selected Services",
+                                      style: GlobalTextStyles.containerHeadding(
+                                          context),
+                                    ),
+                                    SizedBox(height: 10.h),
+                                    SizedBox(
+                                      height: 130
+                                          .h, // Increased height to fit the custom TextFormField
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis
+                                            .horizontal, // Enable horizontal scroll
+                                        child: Row(
+                                          children: provider.selectedServices
+                                              .map((service) {
+                                            return Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 10.w),
+                                              child: Stack(
+                                                children: [
+                                                  Container(
+                                                    width: 220
+                                                        .w, // Adjust width to fit content properly
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 12.w,
+                                                            vertical: 8.h),
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          ColorTheme.accentBlue,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.r),
+                                                    ),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          service['name'] ??
+                                                              "Service",
+                                                          style: GlobalTextStyles
+                                                              .hintAndCategoryText(
+                                                                  context),
+                                                        ),
+                                                        Text(
+                                                          "Gender: ${service['gender'] ?? 'Unisex'}",
+                                                          style:
+                                                              GlobalTextStyles
+                                                                  .saveButton(
+                                                                      context),
+                                                        ),
+                                                        Text(
+                                                          "Price: \$${service['price'] ?? 'N/A'}",
+                                                          style:
+                                                              GlobalTextStyles
+                                                                  .saveButton(
+                                                                      context),
+                                                        ),
+                                                        SizedBox(height: 5.h),
+                                                        _buildSmallFormField(
+                                                          context,
+                                                          hint:
+                                                              "Enter percentage",
+                                                          icon: Icons.percent,
+                                                          mediumBlue: ColorTheme
+                                                              .mediumBlue,
+                                                          accentBlue: ColorTheme
+                                                              .accentBlue,
+                                                          highlightBlue:
+                                                              ColorTheme
+                                                                  .highlightBlue,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
 
-                        // SearchBarSalon(
-                        //   hintText: 'Search Service',
-                        // ),
-                        // SizedBox(
-                        //   height: 300.h, // Set a height for GridView
-                        //   child: GridView.builder(
-                        //     itemCount: serviceCategories.length,
-                        //     gridDelegate:
-                        //         SliverGridDelegateWithFixedCrossAxisCount(
-                        //       crossAxisCount: crossAxisCount,
-                        //       crossAxisSpacing: 10.w,
-                        //       mainAxisSpacing: 10.h,
-                        //       childAspectRatio: aspectRatio,
-                        //     ),
-                        //     itemBuilder: (context, index) {
-                        //       return ServiceContainer(
-                        //         name: serviceCategories[index]['category'],
-                        //         isMobile: isMobile,
-                        //         isTablet: isTablet,
-                        //         isLaptop: isLaptop,
-                        //         services: List<Map<String, String>>.from(
-                        //             serviceCategories[index]['services']),
-                        //         onSelectService: (service) {
-                        //           Provider.of<SelectedServiceProvider>(context,
-                        //                   listen: false)
-                        //               .selectService(service);
-                        //         },
-                        //       );
-                        //     },
-                        //   ),
-                        // ),
+                                                  // Delete Button (Positioned at the top-right corner)
+                                                  Positioned(
+                                                    top: 4.h,
+                                                    right: 4.w,
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        Provider.of<EmployeesAddingController>(
+                                                                context,
+                                                                listen: false)
+                                                            .removeService(
+                                                                service);
+                                                      },
+                                                      child: Icon(Icons.delete,
+                                                          color: ColorTheme
+                                                              .darkBlue,
+                                                          size: 18.sp),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(height: 10.h),
+
+                        Text(
+                          "Service List",
+                          style: GlobalTextStyles.containerHeadding(context),
+                        ),
+                        SizedBox(height: 10.h),
+
+                        SearchBarSalon(
+                          hintText: 'Search Service',
+                        ),
+                        SizedBox(height: 20.h),
+
+                        SizedBox(
+                          height: 300.h, // Set a height for GridView
+                          child: GridView.builder(
+                            itemCount: serviceCategories.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: crossAxisCount,
+                              crossAxisSpacing: 10.w,
+                              mainAxisSpacing: 10.h,
+                              childAspectRatio: aspectRatio,
+                            ),
+                            itemBuilder: (context, index) {
+                              return ServiceContainer(
+                                name: serviceCategories[index]['category'],
+                                isMobile: isMobile,
+                                isTablet: isTablet,
+                                isLaptop: isLaptop,
+                                services: List<Map<String, String>>.from(
+                                    serviceCategories[index]['services']),
+                                onSelectService: (service) {
+                                  Provider.of<EmployeesAddingController>(
+                                          context,
+                                          listen: false)
+                                      .selectService(service);
+                                },
+                              );
+                            },
+                          ),
+                        ),
                         // Bottom buttons
                       ],
                     )
@@ -285,7 +384,7 @@ class EmployeesAddingScreen extends StatelessWidget {
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         decoration: BoxDecoration(
-          color: darkBlue,
+          color: ColorTheme.darkBlue,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
@@ -302,56 +401,20 @@ class EmployeesAddingScreen extends StatelessWidget {
                 height: 45.h,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: accentBlue,
+                    color: ColorTheme.accentBlue,
                     width: 1.5,
                   ),
                   borderRadius: BorderRadius.circular(16.r),
                 ),
                 child: TextButton.icon(
-                  onPressed: () {
-                    // // Check if all fields are filled
-                    // if (addBranchesController.areFieldsValid()) {
-                    //   // Get the branch data
-                    //   Map<String, dynamic> branchData =
-                    //       addBranchesController.getBranchData();
-
-                    //   // Add branch to the list
-                    //   branchListController.addBranch(branchData);
-
-                    //   // Clear all fields
-                    //   addBranchesController.clearFields();
-
-                    //   // Show success message
-                    //   ScaffoldMessenger.of(context).showSnackBar(
-                    //     SnackBar(
-                    //       content: Text("Branch added successfully!"),
-                    //       backgroundColor: accentBlue,
-                    //     ),
-                    //   );
-                    // } else {
-                    //   // Show error message
-                    //   ScaffoldMessenger.of(context).showSnackBar(
-                    //     SnackBar(
-                    //       content: Text("Please fill all fields!"),
-                    //       backgroundColor: Colors.red,
-                    //     ),
-                    //   );
-                    // }
-                  },
+                  onPressed: () {},
                   icon: Icon(
                     Icons.add_circle_outline,
-                    color: highlightBlue,
+                    color: ColorTheme.highlightBlue,
                     size: 20.sp,
                   ),
-                  label: Text(
-                    "SAVE & NEW",
-                    style: TextStyle(
-                      color: highlightBlue,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
-                      fontSize: 12.sp,
-                    ),
-                  ),
+                  label: Text("SAVE & NEW",
+                      style: GlobalTextStyles.saveAndNewButton(context)),
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
@@ -370,8 +433,8 @@ class EmployeesAddingScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      accentBlue,
-                      highlightBlue,
+                      ColorTheme.accentBlue,
+                      ColorTheme.highlightBlue,
                     ],
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
@@ -379,55 +442,21 @@ class EmployeesAddingScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16.r),
                   boxShadow: [
                     BoxShadow(
-                      color: accentBlue.withOpacity(0.4),
+                      color: ColorTheme.accentBlue.withOpacity(0.4),
                       blurRadius: 15,
                       offset: const Offset(0, 8),
                     ),
                   ],
                 ),
                 child: ElevatedButton.icon(
-                  onPressed: () {
-                    // // Check if all fields are filled
-                    // if (addBranchesController.areFieldsValid()) {
-                    //   // Get the branch data
-                    //   Map<String, dynamic> branchData =
-                    //       addBranchesController.getBranchData();
-
-                    //   // Add branch to the list
-                    //   branchListController.addBranch(branchData);
-                    //   // Clear all fields
-                    //   addBranchesController.clearFields();
-
-                    //   // Navigate back to the branch list screen
-                    //   Navigator.of(context).pushReplacement(
-                    //     MaterialPageRoute(
-                    //       builder: (context) => BranchesListScreen(),
-                    //     ),
-                    //   );
-                    // } else {
-                    //   // Show error message
-                    //   ScaffoldMessenger.of(context).showSnackBar(
-                    //     SnackBar(
-                    //       content: Text("Please fill all fields!"),
-                    //       backgroundColor: Colors.red,
-                    //     ),
-                    //   );
-                    // }
-                  },
+                  onPressed: () {},
                   icon: Icon(
                     Icons.check_circle_outline,
                     color: Colors.white,
                     size: 20.sp,
                   ),
-                  label: Text(
-                    "SAVE",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
-                      fontSize: 12.sp,
-                    ),
-                  ),
+                  label:
+                      Text("SAVE", style: GlobalTextStyles.saveButton(context)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     foregroundColor: Colors.white,
@@ -487,6 +516,54 @@ Widget _buildGradientButton(
   );
 }
 
+Widget _buildSmallFormField(
+  BuildContext context, {
+  required String hint,
+  required IconData icon,
+  required Color mediumBlue,
+  required Color accentBlue,
+  required Color highlightBlue,
+}) {
+  return Container(
+    height: 36.h, // Compact height
+    decoration: BoxDecoration(
+      color: mediumBlue.withOpacity(0.8),
+      borderRadius: BorderRadius.circular(12.r), // Smooth rounded corners
+      border: Border.all(
+        color: accentBlue.withOpacity(0.3),
+        width: 1,
+      ),
+    ),
+    child: Row(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          child: Icon(
+            icon,
+            color: ColorTheme.white,
+            size: 16.sp, // Small icon
+          ),
+        ),
+        Expanded(
+          child: TextFormField(
+            textAlign: TextAlign.left, // Center text horizontally
+            style: TextStyle(fontSize: 12.sp), // Smaller text
+            decoration: InputDecoration(
+              hintText: hint,
+              hintStyle: GoogleFonts.urbanist(
+                  fontSize: 10.sp, color: Colors.white), // Smaller hint text
+              border: InputBorder.none, // No default border
+              contentPadding: EdgeInsets.symmetric(
+                  vertical: 8.h), // Proper vertical centering
+              isCollapsed: true, // Ensures proper vertical alignment
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 Widget _buildFormField(
   BuildContext context, {
   required String label,
@@ -512,14 +589,8 @@ Widget _buildFormField(
             ),
             SizedBox(width: 8.w),
             Flexible(
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white70,
-                ),
-              ),
+              child: Text(label,
+                  style: GlobalTextStyles.hintAndCategoryText(context)),
             ),
           ],
         ),
@@ -587,14 +658,7 @@ Widget _buildFormSection(
                 size: 20.sp,
               ),
               SizedBox(width: 8.w),
-              Text(
-                title,
-                style: TextStyle(
-                  color: highlightBlue,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.sp,
-                ),
-              ),
+              Text(title, style: GlobalTextStyles.containerHeadding(context)),
             ],
           ),
         ),
@@ -610,360 +674,3 @@ Widget _buildFormSection(
     ),
   );
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:salonrabcode/core/constants/colors.dart';
-// import 'package:salonrabcode/core/constants/text_styles.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/controller/employees_adding_controller.dart';
-// import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/widget/service_container.dart';
-// import 'package:salonrabcode/presentation/owner_side/service_adding_screen/widgets/common_textformfield.dart';
-// import 'package:salonrabcode/core/common/widget/serach_bar.dart';
-
-// class EmployeesAddingScreen extends StatelessWidget {
-//   final List<Map<String, dynamic>> serviceCategories = [
-//     {
-//       "category": "Haircut",
-//       "services": [
-//         {"name": "Men's Haircut", "gender": "Male", "price": "20"},
-//         {"name": "Women's Haircut", "gender": "Female", "price": "30"},
-//         {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
-//         {"name": "Men's Haircut", "gender": "Male", "price": "20"},
-//         {"name": "Women's Haircut", "gender": "Female", "price": "30"},
-//         {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
-//         {"name": "Men's Haircut", "gender": "Male", "price": "20"},
-//         {"name": "Women's Haircut", "gender": "Female", "price": "30"},
-//         {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
-//         {"name": "Men's Haircut", "gender": "Male", "price": "20"},
-//         {"name": "Women's Haircut", "gender": "Female", "price": "30"},
-//         {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
-//         {"name": "Men's Haircut", "gender": "Male", "price": "20"},
-//         {"name": "Women's Haircut", "gender": "Female", "price": "30"},
-//         {"name": "Kids' Haircut", "gender": "Unisex", "price": "15"},
-//       ]
-//     },
-//     {
-//       "category": "Shaving",
-//       "services": [
-//         {"name": "Beard Trim", "gender": "Male", "price": "10"},
-//         {"name": "Clean Shave", "gender": "Male", "price": "15"},
-//       ]
-//     },
-//     {
-//       "category": "Hair Spa",
-//       "services": [
-//         {"name": "Keratin Treatment", "gender": "Unisex", "price": "50"},
-//         {"name": "Deep Conditioning", "gender": "Unisex", "price": "40"},
-//       ]
-//     },
-//     {
-//       "category": "Facial",
-//       "services": [
-//         {"name": "Basic Facial", "gender": "Unisex", "price": "25"},
-//         {"name": "Anti-Aging Facial", "gender": "Unisex", "price": "40"},
-//       ]
-//     },
-//     {
-//       "category": "Manicure",
-//       "services": [
-//         {"name": "Classic Manicure", "gender": "Unisex", "price": "20"},
-//         {"name": "Gel Manicure", "gender": "Unisex", "price": "30"},
-//       ]
-//     },
-//     {
-//       "category": "Pedicure",
-//       "services": [
-//         {"name": "Regular Pedicure", "gender": "Unisex", "price": "25"},
-//         {"name": "Spa Pedicure", "gender": "Unisex", "price": "35"},
-//       ]
-//     },
-//     {
-//       "category": "Massage",
-//       "services": [
-//         {"name": "Full Body Massage", "gender": "Unisex", "price": "50"},
-//         {"name": "Head Massage", "gender": "Unisex", "price": "20"},
-//       ]
-//     },
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     double screenWidth = MediaQuery.of(context).size.width;
-//     bool isMobile = screenWidth <= 600;
-//     bool isTablet = screenWidth > 600 && screenWidth <= 1024;
-//     bool isLaptop = screenWidth > 1024;
-
-//     int crossAxisCount = isMobile ? 2 : (isTablet ? 3 : 4);
-//     double aspectRatio = isMobile ? 2 : (isTablet ? 1.8 : 1.6);
-//     double padding = isMobile ? 10.w : (isTablet ? 20.w : 30.w);
-//     final selectedServices =
-//         Provider.of<SelectedServiceProvider>(context).selectedServices;
-//     return Scaffold(
-//       resizeToAvoidBottomInset: false,
-//       backgroundColor: Colors.black,
-//       body: Stack(
-//         children: [
-//           Container(
-//             decoration: BoxDecoration(
-//               gradient: LinearGradient(
-//                 begin: Alignment.topLeft,
-//                 end: Alignment.bottomRight,
-//                 colors: [
-//                   Color(0xFF1A2151),
-//                   Color(0xFF0D1137),
-//                 ],
-//               ),
-//             ),
-//           ),
-//           Positioned(
-//             top: 24.h,
-//             left: 24.w,
-//             right: 24.w,
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 IconButton(
-//                   icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
-//                   onPressed: () {
-//                     Navigator.pop(context);
-//                   },
-//                 ),
-//                 Text("RABLOON",
-//                     style: GlobalTextStyles.appBarHeadding(context)),
-//               ],
-//             ),
-//           ),
-//           SingleChildScrollView(
-//             physics: BouncingScrollPhysics(),
-//             child: Padding(
-//               padding: EdgeInsets.only(
-//                   top: 100.h, left: 24.w, right: 24.w, bottom: 24.h),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text("Add Your Salon Teams",
-//                       style: GlobalTextStyles.subHeadding(context)),
-//                   SizedBox(height: isMobile ? 8.h : 20.h),
-//                   Text("Add your employees and assign their services",
-//                       style: GlobalTextStyles.hintStyle(context)),
-//                   SizedBox(height: isMobile ? 8.h : 20.h),
-
-//                   Container(
-//                     width: 100.w,
-//                     height: 4.h,
-//                     decoration: BoxDecoration(
-//                       gradient: LinearGradient(
-//                         colors: [Colors.teal, Colors.purple],
-//                       ),
-//                       borderRadius: BorderRadius.circular(2.r),
-//                     ),
-//                   ),
-//                   SizedBox(height: 35.h),
-
-//                   // Employee Form
-//                   Container(
-//                     padding: EdgeInsets.all(10.w),
-//                     decoration: BoxDecoration(
-//                       color: ColorTheme.maincolor,
-//                       borderRadius: BorderRadius.circular(12.r),
-//                       border: Border.all(color: ColorTheme.maincolor, width: 1),
-//                     ),
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         buildTextFieldLabel("Employee Details", context),
-//                         CommonTextFormField(hintText: 'Enter employee name'),
-//                         Row(
-//                           children: [
-//                             CommonTextFormField(hintText: 'Enter user name'),
-//                             CommonTextFormField(hintText: 'Enter password'),
-//                           ],
-//                         )
-//                       ],
-//                     ),
-//                   ),
-//                   // Display selected service
-
-//                   Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       // Show "Selected Services" only if services exist
-//                       if (selectedServices.isNotEmpty)
-//                         Padding(
-//                           padding: EdgeInsets.only(bottom: 10.h),
-//                           child: Text(
-//                             "Selected Services",
-//                             style: GlobalTextStyles.subHeadding(context),
-//                           ),
-//                         ),
-
-//                       // Display selected services list only if there are selected services
-//                       if (selectedServices.isNotEmpty)
-//                         Container(
-//                           height: 120.h, // Adjust height as needed
-//                           child: ListView.builder(
-//                             scrollDirection: Axis
-//                                 .horizontal, // ✅ Makes the list scroll horizontally
-//                             itemCount: selectedServices.length,
-//                             itemBuilder: (context, index) {
-//                               final service = selectedServices[index];
-//                               return Expanded(
-//                                 child: Container(
-//                                   width: 200
-//                                       .w, // ✅ Set a fixed width for each item
-//                                   margin: EdgeInsets.only(
-//                                       right:
-//                                           10.w), // ✅ Add spacing between items
-//                                   padding: EdgeInsets.all(10.w),
-//                                   decoration: BoxDecoration(
-//                                     color: ColorTheme.maincolor,
-//                                     borderRadius: BorderRadius.circular(12.r),
-//                                     border: Border.all(
-//                                         color: ColorTheme.maincolor, width: 1),
-//                                   ),
-//                                   child: Column(
-//                                     crossAxisAlignment:
-//                                         CrossAxisAlignment.start,
-//                                     children: [
-//                                       Expanded(
-//                                         child: Text("${service['name']}",
-//                                             style: GlobalTextStyles.hintStyle(
-//                                                 context)),
-//                                       ),
-//                                       Expanded(
-//                                         child: Text(
-//                                             "Gender: ${service['gender']}",
-//                                             style: GlobalTextStyles.hintStyle(
-//                                                 context)),
-//                                       ),
-//                                       Expanded(
-//                                         child: Text(
-//                                             "Price: \$${service['price']}",
-//                                             style: GlobalTextStyles.hintStyle(
-//                                                 context)),
-//                                       ),
-//                                       Align(
-//                                         alignment: Alignment.centerRight,
-//                                         child: IconButton(
-//                                           onPressed: () {},
-//                                           icon: Icon(Icons.delete,
-//                                               color: ColorTheme.red),
-//                                         ),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                 ),
-//                               );
-//                             },
-//                           ),
-//                         )
-//                     ],
-//                   ),
-
-//                   SizedBox(height: isMobile ? 10.h : 20.h),
-//                   Text("Service List",
-//                       style: GlobalTextStyles.subHeadding(context)),
-//                   SizedBox(height: isMobile ? 10.h : 20.h),
-//                   SearchBarSalon(hintText: 'Search Service'),
-//                   SizedBox(height: isMobile ? 10.h : 20.h),
-
-//                   // Service Grid
-//                   SizedBox(
-//                     height: 300.h, // Set a height for GridView
-//                     child: GridView.builder(
-//                       itemCount: serviceCategories.length,
-//                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                         crossAxisCount: crossAxisCount,
-//                         crossAxisSpacing: 10.w,
-//                         mainAxisSpacing: 10.h,
-//                         childAspectRatio: aspectRatio,
-//                       ),
-//                       itemBuilder: (context, index) {
-//                         return ServiceContainer(
-//                           name: serviceCategories[index]['category'],
-//                           isMobile: isMobile,
-//                           isTablet: isTablet,
-//                           isLaptop: isLaptop,
-//                           services: List<Map<String, String>>.from(
-//                               serviceCategories[index]['services']),
-//                           onSelectService: (service) {
-//                             Provider.of<SelectedServiceProvider>(context,
-//                                     listen: false)
-//                                 .selectService(service);
-//                           },
-//                         );
-//                       },
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//       bottomNavigationBar: Container(
-//         color: ColorTheme.white,
-//         padding: EdgeInsets.symmetric(
-//           horizontal: 20.w, // Responsive horizontal padding
-//           vertical: 15.h, // Responsive vertical padding
-//         ),
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//           children: [
-//             Expanded(
-//               child: GestureDetector(
-//                 onTap: () {},
-//                 child: Container(
-//                   decoration: BoxDecoration(
-//                     border: Border.all(
-//                       color: ColorTheme.maincolor,
-//                       width: 1.w, // Responsive border width
-//                     ),
-//                     color: ColorTheme.white,
-//                     borderRadius:
-//                         BorderRadius.circular(10.r), // Responsive radius
-//                   ),
-//                   height: 50.h, // Responsive height
-//                   child: Center(
-//                     child: Text(
-//                       'SAVE AND NEW',
-//                       style: GlobalTextStyles.saveAndNewButtonText(context),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             SizedBox(width: 15.w), // Responsive spacing between buttons
-//             Expanded(
-//               child: GestureDetector(
-//                 onTap: () {},
-//                 child: Container(
-//                   decoration: BoxDecoration(
-//                     color: ColorTheme.maincolor,
-//                     borderRadius:
-//                         BorderRadius.circular(10.r), // Responsive radius
-//                   ),
-//                   height: 50.h, // Responsive height
-//                   child: Center(
-//                     child: Text(
-//                       'SAVE SERVICE',
-//                       style: GlobalTextStyles.saveButtonText(context),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget buildTextFieldLabel(String text, BuildContext context) {
-//     return Padding(
-//       padding: EdgeInsets.only(top: 10.h, bottom: 5.h),
-//       child: Text(text, style: GlobalTextStyles.textFormfieldHead(context)),
-//     );
-//   }
-// }

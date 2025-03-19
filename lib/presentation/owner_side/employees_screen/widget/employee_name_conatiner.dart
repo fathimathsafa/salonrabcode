@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
+import 'package:salonrabcode/presentation/owner_side/employee_details_screen/view/employee_details_screen.dart';
 
 class EmpllooyeeNameContainer extends StatelessWidget {
   final String name;
@@ -104,34 +105,40 @@ class EmpllooyeeNameContainer extends StatelessWidget {
 
     return AspectRatio(
       aspectRatio: isMobile ? 2.5 : (isTablet ? 3 : 3.5), // Adjust aspect ratio
-      child: Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10.h),
-        decoration: BoxDecoration(
-          color: ColorTheme.accentBlue.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(12.r),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Text(
-                name,
-                style: GlobalTextStyles.serviceContainer(context),
-                textAlign: TextAlign.center,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => EmployeeDetailsScreen()));
+        },
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10.h),
+          decoration: BoxDecoration(
+            color: ColorTheme.accentBlue.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Text(
+                  name,
+                  style: GlobalTextStyles.serviceContainer(context),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            IconButton(
-                onPressed: () {
-                  _showDeleteConfirmationDialog(context);
-                },
-                icon: Icon(
-                  Icons.delete,
-                  size: 20.sp,
-                  color: ColorTheme.highlightBlue,
-                ))
-          ],
+              IconButton(
+                  onPressed: () {
+                    _showDeleteConfirmationDialog(context);
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                    size: 20.sp,
+                    color: ColorTheme.highlightBlue,
+                  ))
+            ],
+          ),
         ),
       ),
     );
