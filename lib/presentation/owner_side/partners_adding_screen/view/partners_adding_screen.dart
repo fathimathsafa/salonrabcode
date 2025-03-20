@@ -62,19 +62,6 @@ class PartnersAddingScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-<<<<<<< HEAD
-                          ),
-                          SizedBox(height: 8.h),
-                          Container(
-                            width: 100.w,
-                            height: 4.h,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  ColorTheme.accentBlue,
-                                  ColorTheme.highlightBlue
-                                ],
-                              ),
                             SizedBox(height: 8.h),
                             Container(
                               width: 100.w,
@@ -84,7 +71,6 @@ class PartnersAddingScreen extends StatelessWidget {
                                   colors: [ColorTheme.accentBlue, ColorTheme.highlightBlue],
                                 ),
                                 borderRadius: BorderRadius.circular(2.r),
->>>>>>> d88a26fa7180b8fa00741b31fd090b5bb22eeb9f
                               ),
                             ),
                           ],
@@ -356,9 +342,7 @@ class PartnersAddingScreen extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(icon,
-                      color: ColorTheme.highlightBlue.withOpacity(0.7),
-                      size: 18.sp),
+                  Icon(icon, color: ColorTheme.highlightBlue.withOpacity(0.7), size: 18.sp),
                   SizedBox(width: 6.w),
                   Flexible(
                     child: Text(
@@ -383,45 +367,4 @@ class PartnersAddingScreen extends StatelessWidget {
       ),
     );
   }
-
-
-  Widget _buildGradientButton(
-    String text, {
-    required Gradient gradient,
-    required VoidCallback onPressed,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: gradient,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.white,
-          shadowColor: Colors.transparent,
-          padding: EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1,
-          ),
-        ),
-      ),
-    );
-  }
-
+}
