@@ -57,11 +57,7 @@ class _AddBranchesScreenState extends State<AddBranchesScreen> {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => CompanyProfileScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back_ios_new,
@@ -87,6 +83,8 @@ class _AddBranchesScreenState extends State<AddBranchesScreen> {
                 Icons.help_outline,
                 color: ColorTheme.highlightBlue,
               ),
+              textStyle:GlobalTextStyles.hintAndCategoryText(
+          context),
             ),
             onPressed: () {
               // Optional
@@ -131,11 +129,8 @@ class _AddBranchesScreenState extends State<AddBranchesScreen> {
                           SizedBox(width: 12.w),
                           Text(
                             "Branch Information",
-                            style: TextStyle(
-                              color: ColorTheme.highlightBlue,
-                              fontWeight: FontWeight.bold,
-                              fontSize: isMobile ? 18.sp : 14.sp,
-                            ),
+                              style: GlobalTextStyles.subHeading(
+                                  context)
                           ),
                         ],
                       ),
@@ -394,11 +389,8 @@ class _AddBranchesScreenState extends State<AddBranchesScreen> {
                 SizedBox(width: 8.w),
                 Text(
                   title,
-                  style: TextStyle(
-                    color: ColorTheme.highlightBlue,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16.sp,
-                  ),
+                  style: GlobalTextStyles.subHeading(
+                    context)
                 ),
               ],
             ),

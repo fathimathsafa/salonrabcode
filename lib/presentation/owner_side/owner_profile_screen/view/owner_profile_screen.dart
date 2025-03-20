@@ -24,12 +24,7 @@ class OwnerProfileScreen extends StatelessWidget {
           "RABLOON",
           style: GlobalTextStyles.appBarHeading(context),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: ColorTheme.highlightBlue, size: 20.sp),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+
         actions: [
           // Add Employee Icon in AppBar Trailing
           IconButton(
