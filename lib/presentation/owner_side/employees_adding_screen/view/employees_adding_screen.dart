@@ -166,7 +166,6 @@ class EmployeesAddingScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-
                         SizedBox(height: 24.h),
                         _buildFormSection(
                           context,
@@ -205,7 +204,6 @@ class EmployeesAddingScreen extends StatelessWidget {
                           accentBlue: ColorTheme.accentBlue,
                           highlightBlue: ColorTheme.highlightBlue,
                         ),
-
                         SizedBox(height: 10.h),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,20 +326,16 @@ class EmployeesAddingScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-
                         SizedBox(height: 10.h),
-
                         Text(
                           "Service List",
                           style: GlobalTextStyles.containerHeadding(context),
                         ),
                         SizedBox(height: 10.h),
-
                         SearchBarSalon(
                           hintText: 'Search Service',
                         ),
                         SizedBox(height: 20.h),
-
                         SizedBox(
                           height: 300.h, // Set a height for GridView
                           child: GridView.builder(
@@ -371,7 +365,6 @@ class EmployeesAddingScreen extends StatelessWidget {
                             },
                           ),
                         ),
-                        // Bottom buttons
                       ],
                     )
                   ],
@@ -474,46 +467,6 @@ class EmployeesAddingScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget _buildGradientButton(
-  String text, {
-  required Gradient gradient,
-  required VoidCallback onPressed,
-}) {
-  return Container(
-    decoration: BoxDecoration(
-      gradient: gradient,
-      borderRadius: BorderRadius.circular(12),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.3),
-          blurRadius: 10,
-          offset: Offset(0, 5),
-        ),
-      ],
-    ),
-    child: ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.white,
-        shadowColor: Colors.transparent,
-        padding: EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          letterSpacing: 1,
-        ),
-      ),
-    ),
-  );
 }
 
 Widget _buildSmallFormField(

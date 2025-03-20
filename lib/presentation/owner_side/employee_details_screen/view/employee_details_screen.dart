@@ -5,7 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:salonrabcode/core/common/painters/background_painter.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
+import 'package:salonrabcode/presentation/owner_side/add_service_employee_editing_screen/view/add_service_employee_editing_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/employee_details_screen/controller/employee_details_controller.dart';
+import 'package:salonrabcode/presentation/owner_side/employee_work_check_screen/view/employee_work_check_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/controller/employees_adding_controller.dart';
 
 class EmployeeDetailsScreen extends StatelessWidget {
@@ -222,7 +224,11 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                         ),
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            print("Add More Services Clicked");
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddServiceEmployeeEditingScreen()));
                                           },
                                           style: ElevatedButton.styleFrom(
                                             foregroundColor: Colors.white,
@@ -281,7 +287,11 @@ class EmployeeDetailsScreen extends StatelessWidget {
                                         ),
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            print("Submit Clicked");
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EmployeeWorkCheckScreen()));
                                           },
                                           style: ElevatedButton.styleFrom(
                                             foregroundColor: Colors.white,

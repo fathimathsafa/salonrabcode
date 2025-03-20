@@ -19,14 +19,13 @@ class PartnersAddingScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Text(
-            "RABLOON",
-            style: GlobalTextStyles.appBarHeading(context)
-        ),
+        title: Text("RABLOON", style: GlobalTextStyles.appBarHeading(context)),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: ColorTheme.highlightBlue, size: 20.sp),
+          icon: Icon(Icons.arrow_back_ios_new,
+              color: ColorTheme.highlightBlue, size: 20.sp),
           onPressed: () {
-            Navigator.pop(context);          },
+            Navigator.pop(context);
+          },
         ),
       ),
       backgroundColor: ColorTheme.darkBlue,
@@ -46,7 +45,8 @@ class PartnersAddingScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   child: Padding(
-                    padding: EdgeInsets.only(left: 24.w, right: 24.w, bottom: 24.h),
+                    padding:
+                        EdgeInsets.only(left: 24.w, right: 24.w, bottom: 24.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -62,29 +62,18 @@ class PartnersAddingScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-<<<<<<< HEAD
-                          ),
-                          SizedBox(height: 8.h),
-                          Container(
-                            width: 100.w,
-                            height: 4.h,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  ColorTheme.accentBlue,
-                                  ColorTheme.highlightBlue
-                                ],
-                              ),
                             SizedBox(height: 8.h),
                             Container(
                               width: 100.w,
                               height: 4.h,
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
-                                  colors: [ColorTheme.accentBlue, ColorTheme.highlightBlue],
+                                  colors: [
+                                    ColorTheme.accentBlue,
+                                    ColorTheme.highlightBlue
+                                  ],
                                 ),
                                 borderRadius: BorderRadius.circular(2.r),
->>>>>>> d88a26fa7180b8fa00741b31fd090b5bb22eeb9f
                               ),
                             ),
                           ],
@@ -103,10 +92,12 @@ class PartnersAddingScreen extends StatelessWidget {
                                 child: TextFormField(
                                   textInputAction: TextInputAction.next,
                                   controller: provider.partnerNameController,
-                                  style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14.sp),
                                   decoration: InputDecoration(
                                     hintText: "Enter partner name",
-                                    hintStyle: TextStyle(color: Colors.white60, fontSize: 14.sp),
+                                    hintStyle: TextStyle(
+                                        color: Colors.white60, fontSize: 14.sp),
                                     border: InputBorder.none,
                                   ),
                                   validator: (value) {
@@ -126,10 +117,12 @@ class PartnersAddingScreen extends StatelessWidget {
                                 child: TextFormField(
                                   textInputAction: TextInputAction.next,
                                   controller: provider.emailController,
-                                  style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14.sp),
                                   decoration: InputDecoration(
                                     hintText: "Enter email address",
-                                    hintStyle: TextStyle(color: Colors.white60, fontSize: 14.sp),
+                                    hintStyle: TextStyle(
+                                        color: Colors.white60, fontSize: 14.sp),
                                     border: InputBorder.none,
                                   ),
                                   keyboardType: TextInputType.emailAddress,
@@ -137,7 +130,9 @@ class PartnersAddingScreen extends StatelessWidget {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter email address';
                                     }
-                                    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                                    if (!RegExp(
+                                            r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                        .hasMatch(value)) {
                                       return 'Please enter a valid email address';
                                     }
                                     return null;
@@ -153,10 +148,12 @@ class PartnersAddingScreen extends StatelessWidget {
                                 child: TextFormField(
                                   textInputAction: TextInputAction.next,
                                   controller: provider.usernameController,
-                                  style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14.sp),
                                   decoration: InputDecoration(
                                     hintText: "Enter username",
-                                    hintStyle: TextStyle(color: Colors.white60, fontSize: 14.sp),
+                                    hintStyle: TextStyle(
+                                        color: Colors.white60, fontSize: 14.sp),
                                     border: InputBorder.none,
                                   ),
                                   validator: (value) {
@@ -175,15 +172,19 @@ class PartnersAddingScreen extends StatelessWidget {
                                 title: "Password",
                                 child: TextFormField(
                                   controller: provider.passwordController,
-                                  style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14.sp),
                                   obscureText: !provider.isPasswordVisible,
                                   decoration: InputDecoration(
                                     hintText: "Enter password",
-                                    hintStyle: TextStyle(color: Colors.white60, fontSize: 14.sp),
+                                    hintStyle: TextStyle(
+                                        color: Colors.white60, fontSize: 14.sp),
                                     border: InputBorder.none,
                                     suffixIcon: IconButton(
                                       icon: Icon(
-                                        provider.isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                                        provider.isPasswordVisible
+                                            ? Icons.visibility_off
+                                            : Icons.visibility,
                                         color: Colors.white60,
                                         size: 20.sp,
                                       ),
@@ -204,7 +205,9 @@ class PartnersAddingScreen extends StatelessWidget {
                                 ),
                               ),
 
-                              SizedBox(height: 90.h), // Extra space for bottom buttons
+                              SizedBox(
+                                  height:
+                                      90.h), // Extra space for bottom buttons
                             ],
                           ),
                         ),
@@ -352,7 +355,8 @@ class PartnersAddingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -383,45 +387,4 @@ class PartnersAddingScreen extends StatelessWidget {
       ),
     );
   }
-
-
-  Widget _buildGradientButton(
-    String text, {
-    required Gradient gradient,
-    required VoidCallback onPressed,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: gradient,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.white,
-          shadowColor: Colors.transparent,
-          padding: EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1,
-          ),
-        ),
-      ),
-    );
-  }
-
+}

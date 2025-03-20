@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:salonrabcode/presentation/owner_side/add_branches_screen/controller/add_branch_screen_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/add_branches_screen/view/add_branches_screen.dart';
+import 'package:salonrabcode/presentation/owner_side/add_service_employee_editing_screen/controller/add_service_employee_editing_screen_controller.dart';
+import 'package:salonrabcode/presentation/owner_side/add_service_employee_editing_screen/view/add_service_employee_editing_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/bottom_navigation_screen/controller/bottom_navigation_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/bottom_navigation_screen/view/bottom_navigation_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/branches_list_screen/controller/branch_list_screen_controller.dart';
@@ -11,8 +13,7 @@ import 'package:salonrabcode/presentation/owner_side/company_profile_screen/cont
 import 'package:salonrabcode/presentation/owner_side/company_profile_screen/view/company_profile_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/employee_details_screen/controller/employee_details_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/employee_details_screen/view/employee_details_screen.dart';
-import 'package:salonrabcode/presentation/owner_side/employee_profile_owner_screen/controller/employee_profile_owner_screen_controller.dart';
-import 'package:salonrabcode/presentation/owner_side/employee_profile_owner_screen/view/employee_profile_owner_screen.dart';
+import 'package:salonrabcode/presentation/owner_side/employee_work_check_screen/view/employee_work_check_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/controller/employees_adding_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/employees_adding_screen/view/employees_adding_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/employees_screen/view/employees_screen.dart';
@@ -31,7 +32,6 @@ void main() {
     ChangeNotifierProvider(create: (_) => OwnerBottomNavigationController()),
     ChangeNotifierProvider(create: (_) => ServiceDetailsController()),
     ChangeNotifierProvider(create: (_) => EmployeesAddingController()),
-    ChangeNotifierProvider(create: (_) => EmployeeProfileScreenController()),
     ChangeNotifierProvider(create: (_) => OwnerProfileScreenController()),
     ChangeNotifierProvider(create: (_) => BranchListScreenController()),
     ChangeNotifierProvider(create: (_) => BranchListScreenController()),
@@ -44,7 +44,9 @@ void main() {
     ChangeNotifierProvider(create: (_) => AddBranchesController()),
     ChangeNotifierProvider(
       create: (_) => EmployeeDetailsController(),
-    )
+    ),
+    ChangeNotifierProvider(
+        create: (_) => AddServiceEmployeeEditingScreenController())
   ], child: MyApp()));
 }
 
