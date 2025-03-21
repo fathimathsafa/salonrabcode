@@ -143,7 +143,7 @@ class OwnerRegistrationScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) => OwnerBottomNavigationScreen(),
+                              builder: (context) => OwnerBottomNavigationScreen(index: 0,),
                             ),
                           );
                         },

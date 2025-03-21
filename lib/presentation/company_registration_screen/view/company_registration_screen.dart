@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Import for input formatters
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
 import 'package:provider/provider.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
@@ -83,13 +84,20 @@ class CompanyRegistrationScreen extends StatelessWidget {
                           controller: controller.pageController,
                           physics: NeverScrollableScrollPhysics(),
                           onPageChanged: (index) {
-                            controller.updateCurrentPage(index); // Use the new method
+                            controller.updateCurrentPage(index);
                           },
                           children: [
                             ...controller.fields.asMap().entries.map((entry) {
                               int idx = entry.key;
                               String field = entry.value;
-                              return _buildInputPage(field, controller.icons[idx], controller);
+                              TextInputType keyboardType = TextInputType.text; // Default to text input
+
+                              // Set keyboard type to number for specific fields
+                              if (field == "Registration Number" || field == "Number of Owners" || field == "Number of Branches") {
+                                keyboardType = TextInputType.number;
+                              }
+
+                              return _buildInputPage(field, controller.icons[idx], controller, keyboardType: keyboardType);
                             }).toList(),
                             _buildSummaryPage(controller),
                           ],
@@ -166,7 +174,7 @@ class CompanyRegistrationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInputPage(String field, IconData icon, CompanyRegistrationController controller) {
+  Widget _buildInputPage(String field, IconData icon, CompanyRegistrationController controller, {TextInputType keyboardType = TextInputType.text}) {
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.all(24.w),
@@ -208,6 +216,15 @@ class CompanyRegistrationScreen extends StatelessWidget {
                 onChanged: (value) {
                   controller.updateAnswer(field, value);
                 },
+                onSubmitted: (value) {
+                  if (controller.currentPage < controller.fields.length) {
+                    controller.nextPage();
+                  }
+                },
+                keyboardType: keyboardType, // Set the keyboard type
+                inputFormatters: keyboardType == TextInputType.number
+                    ? [FilteringTextInputFormatter.digitsOnly] // Restrict to digits only
+                    : [], // No restriction for other fields
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: ColorTheme.mediumBlue.withOpacity(0.5),

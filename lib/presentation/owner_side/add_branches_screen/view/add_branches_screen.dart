@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:salonrabcode/core/constants/colors.dart';
 import 'package:salonrabcode/core/constants/text_styles.dart';
+import 'package:salonrabcode/presentation/owner_side/bottom_navigation_screen/view/bottom_navigation_screen.dart';
 import 'package:salonrabcode/presentation/owner_side/branches_list_screen/controller/branch_list_screen_controller.dart';
 import 'package:salonrabcode/presentation/owner_side/branches_list_screen/view/branches_list_screen.dart';
 import '../../../../core/common/painters/background_painter.dart';
@@ -57,7 +58,7 @@ class _AddBranchesScreenState extends State<AddBranchesScreen> {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>OwnerBottomNavigationScreen(index:3)));
           },
           icon: Icon(
             Icons.arrow_back_ios_new,

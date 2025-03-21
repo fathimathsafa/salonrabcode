@@ -9,7 +9,7 @@ import 'package:salonrabcode/presentation/owner_side/owner_profile_screen/view/o
 import 'package:salonrabcode/presentation/owner_side/service_screen/view/service_screen.dart';
 
 class OwnerBottomNavigationScreen extends StatelessWidget {
-  const OwnerBottomNavigationScreen({super.key});
+  const OwnerBottomNavigationScreen({super.key, required int index});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../owner_registration_screen/view/owner_registration_screen.dart';
 
 class CompanyRegistrationController extends ChangeNotifier {
